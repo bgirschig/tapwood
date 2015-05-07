@@ -37,7 +37,7 @@ void ofApp::touchMoved(ofTouchEventArgs & touch){
 
 //--------------------------------------------------------------
 void ofApp::touchUp(ofTouchEventArgs & touch){
-    myWave = Wave(500, 500, 10, 600);
+    myWave = Wave(touch.x, touch.y, 10, 600);
 }
 
 //--------------------------------------------------------------
