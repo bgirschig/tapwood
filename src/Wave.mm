@@ -11,13 +11,13 @@
 //default constructor
 Wave::Wave(){ }
 
-Wave::Wave(ofVec2f _position, float _force, int _resolution){
+Wave::Wave(float x, float y, float _force, int _resolution){
     force = _force;
     resolution = _resolution;
     
     float pitch = TWO_PI/resolution;
     for (int i=0; i<resolution; i++) {
-        particles.push_back(Particle(_position.x, _position.y, pitch*i, 3));
+        particles.push_back(Particle(x, y, pitch*i, 3));
     }
 }
 void Wave::update(){

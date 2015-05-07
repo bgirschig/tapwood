@@ -16,7 +16,7 @@
 class Wave{
     public:
     Wave();
-    Wave(ofVec2f _position, float _force, int _resolution);
+    Wave(float x, float y, float _force, int _resolution);
     
     float force;
     vector<Particle> particles;
