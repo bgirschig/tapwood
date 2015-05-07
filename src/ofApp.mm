@@ -2,12 +2,14 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    Particle myParticle;    //call constructor
+    myParticle.test();      //test function
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    if(ofxiOSGetGLView().frame.origin.x != 0
-       || ofxiOSGetGLView().frame.size.width != [[UIScreen mainScreen] bounds].size.width){
+//    retina fix
+    if(ofxiOSGetGLView().frame.origin.x != 0 || ofxiOSGetGLView().frame.size.width != [[UIScreen mainScreen] bounds].size.width){
         ofxiOSGetGLView().frame = CGRectMake(0,0,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height);
     }
 }

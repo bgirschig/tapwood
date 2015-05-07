@@ -4,6 +4,8 @@
 #include "ofxiOS.h"
 #include "ofxiOSExtras.h"
 
+#include "Particle.h"
+
 class ofApp : public ofxiOSApp {
 	
     public:
@@ -23,6 +25,9 @@ class ofApp : public ofxiOSApp {
         void gotMemoryWarning();
         void deviceOrientationChanged(int newOrientation);
 
+//        perso
+        Particle myParticle;
+    
 };
 
 
