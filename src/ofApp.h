@@ -4,7 +4,7 @@
 #include "ofxiOS.h"
 #include "ofxiOSExtras.h"
 
-#include "Particle.h"
+#include "Wave.h"
 
 class ofApp : public ofxiOSApp {
 	
@@ -26,7 +26,7 @@ class ofApp : public ofxiOSApp {
         void deviceOrientationChanged(int newOrientation);
 
 //        perso
-        Particle myParticle;
+        Wave myWave;
     
 };
 

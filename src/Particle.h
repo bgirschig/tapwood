@@ -15,16 +15,17 @@
 class Particle
 {
     public:
-//        constructor
-        Particle();
+//    constructor
+    Particle(float x, float y, float direction, float _speed);
 
-//        variables
-        float x;
-        float y;
-        string tut;
-    
-//        methods
-        void test();
+//    variables
+    ofVec2f position;
+    ofVec2f speed;
+    Boolean alive;
+
+//    methods
+    void update();
+    void draw();
 };
 
 

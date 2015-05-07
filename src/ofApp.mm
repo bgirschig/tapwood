@@ -2,8 +2,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    Particle myParticle;    //call constructor
-    myParticle.test();      //test function
+    myWave = Wave(*new ofVec2f(500,500), 10, 600);
 }
 
 //--------------------------------------------------------------
@@ -12,11 +11,13 @@ void ofApp::update(){
     if(ofxiOSGetGLView().frame.origin.x != 0 || ofxiOSGetGLView().frame.size.width != [[UIScreen mainScreen] bounds].size.width){
         ofxiOSGetGLView().frame = CGRectMake(0,0,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height);
     }
+    
+    myWave.update();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	
+    myWave.draw();
 }
 
 //--------------------------------------------------------------
@@ -36,7 +37,7 @@ void ofApp::touchMoved(ofTouchEventArgs & touch){
 
 //--------------------------------------------------------------
 void ofApp::touchUp(ofTouchEventArgs & touch){
-
+    myWave = Wave(*new ofVec2f(500,500), 10, 600);
 }
 
 //--------------------------------------------------------------

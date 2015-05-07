@@ -8,11 +8,14 @@
 
 #include "Particle.h"
 
-Particle::Particle(){
-    cout<<"particle created\n";
-    x = 5.0;
-    tut = "yoyoy";
+Particle::Particle(float x, float y, float direction, float _speed){
+    position.set(x,y);
+    speed.set(cos(direction)*_speed,sin(direction)*_speed);
 }
-void Particle::test(){
-    cout<<tut<<"\n";
+
+void Particle::update(){
+    position+=speed;
+}
+void Particle::draw(){
+    ofCircle(position.x,position.y,2);
 }
