@@ -3,11 +3,10 @@
 #include <stdio.h>
 #include "ofMain.h"
 
-class Particle
+class Particle : public ofVec2f
 {
     public:
-    // constructor
-    Particle(float x, float y, float direction, float _speed);
+    Particle(float _x, float _y, float direction, float _speed);
 
     // variables
     ofVec2f position;
