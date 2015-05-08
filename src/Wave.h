@@ -10,7 +10,6 @@
 #define __tapwood__Wave__
 
 #include <stdio.h>
-#include <vector>
 #include "Particle.h"
 
 class Wave{
