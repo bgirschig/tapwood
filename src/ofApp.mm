@@ -18,8 +18,8 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    ofDrawBitmapString(ofToString(ofGetFrameRate())+"fps", 10, 15);
     
-    // draw each wave
     for(Wave &w : waves) w.draw();
 
 }

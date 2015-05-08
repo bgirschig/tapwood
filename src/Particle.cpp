@@ -13,7 +13,6 @@ void Particle::update(){
 }
 
 void Particle::draw(){
-    // draw this s**t
-    ofCircle(x,y,2);
+    ofRect(x, y, 5, 5);
 
 }

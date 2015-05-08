@@ -19,4 +19,5 @@ class Wave{
     float force;
     vector<Particle> particles;
     int resolution;
+    ofMesh mesh;
 };
