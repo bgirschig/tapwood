@@ -1,12 +1,7 @@
 /*
-
-problèmes:
-     - avec 2 waves crées, le framerate est OK, mais à la 3e le framerate baisse sensiblement.
-     - quand l'app est compilée en mode 'profile' avec l'outil core animations, le framerate
-        est à 60 fps jusqu'à 6 waves. Il descend légèrement à la 7e mais revient à 60.
-        À la 8e wave, le framerate descend et reste à ~30 fps
- 
- */
+ currentState: max 26 simultaneous waves
+ pb: mesh's drawVertices() does not seem to be able to draw more than 1px -> too small
+*/
 
 #pragma once
 

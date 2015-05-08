@@ -3,6 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofBackground(80, 80, 80);
+//    ofSetBackgroundAuto(false);
 }
 
 //--------------------------------------------------------------
@@ -32,8 +33,8 @@ void ofApp::exit(){
 //--------------------------------------------------------------
 void ofApp::touchDown(ofTouchEventArgs & touch){
 
-    // add a new wave at touch position, force (not used) 10 and resolution 300
-    waves.push_back( Wave(touch.x, touch.y, 10, 300) );
+    // x, y, force, resolution
+    waves.push_back( Wave(touch.x, touch.y, 40, 600) );
     
 }
 
