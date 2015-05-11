@@ -6,7 +6,7 @@
 class Particle : public ofVec2f
 {
     public:
-    Particle(float _x, float _y, float direction, float _speed);
+    Particle(int index, float _x, float _y, double direction, float _speed);
 
     // variables
     ofVec2f position;
@@ -16,4 +16,5 @@ class Particle : public ofVec2f
     // methods
     void update();
     void draw();
+    
 };

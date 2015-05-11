@@ -2,7 +2,6 @@
 
 #include <stdio.h>
 #include "Particle.h"
-
 class Wave{
     public:
     
@@ -15,6 +14,7 @@ class Wave{
     void draw();
     
     // vars
+    int test = 4;
     private:
     float force;
     vector<Particle> particles;
