@@ -9,8 +9,8 @@ void ofApp::setup(){
     ofAddListener(serverConnection.serverEvent, this, &ofApp::onServerEvent);
     ofAddListener(serverConnection.deviceEvent, this, &ofApp::onDeviceEvent);
     ofAddListener(serverConnection.dataEvent, this, &ofApp::onDataEvent);
-    serverConnection.setup("192.168.0.101", 11999);
-//    serverConnection.setup("10.192.250.91", 11999);
+//    serverConnection.setup("192.168.0.101", 11999);
+    serverConnection.setup("10.192.250.91", 11999);
     
     // grid
     grid.init(15);
