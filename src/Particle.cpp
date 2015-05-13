@@ -1,10 +1,17 @@
 #include "Particle.h"
 
-Particle::Particle(int index, float _x, float _y, double direction, float _speed){
+#include "Wave.h"
+
+Particle::Particle(Wave * _w, int index, float _x, float _y, double direction, float _speed)
+{
     position.x = _x;
     position.y = _y;
     
     speed.set(cos(direction)*_speed,sin(direction)*_speed);
+    
+    wave = _w;
+    
+    wave->hello();
 }
 
 void Particle::update(){

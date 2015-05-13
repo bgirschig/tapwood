@@ -18,8 +18,13 @@ Wave::Wave(float x, float y, float _force, int _resolution){
     // FIXME: particles are a double of mesh verteces.
     for (int i=0; i<resolution; i++){
         mesh.addVertex(ofPoint(x,y)); mesh.addColor(ofFloatColor(1,1,1));
-        particles.push_back(Particle(i, x, y, pitch*i, 4));
+        particles.push_back(Particle(this, i, x, y, pitch*i, 4));
     }
+}
+
+void Wave::hello()
+{
+    cout << "hello" << endl;
 }
 
 void Wave::update(){

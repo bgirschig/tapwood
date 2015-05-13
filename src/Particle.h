@@ -3,10 +3,12 @@
 #include <stdio.h>
 #include "ofMain.h"
 
+class Wave;
+
 class Particle
 {
     public:
-    Particle(int index, float _x, float _y, double direction, float _speed);
+    Particle(Wave * _w, int index, float _x, float _y, double direction, float _speed);
 
     // variables
     ofVec2f position;
@@ -19,4 +21,5 @@ class Particle
     
     void applyForce(ofVec2f force);
     
+    Wave * wave;
 };

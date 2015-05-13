@@ -2,7 +2,8 @@
 
 #include <stdio.h>
 #include "Particle.h"
-class Wave{
+
+class Wave {
     public:
     
     // constructors
@@ -12,6 +13,8 @@ class Wave{
     // methods
     void update();
     void draw();
+    
+    void hello();
     
     // vars
     int test = 4;
