@@ -1,26 +1,27 @@
 #include "Particle.h"
 
 Particle::Particle(int index, float _x, float _y, double direction, float _speed){
-    x = _x;
-    y = _y;
+    position.x = _x;
+    position.y = _y;
     
     speed.set(cos(direction)*_speed,sin(direction)*_speed);
 }
 
 void Particle::update(){
-    x+=speed.x;
-    y+=speed.y;
+    position+=speed;
     
     // bounce
-    if((x<0 && speed.x<0)||(x>ofGetWidth() && speed.x>0) ) speed.x = -speed.x;
-    if((y<0 && speed.y<0)||(y>ofGetHeight() && speed.y>0) )speed.y = -speed.y;
+    if((position.x<0 && speed.x<0)||(position.x>ofGetWidth() && speed.x>0) ){
+        speed.x = -speed.x*0.8;
+        speed.y = speed.y*0.8;
+    }
+    if((position.y<0 && speed.y<0)||(position.y>ofGetHeight() && speed.y>0) ){
+        speed.y = -speed.y*0.8;
+        speed.x = speed.x*0.8;
+    }
 
     // kill
-    if(x<0 || x>ofGetWidth() || y<0 || y>ofGetHeight()){
+    if(position.x<0 || position.x>ofGetWidth() || position.y<0 || position.y>ofGetHeight()){
         
     }
-}
-
-void Particle::draw(){
-    ofRect(x, y, 5, 5);
 }

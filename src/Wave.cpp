@@ -28,7 +28,7 @@ void Wave::update(){
     int s = mesh.getNumVertices();
     for (int i=0; i<s; i++) {
         particles[i].update();
-        mesh.setVertex(i, particles[i]);
+        mesh.setVertex(i, particles[i].position);
     }
 }
 
