@@ -31,7 +31,7 @@ class ofApp : public ofxiOSApp {
         void gotFocus();
         void gotMemoryWarning();
         void deviceOrientationChanged(int newOrientation);
-
+    
         // preso vars
         vector<Wave> waves;
         Grid grid;

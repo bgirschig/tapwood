@@ -4,16 +4,18 @@
 void ofApp::setup(){
     ofBackground(80, 80, 80);
 //  ofSetBackgroundAuto(false);
-
+//  ofSetFrameRate(4);
+    
     // server connection
     ofAddListener(serverConnection.serverEvent, this, &ofApp::onServerEvent);
     ofAddListener(serverConnection.deviceEvent, this, &ofApp::onDeviceEvent);
     ofAddListener(serverConnection.dataEvent, this, &ofApp::onDataEvent);
-//    serverConnection.setup("192.168.0.101", 11999);
-    serverConnection.setup("10.192.250.91", 11999);
+    serverConnection.setup("192.168.0.101", 11999);
+//    serverConnection.setup("10.192.250.91", 11999);
     
     // grid
     grid.init(15);
+
 }
 
 //--------------------------------------------------------------
@@ -26,7 +28,14 @@ void ofApp::update(){
     }
     
     // Update each wave
-    for(Wave &w : waves) w.update();
+    int s = waves.size();
+    for(int i=0;i<s;i++){
+        if(!waves[i].alive){
+            waves.erase(waves.begin()+i);
+            s--;
+        }
+        else waves[i].update();
+    }
     
     grid.update();
 }
@@ -45,9 +54,10 @@ void ofApp::exit(){}
 
 void ofApp::touchDown(ofTouchEventArgs & touch){
     // x, y, force, resolution
-    waves.push_back( Wave(touch.x, touch.y, 40, 600) );
-    serverConnection.send("screenTap");
+    waves.push_back( Wave(touch.x, touch.y, 200, 100) );
+    if(serverConnection.Connected) serverConnection.send("screenTap");
 }
+
 void ofApp::touchMoved(ofTouchEventArgs & touch){}
 void ofApp::touchUp(ofTouchEventArgs & touch){}
 void ofApp::touchDoubleTap(ofTouchEventArgs & touch){}

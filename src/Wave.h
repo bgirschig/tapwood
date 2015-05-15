@@ -14,13 +14,14 @@ class Wave {
     void update();
     void draw();
     
-    void hello();
+    bool stopped = false;
+    bool alive = false;
     
-    // vars
-    int test = 4;
     private:
     float force;
+    float speed;
     vector<Particle> particles;
     int resolution;
     ofMesh mesh;
+    void killParticle(int index);
 };

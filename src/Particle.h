@@ -8,18 +8,17 @@ class Wave;
 class Particle
 {
     public:
-    Particle(Wave * _w, int index, float _x, float _y, double direction, float _speed);
+    Particle(int index, float _x, float _y, double direction, float _speed);
 
     // variables
     ofVec2f position;
     ofVec2f anchor;
     ofVec2f speed;
     bool alive;
-
+    bool killWave;
+    
     // methods
-    void update();
+    void update(float speed);
     
     void applyForce(ofVec2f force);
-    
-    Wave * wave;
 };

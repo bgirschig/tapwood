@@ -2,33 +2,26 @@
 
 #include "Wave.h"
 
-Particle::Particle(Wave * _w, int index, float _x, float _y, double direction, float _speed)
+Particle::Particle(int index, float _x, float _y, double direction, float _speed)
 {
     position.x = _x;
     position.y = _y;
     
     speed.set(cos(direction)*_speed,sin(direction)*_speed);
     
-    wave = _w;
-    
-    wave->hello();
+    alive = true;
+    killWave = false;
 }
 
-void Particle::update(){
-    position+=speed;
+void Particle::update(float _speed){
+    position+=speed*_speed;
     
     // bounce
-    if((position.x<0 && speed.x<0)||(position.x>ofGetWidth() && speed.x>0) ){
-        speed.x = -speed.x*0.8;
-        speed.y = speed.y*0.8;
-    }
-    if((position.y<0 && speed.y<0)||(position.y>ofGetHeight() && speed.y>0) ){
-        speed.y = -speed.y*0.8;
-        speed.x = speed.x*0.8;
-    }
+    // ?
 
     // kill
-    if(position.x<0 || position.x>ofGetWidth() || position.y<0 || position.y>ofGetHeight()){
-        
-    }
+    if(position.x<0 || position.x>ofGetWidth() || position.y<0 || position.y>ofGetHeight()) alive = false;
+    
+    // killWave
+    if(position.x>ofGetWidth()/2) killWave=true;
 }
