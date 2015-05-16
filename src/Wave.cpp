@@ -4,7 +4,6 @@
 Wave::Wave(){ }
 
 Wave::Wave(float x, float y, float _force, int _resolution){
-
     force = _force;
     resolution = _resolution;           // number of points per wave
     speed = 1;

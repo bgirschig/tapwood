@@ -14,7 +14,7 @@ void ofApp::setup(){
 //    serverConnection.setup("10.192.250.91", 11999);
     
     // grid
-    grid.init(15);
+    grid.init(30);
 
 }
 
@@ -37,7 +37,7 @@ void ofApp::update(){
         else waves[i].update();
     }
     
-    grid.update();
+    grid.update(waves);
 }
 
 //--------------------------------------------------------------
@@ -54,7 +54,7 @@ void ofApp::exit(){}
 
 void ofApp::touchDown(ofTouchEventArgs & touch){
     // x, y, force, resolution
-    waves.push_back( Wave(touch.x, touch.y, 200, 100) );
+    waves.push_back( Wave(touch.x, touch.y, 200, 30) );
     if(serverConnection.Connected) serverConnection.send("screenTap");
 }
 

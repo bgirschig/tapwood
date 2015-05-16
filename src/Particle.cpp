@@ -4,9 +4,8 @@
 
 Particle::Particle(int index, float _x, float _y, double direction, float _speed)
 {
-    position.x = _x;
-    position.y = _y;
-    
+    position.set(_x, _y);
+    force.set(0, 0);
     speed.set(cos(direction)*_speed,sin(direction)*_speed);
     
     alive = true;
@@ -23,5 +22,12 @@ void Particle::update(float _speed){
     if(position.x<0 || position.x>ofGetWidth() || position.y<0 || position.y>ofGetHeight()) alive = false;
     
     // killWave
-    if(position.x>ofGetWidth()/2) killWave=true;
+    // if(position.x>ofGetWidth()/2) killWave=true;
+}
+
+//for grid particles
+void Particle::attract(ofVec2f & attractor){
+    ofVec2f vector = attractor - position;
+    float dist = vector.length()*0.3;
+    force += vector/dist;
 }
