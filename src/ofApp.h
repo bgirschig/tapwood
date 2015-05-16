@@ -9,7 +9,6 @@
 #include "ofxiOS.h"
 #include "ofxiOSExtras.h"
 #include "connection.h"
-#include "Grid.h"
 
 #include "Wave.h"
 
@@ -34,7 +33,6 @@ class ofApp : public ofxiOSApp {
     
         // preso vars
         vector<Wave> waves;
-        Grid grid;
     
         void onServerEvent(string & e);
         void onDeviceEvent(string & e);

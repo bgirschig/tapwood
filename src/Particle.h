@@ -12,13 +12,10 @@ class Particle
 
     // variables
     ofVec2f position;
-    ofVec2f force;
     ofVec2f speed;
     bool alive;
     bool killWave;
     
     // methods
     void update(float speed);
-    
-    void attract(ofVec2f & attractor);
 };

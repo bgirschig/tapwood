@@ -12,9 +12,6 @@ void ofApp::setup(){
     ofAddListener(serverConnection.dataEvent, this, &ofApp::onDataEvent);
     serverConnection.setup("192.168.0.101", 11999);
 //    serverConnection.setup("10.192.250.91", 11999);
-    
-    // grid
-    grid.init(30);
 
 }
 
@@ -36,8 +33,6 @@ void ofApp::update(){
         }
         else waves[i].update();
     }
-    
-    grid.update(waves);
 }
 
 //--------------------------------------------------------------
@@ -46,8 +41,6 @@ void ofApp::draw(){
     ofDrawBitmapString(ofToString(ofGetFrameRate())+"fps", 10, 15);
     
     for(Wave &w : waves) w.draw();
-    
-    grid.draw();
 }
 
 void ofApp::exit(){}
