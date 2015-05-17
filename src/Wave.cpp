@@ -9,8 +9,8 @@ Wave::Wave(float x, float y, float _force, int _resolution){
     speed = 1;
     alive = true;
     
-    mesh.setMode(OF_PRIMITIVE_LINE_LOOP);
-    mesh.setMode(OF_PRIMITIVE_LINES);
+//    mesh.setMode(OF_PRIMITIVE_LINE_LOOP);
+//    mesh.setMode(OF_PRIMITIVE_LINES);
     mesh.setMode(OF_PRIMITIVE_POINTS);
     
     double pitch = TWO_PI/resolution;    // 'angle' between each point
@@ -25,37 +25,37 @@ Wave::Wave(float x, float y, float _force, int _resolution){
 
 void Wave::update(Obstacle & obst){
     force -= 0.1;
-    if(stopped) speed*=0.94;
+    if(slow){
+        speed*=0.94;
+        if(speed<0.1) alive = false;
+    }
     
     int s = mesh.getNumVertices();
     
-    if(s>0){
-        for (int i=0; i<s; i++) {
-            particles[i].update(speed);
-            
-            if(!stopped && obst.collisionCheck(
-                particles[i].position,
-                particles[(i+1)%s].position,
-                particles[(i+1)%s].pPosition,
-                particles[i].pPosition
-            )){
-                if(obst.kind == DESTROYER_OBSTACLE) particles[i].killWave = true;
-            }
-            
-            if(particles[i].killWave){
-                cout << i << endl;
-                particles[(i>0)?i-1:s-1].killWave = true;
-                particles[i].alive = false;
-            }
-            
-            if (!particles[i].alive) { killParticle(i); s--; }
-            else{
-                mesh.setVertex(i, particles[i].position);
-                mesh.setColor(i, ofColor(255,int(force)));            
+    // update and check obstacles
+    for (int i=0; i<s; i++) {
+        particles[i].update(speed);
+        
+        if(!slow && obst.collisionCheck(
+            particles[i].position,
+            particles[(i+1)%s].position,
+            particles[(i+1)%s].pPosition,
+            particles[i].pPosition
+        )){
+            if(obst.kind == DESTROYER_OBSTACLE){
+                for (int j=0; j<s; j++) particles[j].speed*=ofRandom(-1.1, 1.1);
+                slow = true;
             }
         }
+        
+        if (!particles[i].alive){
+            killParticle(i); s--;
+        }
+        else{
+            mesh.setVertex(i, particles[i].position);
+            mesh.setColor(i, ofColor(255,speed*255));
+        }
     }
-    else alive = false;
 }
 
 void Wave::draw(){
@@ -63,9 +63,6 @@ void Wave::draw(){
     glPointSize(3);
     mesh.draw();
     glPointSize(1);
-    for (int i=0; i<particles.size(); i++) {
-        particles[i].debugDraw();
-    }
 //    mesh.drawVertices();
 }
 

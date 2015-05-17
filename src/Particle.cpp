@@ -28,6 +28,7 @@ void Particle::update(float _speed){
 }
 void Particle::debugDraw(){
     if(killWave) ofSetColor(255,0,0);
+    else ofSetColor(255);
     ofCircle(position.x, position.y+5, 2);
     ofSetColor(255);
 }

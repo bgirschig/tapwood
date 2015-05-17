@@ -4,7 +4,7 @@
 void ofApp::setup(){
     ofBackground(80, 80, 80);
 //  ofSetBackgroundAuto(false);
-  ofSetFrameRate(10);
+//  ofSetFrameRate(10);
     
     // server connection
     ofAddListener(serverConnection.serverEvent, this, &ofApp::onServerEvent);
@@ -31,6 +31,7 @@ void ofApp::update(){
     int s = waves.size();
     for(int i=0;i<s;i++){
         if(!waves[i].alive){
+            cout << "kill wave \n";
             waves.erase(waves.begin()+i);
             s--;
         }
@@ -51,7 +52,7 @@ void ofApp::exit(){}
 
 void ofApp::touchDown(ofTouchEventArgs & touch){
     // x, y, force, resolution
-    waves.push_back( Wave(touch.x, touch.y, 200, 12) );
+    waves.push_back( Wave(touch.x, touch.y, 200, 200) );
     if(serverConnection.Connected) serverConnection.send("screenTap");
 }
 

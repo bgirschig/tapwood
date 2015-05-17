@@ -16,7 +16,8 @@ class Wave {
     void draw();
     
     vector<Particle> particles;
-    bool stopped = false;
+    bool slow = false;
+    bool randomise = false;
     bool alive = false;
     
     private:
