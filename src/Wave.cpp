@@ -24,28 +24,25 @@ Wave::Wave(float x, float y, float _force, int _resolution){
 }
 
 void Wave::update(Obstacle & obst){
-    force -= 0.1;
-    if(slow){
-        speed*=0.94;
-        if(speed<0.1) alive = false;
-    }
-    
-    int s = mesh.getNumVertices();
-    
     // update and check obstacles
+    int s = mesh.getNumVertices();
     for (int i=0; i<s; i++) {
-        particles[i].update(speed);
+        if(blackHole != NULL){
+            particles[i].position += (blackHole->pos - particles[i].position)/ofRandom(3,7);
+//            particles[i].position.x += (blackHole->pos.x - particles[i].position.x)/ofRandom(3,7);
+//            particles[i].position.y += (blackHole->pos.y - particles[i].position.y)/ofRandom(3,7);  //
+            if(particles[i].position.distance(blackHole->pos) < 1)particles[i].alive = false;       // arrived at blackhole, delete this particle
+        }
+        else particles[i].update(speed);
         
-        if(!slow && obst.collisionCheck(
+        // 'collision detection'
+        if(obst.collisionCheck(
             particles[i].position,
             particles[(i+1)%s].position,
             particles[(i+1)%s].pPosition,
             particles[i].pPosition
         )){
-            if(obst.kind == DESTROYER_OBSTACLE){
-                for (int j=0; j<s; j++) particles[j].speed*=ofRandom(-1.1, 1.1);
-                slow = true;
-            }
+            if(obst.kind == DESTROYER_OBSTACLE) blackHole = &obst;
         }
         
         if (!particles[i].alive){
@@ -56,6 +53,7 @@ void Wave::update(Obstacle & obst){
             mesh.setColor(i, ofColor(255,speed*255));
         }
     }
+    if(s==0)alive = false;
 }
 
 void Wave::draw(){

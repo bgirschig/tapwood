@@ -19,6 +19,7 @@ class Wave {
     bool slow = false;
     bool randomise = false;
     bool alive = false;
+    Obstacle * blackHole;
     
     private:
     float force;
