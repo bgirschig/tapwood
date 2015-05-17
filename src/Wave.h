@@ -12,7 +12,8 @@ class Wave {
     Wave(float x, float y, float _force, int _resolution);
     
     // methods
-    void update(Obstacle & obst);
+    void test();
+    void update(vector<Obstacle *> obstacles);
     void draw();
     
     vector<Particle> particles;

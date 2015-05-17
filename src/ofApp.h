@@ -34,7 +34,7 @@ class ofApp : public ofxiOSApp {
     
         // preso vars
         vector<Wave> waves;
-        Obstacle test;
+        vector<Obstacle *> obstacles;
     
         // events
         void onServerEvent(string & e);

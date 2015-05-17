@@ -6,6 +6,7 @@ Obstacle::Obstacle(){}
 Obstacle::Obstacle(ofVec2f position, int type){
     pos = position;
     hasCollided = false;
+    kind = type;
 }
 
 bool Obstacle::collisionCheck(ofVec2f pt1, ofVec2f pt2, ofVec2f pt3, ofVec2f pt4){
@@ -14,7 +15,6 @@ bool Obstacle::collisionCheck(ofVec2f pt1, ofVec2f pt2, ofVec2f pt3, ofVec2f pt4
 //    cout << pt1 << endl;
 //    cout << pt2 << endl;
 //    cout << pt3 << endl;
-//    cout << pt4 << endl;
     
     if((pos.x<pt1.x && pos.x<pt2.x && pos.x<pt3.x && pos.x<pt4.x) ||
        (pos.x>pt1.x && pos.x>pt2.x && pos.x>pt3.x && pos.x>pt4.x) ||
@@ -60,7 +60,7 @@ bool Obstacle::collisionCheck(ofVec2f pt1, ofVec2f pt2, ofVec2f pt3, ofVec2f pt4
 }
 
 void Obstacle::draw(){
-    if(hasCollided) ofSetColor(0,255,0);
+    if(kind==DESTROYER_OBSTACLE) ofSetColor(255,0,0);
     else(ofSetColor(255));
     ofCircle(pos.x, pos.y, 3);
 }

@@ -15,7 +15,8 @@ void ofApp::setup(){
 //    serverConnection.setup("10.192.250.91", 11999);
 //    serverConnection.setup("192.168.1.119", 11999);
     
-    test = Obstacle(ofVec2f(500,500), DESTROYER_OBSTACLE);
+    obstacles.push_back(new Obstacle(ofVec2f(500,300), DESTROYER_OBSTACLE));
+    obstacles.push_back(new Obstacle(ofVec2f(900,600), DESTROYER_OBSTACLE));
 }
 
 //--------------------------------------------------------------
@@ -30,12 +31,8 @@ void ofApp::update(){
     // Update each wave
     int s = waves.size();
     for(int i=0;i<s;i++){
-        if(!waves[i].alive){
-            cout << "kill wave \n";
-            waves.erase(waves.begin()+i);
-            s--;
-        }
-        else waves[i].update(test);
+        if(!waves[i].alive){waves.erase(waves.begin()+i); s--;}
+        else waves[i].update(obstacles);
     }
 }
 
@@ -45,7 +42,10 @@ void ofApp::draw(){
     ofDrawBitmapString(ofToString(ofGetFrameRate())+"fps", 10, 15);
     
     for(Wave &w : waves) w.draw();
-    test.draw();
+    int s = obstacles.size();
+    for (int i=0; i<s; i++) {
+        obstacles[i]->draw();
+    }
 }
 
 void ofApp::exit(){}
