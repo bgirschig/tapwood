@@ -6,7 +6,7 @@
 class Particle
 {
     public:
-    Particle(int index, float _x, float _y, double direction, float _speed);
+    Particle(int & index, float _x, float _y, double direction, float _speed);
 
     // variables
     ofVec2f position;
@@ -14,7 +14,9 @@ class Particle
     ofVec2f speed;
     bool alive;
     bool killWave;
+    bool isNextKilled;
     
     // methods
     void update(float speed);
+    void debugDraw();
 };

@@ -2,7 +2,7 @@
 
 #include "Wave.h"
 
-Particle::Particle(int index, float _x, float _y, double direction, float _speed)
+Particle::Particle(int & _index, float _x, float _y, double direction, float _speed)
 {
     position.set(_x, _y);
     pPosition.set(_x,_y);
@@ -10,6 +10,7 @@ Particle::Particle(int index, float _x, float _y, double direction, float _speed
     
     alive = true;
     killWave = false;
+    isNextKilled = false;
 }
 
 void Particle::update(float _speed){
@@ -20,8 +21,13 @@ void Particle::update(float _speed){
     // ?
 
     // kill
-    if(position.x<0 || position.x>ofGetWidth() || position.y<0 || position.y>ofGetHeight()) alive = false;
+//    if(position.x<0 || position.x>ofGetWidth() || position.y<0 || position.y>ofGetHeight()) alive = false;
     
     // killWave
     // if(position.x>ofGetWidth()/2) killWave=true;
+}
+void Particle::debugDraw(){
+    if(killWave) ofSetColor(255,0,0);
+    ofCircle(position.x, position.y+5, 2);
+    ofSetColor(255);
 }

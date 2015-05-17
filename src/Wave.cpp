@@ -30,34 +30,25 @@ void Wave::update(Obstacle & obst){
     int s = mesh.getNumVertices();
     
     if(s>0){
-        obst.hasCollided = false;
         for (int i=0; i<s; i++) {
             particles[i].update(speed);
             
-            if(obst.collisionCheck(
+            if(!stopped && obst.collisionCheck(
                 particles[i].position,
                 particles[(i+1)%s].position,
                 particles[(i+1)%s].pPosition,
                 particles[i].pPosition
             )){
-                obst.hasCollided = true;
                 if(obst.kind == DESTROYER_OBSTACLE) particles[i].killWave = true;
             }
             
-            // particles status check (kill, killWave, ...)
             if(particles[i].killWave){
-                killParticle(i);
-                s--;
-                stopped = true;
-                particles[i%s].killWave = true;
-//                cout << i%s << endl;
-                if(i > 0){
-                    particles[i-1].killWave = true;
-//                    cout << i-1 << endl;
-                }
-                else particles[s-1].killWave = true;
+                cout << i << endl;
+                particles[(i>0)?i-1:s-1].killWave = true;
+                particles[i].alive = false;
             }
-            // else if (!particles[i].alive) { killParticle(i); s--; }
+            
+            if (!particles[i].alive) { killParticle(i); s--; }
             else{
                 mesh.setVertex(i, particles[i].position);
                 mesh.setColor(i, ofColor(255,int(force)));            
@@ -72,6 +63,9 @@ void Wave::draw(){
     glPointSize(3);
     mesh.draw();
     glPointSize(1);
+    for (int i=0; i<particles.size(); i++) {
+        particles[i].debugDraw();
+    }
 //    mesh.drawVertices();
 }
 
