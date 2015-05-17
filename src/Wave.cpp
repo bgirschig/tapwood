@@ -33,17 +33,16 @@ void Wave::update(Obstacle & obst){
         obst.hasCollided = false;
         for (int i=0; i<s; i++) {
             particles[i].update(speed);
-//            detectionVector[0] = * particles[i].pPosition;
-//            detectionVector[1] = particles[i+1%s].pPosition;
-//            detectionVector[2] = particles[i+1%s].pPosition;
-//            detectionVector[3] = particles[i].pPosition;
             
             if(obst.collisionCheck(
-                          particles[i].position,
-                          particles[(i+1)%s].position,
-                          particles[(i+1)%s].pPosition,
-                          particles[i].pPosition
-                          )) obst.hasCollided = true;
+                particles[i].position,
+                particles[(i+1)%s].position,
+                particles[(i+1)%s].pPosition,
+                particles[i].pPosition
+            )){
+                obst.hasCollided = true;
+                if(obst.kind == DESTROYER_OBSTACLE) particles[i].killWave = true;
+            }
             
             // particles status check (kill, killWave, ...)
             if(particles[i].killWave){
@@ -51,7 +50,11 @@ void Wave::update(Obstacle & obst){
                 s--;
                 stopped = true;
                 particles[i%s].killWave = true;
-                if(i > 1)particles[i-1].killWave = true;
+//                cout << i%s << endl;
+                if(i > 0){
+                    particles[i-1].killWave = true;
+//                    cout << i-1 << endl;
+                }
                 else particles[s-1].killWave = true;
             }
             // else if (!particles[i].alive) { killParticle(i); s--; }

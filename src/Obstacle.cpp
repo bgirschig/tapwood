@@ -3,7 +3,7 @@
 
 
 Obstacle::Obstacle(){}
-Obstacle::Obstacle(ofVec2f position){
+Obstacle::Obstacle(ofVec2f position, int type){
     pos = position;
     hasCollided = false;
 }

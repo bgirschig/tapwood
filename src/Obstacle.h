@@ -3,11 +3,16 @@
 #include <stdio.h>
 #include "ofMain.h"
 
+enum kinds{
+    DESTROYER_OBSTACLE,
+    TARGET_OBSTACLE
+};
+
 class Obstacle {
     public:
     
     Obstacle();
-    Obstacle(ofVec2f position);
+    Obstacle(ofVec2f position, int type);
 
     ofVec2f pos;
     int kind;

@@ -15,7 +15,7 @@ void ofApp::setup(){
 //    serverConnection.setup("10.192.250.91", 11999);
 //    serverConnection.setup("192.168.1.119", 11999);
     
-    test = Obstacle(ofVec2f(100,300));
+    test = Obstacle(ofVec2f(500,500), DESTROYER_OBSTACLE);
 }
 
 //--------------------------------------------------------------
@@ -35,7 +35,6 @@ void ofApp::update(){
             s--;
         }
         else waves[i].update(test);
-//        cout << test.hasCollided;
     }
 }
 
@@ -52,7 +51,7 @@ void ofApp::exit(){}
 
 void ofApp::touchDown(ofTouchEventArgs & touch){
     // x, y, force, resolution
-    waves.push_back( Wave(touch.x, touch.y, 200, 30) );
+    waves.push_back( Wave(touch.x, touch.y, 200, 300) );
     if(serverConnection.Connected) serverConnection.send("screenTap");
 }
 
