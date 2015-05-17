@@ -23,6 +23,7 @@
 		B91F317C1AFFE24600016819 /* ofxTCPServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B91F31751AFFE24600016819 /* ofxTCPServer.cpp */; };
 		B91F317D1AFFE24600016819 /* ofxUDPManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B91F31771AFFE24600016819 /* ofxUDPManager.cpp */; };
 		B91F318B1B00094900016819 /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B91F31891B00094900016819 /* connection.cpp */; };
+		B944415E1B07669C00B7B2A1 /* Obstacle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B944415C1B07669C00B7B2A1 /* Obstacle.cpp */; };
 		B993E5A81AFBF1A700FA2887 /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B993E5A61AFBF1A700FA2887 /* Particle.cpp */; };
 		B993E5AB1AFC004C00FA2887 /* Wave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B993E5A91AFC004C00FA2887 /* Wave.cpp */; };
 		BB16EBD20F2B2A9500518274 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD10F2B2A9500518274 /* OpenGLES.framework */; };
@@ -83,6 +84,8 @@
 		B91F31781AFFE24600016819 /* ofxUDPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxUDPManager.h; sourceTree = "<group>"; };
 		B91F31891B00094900016819 /* connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = connection.cpp; sourceTree = "<group>"; };
 		B91F318A1B00094900016819 /* connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = connection.h; sourceTree = "<group>"; };
+		B944415C1B07669C00B7B2A1 /* Obstacle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Obstacle.cpp; sourceTree = "<group>"; };
+		B944415D1B07669C00B7B2A1 /* Obstacle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Obstacle.h; sourceTree = "<group>"; };
 		B993E5A61AFBF1A700FA2887 /* Particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Particle.cpp; sourceTree = "<group>"; };
 		B993E5A71AFBF1A700FA2887 /* Particle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Particle.h; sourceTree = "<group>"; };
 		B993E5A91AFC004C00FA2887 /* Wave.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Wave.cpp; sourceTree = "<group>"; };
@@ -262,6 +265,8 @@
 				B993E5A61AFBF1A700FA2887 /* Particle.cpp */,
 				B993E5AA1AFC004C00FA2887 /* Wave.h */,
 				B993E5A91AFC004C00FA2887 /* Wave.cpp */,
+				B944415D1B07669C00B7B2A1 /* Obstacle.h */,
+				B944415C1B07669C00B7B2A1 /* Obstacle.cpp */,
 				B91F318A1B00094900016819 /* connection.h */,
 				B91F31891B00094900016819 /* connection.cpp */,
 			);
@@ -378,6 +383,7 @@
 				B91F317D1AFFE24600016819 /* ofxUDPManager.cpp in Sources */,
 				B91F317A1AFFE24600016819 /* ofxTCPClient.cpp in Sources */,
 				B91F318B1B00094900016819 /* connection.cpp in Sources */,
+				B944415E1B07669C00B7B2A1 /* Obstacle.cpp in Sources */,
 				E4D8936E11527B74007E1F53 /* main.mm in Sources */,
 				B993E5A81AFBF1A700FA2887 /* Particle.cpp in Sources */,
 				E4D8936F11527B74007E1F53 /* ofApp.mm in Sources */,

@@ -5,6 +5,7 @@
 Particle::Particle(int index, float _x, float _y, double direction, float _speed)
 {
     position.set(_x, _y);
+    pPosition.set(_x,_y);
     speed.set(cos(direction)*_speed,sin(direction)*_speed);
     
     alive = true;
@@ -12,6 +13,7 @@ Particle::Particle(int index, float _x, float _y, double direction, float _speed
 }
 
 void Particle::update(float _speed){
+    pPosition = position;
     position+=speed*_speed;
     
     // bounce

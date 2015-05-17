@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include "Particle.h"
+#include "Obstacle.h"
 
 class Wave {
     public:
@@ -11,7 +12,7 @@ class Wave {
     Wave(float x, float y, float _force, int _resolution);
     
     // methods
-    void update();
+    void update(Obstacle & obst);
     void draw();
     
     vector<Particle> particles;

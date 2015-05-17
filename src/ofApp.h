@@ -9,6 +9,7 @@
 #include "ofxiOS.h"
 #include "ofxiOSExtras.h"
 #include "connection.h"
+#include "Obstacle.h"
 
 #include "Wave.h"
 
@@ -33,7 +34,9 @@ class ofApp : public ofxiOSApp {
     
         // preso vars
         vector<Wave> waves;
+        Obstacle test;
     
+        // events
         void onServerEvent(string & e);
         void onDeviceEvent(string & e);
         void onDataEvent(string & e);

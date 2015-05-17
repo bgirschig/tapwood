@@ -23,16 +23,29 @@ Wave::Wave(float x, float y, float _force, int _resolution){
     }
 }
 
-void Wave::update(){
+void Wave::update(Obstacle & obst){
     force -= 0.1;
     if(stopped) speed*=0.94;
     
     int s = mesh.getNumVertices();
     
     if(s>0){
+        obst.hasCollided = false;
         for (int i=0; i<s; i++) {
             particles[i].update(speed);
+//            detectionVector[0] = * particles[i].pPosition;
+//            detectionVector[1] = particles[i+1%s].pPosition;
+//            detectionVector[2] = particles[i+1%s].pPosition;
+//            detectionVector[3] = particles[i].pPosition;
             
+            if(obst.collisionCheck(
+                          particles[i].position,
+                          particles[(i+1)%s].position,
+                          particles[(i+1)%s].pPosition,
+                          particles[i].pPosition
+                          )) obst.hasCollided = true;
+            
+            // particles status check (kill, killWave, ...)
             if(particles[i].killWave){
                 killParticle(i);
                 s--;
@@ -41,19 +54,14 @@ void Wave::update(){
                 if(i > 1)particles[i-1].killWave = true;
                 else particles[s-1].killWave = true;
             }
-            else if (!particles[i].alive) {
-                killParticle(i);
-                s--;
-            }
+            // else if (!particles[i].alive) { killParticle(i); s--; }
             else{
                 mesh.setVertex(i, particles[i].position);
                 mesh.setColor(i, ofColor(255,int(force)));            
             }
         }
     }
-    else{
-        alive = false;
-    }
+    else alive = false;
 }
 
 void Wave::draw(){
@@ -61,7 +69,6 @@ void Wave::draw(){
     glPointSize(3);
     mesh.draw();
     glPointSize(1);
-    
 //    mesh.drawVertices();
 }
 

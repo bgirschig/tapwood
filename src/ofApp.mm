@@ -10,9 +10,12 @@ void ofApp::setup(){
     ofAddListener(serverConnection.serverEvent, this, &ofApp::onServerEvent);
     ofAddListener(serverConnection.deviceEvent, this, &ofApp::onDeviceEvent);
     ofAddListener(serverConnection.dataEvent, this, &ofApp::onDataEvent);
+
     serverConnection.setup("192.168.0.101", 11999);
 //    serverConnection.setup("10.192.250.91", 11999);
-
+//    serverConnection.setup("192.168.1.119", 11999);
+    
+    test = Obstacle(ofVec2f(100,300));
 }
 
 //--------------------------------------------------------------
@@ -31,7 +34,8 @@ void ofApp::update(){
             waves.erase(waves.begin()+i);
             s--;
         }
-        else waves[i].update();
+        else waves[i].update(test);
+//        cout << test.hasCollided;
     }
 }
 
@@ -41,6 +45,7 @@ void ofApp::draw(){
     ofDrawBitmapString(ofToString(ofGetFrameRate())+"fps", 10, 15);
     
     for(Wave &w : waves) w.draw();
+    test.draw();
 }
 
 void ofApp::exit(){}

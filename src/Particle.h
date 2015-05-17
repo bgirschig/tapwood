@@ -3,8 +3,6 @@
 #include <stdio.h>
 #include "ofMain.h"
 
-class Wave;
-
 class Particle
 {
     public:
@@ -12,6 +10,7 @@ class Particle
 
     // variables
     ofVec2f position;
+    ofVec2f pPosition;
     ofVec2f speed;
     bool alive;
     bool killWave;
