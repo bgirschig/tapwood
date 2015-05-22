@@ -45,6 +45,7 @@ void Wave::update(vector<Obstacle *> obstacles){
                    )){
                     obstacles[j]->collided();
                     if(obstacles[j]->kind == DESTROYER_OBSTACLE) blackHole = obstacles[j];  // DESTROYER_OBSTACLE -> destroy wave on collision
+                    else alive = false;
                 }
             }
         }

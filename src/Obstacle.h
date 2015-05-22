@@ -30,5 +30,7 @@ class Obstacle {
     ofVec2f a, b, affine_segment, affine_point; //  --
     int current_side;                           //  --
     int animation;
+    float secondaryAnim;
     float scale;
+    bool hasCollided;
 };

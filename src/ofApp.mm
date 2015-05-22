@@ -17,7 +17,9 @@ void ofApp::setup(){
     serverConnection.setup("192.168.0.11", 11999);
     
     obstacles.push_back(new Obstacle(ofVec2f(500,300), DESTROYER_OBSTACLE));
-    obstacles.push_back(new Obstacle(ofVec2f(900,600), DESTROYER_OBSTACLE));
+    obstacles.push_back(new Obstacle(ofVec2f(900,600), TARGET_OBSTACLE));
+    obstacles.push_back(new Obstacle(ofVec2f(1200,900), TARGET_OBSTACLE));
+    obstacles.push_back(new Obstacle(ofVec2f(50,1000), TARGET_OBSTACLE));
 }
 
 //--------------------------------------------------------------

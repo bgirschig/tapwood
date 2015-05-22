@@ -8,6 +8,7 @@ Obstacle::Obstacle(ofVec2f position, ElementKind type){
     kind = type;
     animation = -1;
     scale = 10;
+    hasCollided = false;
 }
 
 bool Obstacle::collisionCheck(ofVec2f pt1, ofVec2f pt2, ofVec2f pt3, ofVec2f pt4){
@@ -23,28 +24,38 @@ bool Obstacle::collisionCheck(ofVec2f pt1, ofVec2f pt2, ofVec2f pt3, ofVec2f pt4
 }
 
 void Obstacle::draw(){
-    ofNoFill(); ofSetLineWidth(2);
+    ofNoFill(); ofSetLineWidth(3);
     
     if(kind==DESTROYER_OBSTACLE){
-        if(animation>=0){
-            if(animation < 30){                                 // expand and disapear
-                scale = 10+(animation*2);                       // - scale up
-                ofSetColor(255, 255-(animation*8));             // - blend out
-            }
-            else if(animation < 50) scale = (animation-30)/2;   // loop back to original size
-            
-            if(animation > 50) animation = -1;                  // animation end
-            else animation++;                                   // advance anim
-            
-            ofSetColor(255);    // reset color (/opacity)
-            scale = 10;         // reset scale
-        }
-        ofCircle(pos.x, pos.y, scale);
+        animation = (animation+1) % 60;
+        
+        ofSetColor(255, 4*animation-1);
+        ofCircle(pos.x, pos.y, 30-(animation*0.5));
+        
+        ofSetColor(255, 4*((animation<30)? (animation+30): (animation-30))-1);
+        ofCircle(pos.x, pos.y, (animation<30)?15-(animation*0.5):45-(animation*0.5));
     }
-    else if(kind==TARGET_OBSTACLE) ofCircle(pos.x, pos.y, 10);
+    else if(kind==TARGET_OBSTACLE){
+        if(animation<120){
+            if(secondaryAnim < 17){
+                animation ++;
+                if(animation>=120) animation = 0;
+            }
+            
+            ofSetColor(255);
+            ofCircle(pos.x, pos.y, 15+sin((animation*TWO_PI)/120)*3);
+            
+            if(hasCollided){
+                if(secondaryAnim <= 17) secondaryAnim += (18-secondaryAnim)/(secondaryAnim+4);
+                ofFill();
+                ofCircle(pos.x, pos.y, secondaryAnim);
+            }
+        }
+    }
     glLineWidth(0);
 }
 void Obstacle::collided(){
-    if(kind==DESTROYER_OBSTACLE) animation = 0; // start animation
-    else if(kind==TARGET_OBSTACLE) animation = 0;
+    hasCollided = true;
+//    if(kind==DESTROYER_OBSTACLE) cout<<"obst";
+    if(kind==TARGET_OBSTACLE && !hasCollided) secondaryAnim = 0;
 }
