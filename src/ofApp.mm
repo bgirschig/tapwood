@@ -11,9 +11,10 @@ void ofApp::setup(){
     ofAddListener(serverConnection.deviceEvent, this, &ofApp::onDeviceEvent);
     ofAddListener(serverConnection.dataEvent, this, &ofApp::onDataEvent);
 
-    serverConnection.setup("192.168.0.101", 11999);
-//    serverConnection.setup("10.192.250.91", 11999);
+//    serverConnection.setup("192.168.0.101", 11999);
+//    serverConnection.setup("10.192.250.112", 11999);
 //    serverConnection.setup("192.168.1.119", 11999);
+    serverConnection.setup("192.168.0.11", 11999);
     
     obstacles.push_back(new Obstacle(ofVec2f(500,300), DESTROYER_OBSTACLE));
     obstacles.push_back(new Obstacle(ofVec2f(900,600), DESTROYER_OBSTACLE));

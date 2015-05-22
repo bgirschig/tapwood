@@ -43,8 +43,8 @@ void Wave::update(vector<Obstacle *> obstacles){
                    particles[(i+1)%s].pPosition,
                    particles[i].pPosition
                    )){
+                    obstacles[j]->collided();
                     if(obstacles[j]->kind == DESTROYER_OBSTACLE) blackHole = obstacles[j];  // DESTROYER_OBSTACLE -> destroy wave on collision
-                    cout << obstacles[j]->kind << endl;
                 }
             }
         }
