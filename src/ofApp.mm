@@ -41,14 +41,12 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-//    serverConnection.drawInterface();
     ofDrawBitmapString(ofToString(ofGetFrameRate())+"fps", 10, 15);
     
     for(Wave &w : waves) w.draw();
+
     int s = obstacles.size();
-    for (int i=0; i<s; i++) {
-        obstacles[i]->draw();
-    }
+    for (int i=0; i<s; i++) obstacles[i]->draw();
 }
 
 void ofApp::exit(){}

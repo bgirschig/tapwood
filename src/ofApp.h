@@ -10,8 +10,8 @@
 #include "ofxiOSExtras.h"
 #include "connection.h"
 #include "Obstacle.h"
-
 #include "Wave.h"
+#include "GameHandler.h"
 
 class ofApp : public ofxiOSApp {
 	
@@ -41,6 +41,8 @@ class ofApp : public ofxiOSApp {
         void onDeviceEvent(string & e);
         void onDataEvent(string & e);
         connection serverConnection;
+    
+//        GameHandler game;
 };
 
 

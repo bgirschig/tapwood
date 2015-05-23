@@ -26,6 +26,8 @@
 		B944415E1B07669C00B7B2A1 /* Obstacle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B944415C1B07669C00B7B2A1 /* Obstacle.cpp */; };
 		B993E5A81AFBF1A700FA2887 /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B993E5A61AFBF1A700FA2887 /* Particle.cpp */; };
 		B993E5AB1AFC004C00FA2887 /* Wave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B993E5A91AFC004C00FA2887 /* Wave.cpp */; };
+		B99D6F9B1B0FE14A007BD475 /* GameHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B99D6F991B0FE14A007BD475 /* GameHandler.cpp */; };
+		B99D6FA11B0FE2CC007BD475 /* Level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B99D6F9F1B0FE2CC007BD475 /* Level.cpp */; };
 		BB16EBD20F2B2A9500518274 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD10F2B2A9500518274 /* OpenGLES.framework */; };
 		BB16EBD90F2B2AB500518274 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD80F2B2AB500518274 /* QuartzCore.framework */; };
 		BBE5EAB80F49AD8400F28951 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE5EAB70F49AD8400F28951 /* AudioToolbox.framework */; };
@@ -90,6 +92,10 @@
 		B993E5A71AFBF1A700FA2887 /* Particle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Particle.h; sourceTree = "<group>"; };
 		B993E5A91AFC004C00FA2887 /* Wave.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Wave.cpp; sourceTree = "<group>"; };
 		B993E5AA1AFC004C00FA2887 /* Wave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wave.h; sourceTree = "<group>"; };
+		B99D6F991B0FE14A007BD475 /* GameHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameHandler.cpp; sourceTree = "<group>"; };
+		B99D6F9A1B0FE14A007BD475 /* GameHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameHandler.h; sourceTree = "<group>"; };
+		B99D6F9F1B0FE2CC007BD475 /* Level.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Level.cpp; sourceTree = "<group>"; };
+		B99D6FA01B0FE2CC007BD475 /* Level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Level.h; sourceTree = "<group>"; };
 		BB16EBD10F2B2A9500518274 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BB16EBD80F2B2AB500518274 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB24DDC910DA781C00E9C588 /* ofxiOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ofxiOS-Info.plist"; sourceTree = "<group>"; };
@@ -211,6 +217,40 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		B99D6F9C1B0FE229007BD475 /* gameElements */ = {
+			isa = PBXGroup;
+			children = (
+				B993E5A71AFBF1A700FA2887 /* Particle.h */,
+				B993E5A61AFBF1A700FA2887 /* Particle.cpp */,
+				B993E5AA1AFC004C00FA2887 /* Wave.h */,
+				B993E5A91AFC004C00FA2887 /* Wave.cpp */,
+				B944415D1B07669C00B7B2A1 /* Obstacle.h */,
+				B944415C1B07669C00B7B2A1 /* Obstacle.cpp */,
+			);
+			name = gameElements;
+			sourceTree = "<group>";
+		};
+		B99D6F9D1B0FE299007BD475 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				B91F318A1B00094900016819 /* connection.h */,
+				B91F31891B00094900016819 /* connection.cpp */,
+			);
+			name = utils;
+			sourceTree = "<group>";
+		};
+		B99D6F9E1B0FE2B4007BD475 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				B99D6F9A1B0FE14A007BD475 /* GameHandler.h */,
+				B99D6F991B0FE14A007BD475 /* GameHandler.cpp */,
+				B99D6FA01B0FE2CC007BD475 /* Level.h */,
+				B99D6F9F1B0FE2CC007BD475 /* Level.cpp */,
+				B99D6F9C1B0FE229007BD475 /* gameElements */,
+			);
+			name = Game;
+			sourceTree = "<group>";
+		};
 		BB16E9930F2B1E5900518274 /* libs */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,14 +301,8 @@
 				E4D8936B11527B74007E1F53 /* main.mm */,
 				E4D8936C11527B74007E1F53 /* ofApp.h */,
 				E4D8936D11527B74007E1F53 /* ofApp.mm */,
-				B993E5A71AFBF1A700FA2887 /* Particle.h */,
-				B993E5A61AFBF1A700FA2887 /* Particle.cpp */,
-				B993E5AA1AFC004C00FA2887 /* Wave.h */,
-				B993E5A91AFC004C00FA2887 /* Wave.cpp */,
-				B944415D1B07669C00B7B2A1 /* Obstacle.h */,
-				B944415C1B07669C00B7B2A1 /* Obstacle.cpp */,
-				B91F318A1B00094900016819 /* connection.h */,
-				B91F31891B00094900016819 /* connection.cpp */,
+				B99D6F9E1B0FE2B4007BD475 /* Game */,
+				B99D6F9D1B0FE299007BD475 /* utils */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -378,10 +412,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B91F317C1AFFE24600016819 /* ofxTCPServer.cpp in Sources */,
+				B99D6F9B1B0FE14A007BD475 /* GameHandler.cpp in Sources */,
 				B993E5AB1AFC004C00FA2887 /* Wave.cpp in Sources */,
 				B91F317B1AFFE24600016819 /* ofxTCPManager.cpp in Sources */,
 				B91F317D1AFFE24600016819 /* ofxUDPManager.cpp in Sources */,
 				B91F317A1AFFE24600016819 /* ofxTCPClient.cpp in Sources */,
+				B99D6FA11B0FE2CC007BD475 /* Level.cpp in Sources */,
 				B91F318B1B00094900016819 /* connection.cpp in Sources */,
 				B944415E1B07669C00B7B2A1 /* Obstacle.cpp in Sources */,
 				E4D8936E11527B74007E1F53 /* main.mm in Sources */,

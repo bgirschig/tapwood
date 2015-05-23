@@ -7,6 +7,7 @@ Obstacle::Obstacle(ofVec2f position, ElementKind type){
     pos = position;
     kind = type;
     animation = -1;
+    secondaryAnim = -1;
     scale = 10;
     hasCollided = false;
 }
