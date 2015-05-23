@@ -1,3 +1,5 @@
 #include "Level.h"
 
-Level::Level(){}
+Level::Level(string name){
+    cout << "creating level: " << name;
+}

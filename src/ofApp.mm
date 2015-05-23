@@ -6,9 +6,7 @@ void ofApp::setup(){
 //  ofSetBackgroundAuto(false);
 //  ofSetFrameRate(10);
     
-    // server connection
     initServer();
-
     game.init();
 }
 
@@ -62,8 +60,6 @@ void ofApp::onDeviceEvent(string & e){
     cout << "device event:" << e << endl;
 }
 void ofApp::onDataEvent(string &e){
-//    cout << "DATA: " << e << endl;
-//    if(e=="tap"){
+//    if(e=="tap")
 //        waves.push_back( Wave(ofRandom(ofGetWidth()),ofRandom(ofGetHeight()), 40, 100) );
-//    }
 }

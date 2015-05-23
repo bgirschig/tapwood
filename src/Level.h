@@ -1,10 +1,11 @@
 #pragma once
 #include <stdio.h>
+#include "ofMain.h"
+#include "Obstacle.h"
 
 class Level{
 public:
-    Level();
+    Level(string name);
     
-    void init();
-    
+    void addPoint(Obstacle point);
 };
