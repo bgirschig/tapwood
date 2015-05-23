@@ -14,17 +14,19 @@ void ofApp::setup(){
 //    serverConnection.setup("192.168.0.101", 11999);
 //    serverConnection.setup("10.192.250.112", 11999);
 //    serverConnection.setup("192.168.1.119", 11999);
-    serverConnection.setup("192.168.0.11", 11999);
+//    serverConnection.setup("192.168.0.11", 11999);
     
     obstacles.push_back(new Obstacle(ofVec2f(500,300), DESTROYER_OBSTACLE));
     obstacles.push_back(new Obstacle(ofVec2f(900,600), TARGET_OBSTACLE));
     obstacles.push_back(new Obstacle(ofVec2f(1200,900), TARGET_OBSTACLE));
     obstacles.push_back(new Obstacle(ofVec2f(50,1000), TARGET_OBSTACLE));
+    
+    game.init();
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    serverConnection.update();
+//    serverConnection.update();
     
     // orientation fix
     if(ofxiOSGetGLView().frame.origin.x != 0 || ofxiOSGetGLView().frame.size.width != [[UIScreen mainScreen] bounds].size.width){

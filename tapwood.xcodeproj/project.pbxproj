@@ -17,6 +17,7 @@
 		678E130C1795153C005B6D19 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 678E130B1795153C005B6D19 /* Default.png */; };
 		678E130E17951540005B6D19 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 678E130D17951540005B6D19 /* Default@2x.png */; };
 		678E131017951549005B6D19 /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 678E130F17951549005B6D19 /* Default-568h@2x~iphone.png */; };
+		B910CA0D1B10737200914B50 /* level_1.plist in Resources */ = {isa = PBXBuildFile; fileRef = B910CA0C1B10737200914B50 /* level_1.plist */; };
 		B91F31791AFFE24600016819 /* Instructions.txt in Resources */ = {isa = PBXBuildFile; fileRef = B91F316D1AFFE24600016819 /* Instructions.txt */; };
 		B91F317A1AFFE24600016819 /* ofxTCPClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B91F31711AFFE24600016819 /* ofxTCPClient.cpp */; };
 		B91F317B1AFFE24600016819 /* ofxTCPManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B91F31731AFFE24600016819 /* ofxTCPManager.cpp */; };
@@ -28,6 +29,10 @@
 		B993E5AB1AFC004C00FA2887 /* Wave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B993E5A91AFC004C00FA2887 /* Wave.cpp */; };
 		B99D6F9B1B0FE14A007BD475 /* GameHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B99D6F991B0FE14A007BD475 /* GameHandler.cpp */; };
 		B99D6FA11B0FE2CC007BD475 /* Level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B99D6F9F1B0FE2CC007BD475 /* Level.cpp */; };
+		B9BF43981B108F14009EAE5C /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9BF43911B108F14009EAE5C /* tinyxml.cpp */; };
+		B9BF43991B108F14009EAE5C /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9BF43931B108F14009EAE5C /* tinyxmlerror.cpp */; };
+		B9BF439A1B108F14009EAE5C /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9BF43941B108F14009EAE5C /* tinyxmlparser.cpp */; };
+		B9BF439B1B108F14009EAE5C /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9BF43961B108F14009EAE5C /* ofxXmlSettings.cpp */; };
 		BB16EBD20F2B2A9500518274 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD10F2B2A9500518274 /* OpenGLES.framework */; };
 		BB16EBD90F2B2AB500518274 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD80F2B2AB500518274 /* QuartzCore.framework */; };
 		BBE5EAB80F49AD8400F28951 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE5EAB70F49AD8400F28951 /* AudioToolbox.framework */; };
@@ -73,6 +78,7 @@
 		678E130B1795153C005B6D19 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = bin/data/Default.png; sourceTree = "<group>"; };
 		678E130D17951540005B6D19 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "bin/data/Default@2x.png"; sourceTree = "<group>"; };
 		678E130F17951549005B6D19 /* Default-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x~iphone.png"; path = "bin/data/Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
+		B910CA0C1B10737200914B50 /* level_1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = level_1.plist; path = levels/level_1.plist; sourceTree = "<group>"; };
 		B91F316D1AFFE24600016819 /* Instructions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Instructions.txt; sourceTree = "<group>"; };
 		B91F316F1AFFE24600016819 /* ofxNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxNetwork.h; sourceTree = "<group>"; };
 		B91F31701AFFE24600016819 /* ofxNetworkUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxNetworkUtils.h; sourceTree = "<group>"; };
@@ -96,6 +102,12 @@
 		B99D6F9A1B0FE14A007BD475 /* GameHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameHandler.h; sourceTree = "<group>"; };
 		B99D6F9F1B0FE2CC007BD475 /* Level.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Level.cpp; sourceTree = "<group>"; };
 		B99D6FA01B0FE2CC007BD475 /* Level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Level.h; sourceTree = "<group>"; };
+		B9BF43911B108F14009EAE5C /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml.cpp; sourceTree = "<group>"; };
+		B9BF43921B108F14009EAE5C /* tinyxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml.h; sourceTree = "<group>"; };
+		B9BF43931B108F14009EAE5C /* tinyxmlerror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlerror.cpp; sourceTree = "<group>"; };
+		B9BF43941B108F14009EAE5C /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlparser.cpp; sourceTree = "<group>"; };
+		B9BF43961B108F14009EAE5C /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxXmlSettings.cpp; sourceTree = "<group>"; };
+		B9BF43971B108F14009EAE5C /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlSettings.h; sourceTree = "<group>"; };
 		BB16EBD10F2B2A9500518274 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BB16EBD80F2B2AB500518274 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB24DDC910DA781C00E9C588 /* ofxiOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ofxiOS-Info.plist"; sourceTree = "<group>"; };
@@ -183,6 +195,14 @@
 			name = "core frameworks";
 			sourceTree = "<group>";
 		};
+		B910CA061B1067F800914B50 /* Levels */ = {
+			isa = PBXGroup;
+			children = (
+				B910CA0C1B10737200914B50 /* level_1.plist */,
+			);
+			name = Levels;
+			sourceTree = "<group>";
+		};
 		B91F316B1AFFE24600016819 /* ofxNetwork */ = {
 			isa = PBXGroup;
 			children = (
@@ -246,9 +266,37 @@
 				B99D6F991B0FE14A007BD475 /* GameHandler.cpp */,
 				B99D6FA01B0FE2CC007BD475 /* Level.h */,
 				B99D6F9F1B0FE2CC007BD475 /* Level.cpp */,
-				B99D6F9C1B0FE229007BD475 /* gameElements */,
 			);
 			name = Game;
+			sourceTree = "<group>";
+		};
+		B9BF438F1B108F14009EAE5C /* ofxXmlSettings */ = {
+			isa = PBXGroup;
+			children = (
+				B9BF43901B108F14009EAE5C /* libs */,
+				B9BF43951B108F14009EAE5C /* src */,
+			);
+			path = ofxXmlSettings;
+			sourceTree = "<group>";
+		};
+		B9BF43901B108F14009EAE5C /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				B9BF43911B108F14009EAE5C /* tinyxml.cpp */,
+				B9BF43921B108F14009EAE5C /* tinyxml.h */,
+				B9BF43931B108F14009EAE5C /* tinyxmlerror.cpp */,
+				B9BF43941B108F14009EAE5C /* tinyxmlparser.cpp */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		B9BF43951B108F14009EAE5C /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B9BF43961B108F14009EAE5C /* ofxXmlSettings.cpp */,
+				B9BF43971B108F14009EAE5C /* ofxXmlSettings.h */,
+			);
+			path = src;
 			sourceTree = "<group>";
 		};
 		BB16E9930F2B1E5900518274 /* libs */ = {
@@ -262,6 +310,7 @@
 		BB16F26B0F2B646B00518274 /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				B9BF438F1B108F14009EAE5C /* ofxXmlSettings */,
 				B91F316B1AFFE24600016819 /* ofxNetwork */,
 			);
 			name = addons;
@@ -302,6 +351,8 @@
 				E4D8936C11527B74007E1F53 /* ofApp.h */,
 				E4D8936D11527B74007E1F53 /* ofApp.mm */,
 				B99D6F9E1B0FE2B4007BD475 /* Game */,
+				B910CA061B1067F800914B50 /* Levels */,
+				B99D6F9C1B0FE229007BD475 /* gameElements */,
 				B99D6F9D1B0FE299007BD475 /* utils */,
 			);
 			path = src;
@@ -378,6 +429,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E41D3ED713B38FB500A75A5D /* Project.xcconfig in Resources */,
+				B910CA0D1B10737200914B50 /* level_1.plist in Resources */,
 				E41D3EE613B3906D00A75A5D /* CoreOF.xcconfig in Resources */,
 				678E130817951530005B6D19 /* Icon@2x.png in Resources */,
 				B91F31791AFFE24600016819 /* Instructions.txt in Resources */,
@@ -413,15 +465,19 @@
 			files = (
 				B91F317C1AFFE24600016819 /* ofxTCPServer.cpp in Sources */,
 				B99D6F9B1B0FE14A007BD475 /* GameHandler.cpp in Sources */,
+				B9BF439B1B108F14009EAE5C /* ofxXmlSettings.cpp in Sources */,
 				B993E5AB1AFC004C00FA2887 /* Wave.cpp in Sources */,
 				B91F317B1AFFE24600016819 /* ofxTCPManager.cpp in Sources */,
 				B91F317D1AFFE24600016819 /* ofxUDPManager.cpp in Sources */,
 				B91F317A1AFFE24600016819 /* ofxTCPClient.cpp in Sources */,
+				B9BF43981B108F14009EAE5C /* tinyxml.cpp in Sources */,
 				B99D6FA11B0FE2CC007BD475 /* Level.cpp in Sources */,
 				B91F318B1B00094900016819 /* connection.cpp in Sources */,
 				B944415E1B07669C00B7B2A1 /* Obstacle.cpp in Sources */,
 				E4D8936E11527B74007E1F53 /* main.mm in Sources */,
 				B993E5A81AFBF1A700FA2887 /* Particle.cpp in Sources */,
+				B9BF43991B108F14009EAE5C /* tinyxmlerror.cpp in Sources */,
+				B9BF439A1B108F14009EAE5C /* tinyxmlparser.cpp in Sources */,
 				E4D8936F11527B74007E1F53 /* ofApp.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

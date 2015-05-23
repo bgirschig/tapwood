@@ -1,0 +1,8 @@
+{
+	"title": "example",
+    "entry": {
+       "string": "test",
+        "array": [10,20,"trente"],
+        "int": 1203
+    }
+}

@@ -42,7 +42,7 @@ class ofApp : public ofxiOSApp {
         void onDataEvent(string & e);
         connection serverConnection;
     
-//        GameHandler game;
+        GameHandler game;
 };
 
 
