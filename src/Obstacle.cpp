@@ -10,6 +10,7 @@ Obstacle::Obstacle(ofVec2f position, ElementKind type){
     secondaryAnim = -1;
     scale = 10;
     hasCollided = false;
+    valid = false;
 }
 
 bool Obstacle::collisionCheck(ofVec2f pt1, ofVec2f pt2, ofVec2f pt3, ofVec2f pt4){
@@ -48,10 +49,13 @@ void Obstacle::draw(){
             
             if(hasCollided){
                 if(secondaryAnim <= 17) secondaryAnim += (18-secondaryAnim)/(secondaryAnim+4);
+                else valid = true;
+                
                 ofFill();
                 ofCircle(pos.x, pos.y, secondaryAnim);
             }
         }
+        
     }
     glLineWidth(0);
 }

@@ -15,7 +15,7 @@ class Wave {
     
     // methods
     void test();
-    void update(vector<Obstacle *> obstacles);
+    void update(vector<Obstacle *>& obstacles);
     void draw();
     
     vector<Particle> particles;

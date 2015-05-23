@@ -4,25 +4,28 @@
     <level>
         <name>intro</name>
         <point>
-            <kind>bibi</kind>
+            <kind>DESTROYER_OBSTACLE</kind>
             <pos> <x>100</x> <y>100</y>
             </pos>
         </point>
         <point>
-            <kind>baba</kind>
+            <kind>TARGET_OBSTACLE</kind>
             <pos> <x>200</x> <y>100</y> </pos>
         </point>
     </level>
     <level>
         <name>exposition</name>
         <point>
-            <kind>nuni</kind>
-            <pos> <x>100</x> <y>300</y>
-            </pos>
+            <kind>DESTROYER_OBSTACLE</kind>
+            <pos> <x>700</x> <y>700</y></pos>
         </point>
         <point>
-            <kind>nuna</kind>
-            <pos> <x>200</x> <y>300</y> </pos>
+            <kind>TARGET_OBSTACLE</kind>
+            <pos> <x>700</x> <y>300</y> </pos>
+        </point>
+        <point>
+            <kind>TARGET_OBSTACLE</kind>
+            <pos> <x>700</x> <y>500</y> </pos>
         </point>
     </level>
 </levels>

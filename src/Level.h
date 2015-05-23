@@ -6,6 +6,16 @@
 class Level{
 public:
     Level(string name);
+   
+    void update();
+    void draw();
     
-    void addPoint(Obstacle point);
+    void addPoint(float x, float y, ElementKind kind);
+    void addPoint(float x, float y, string kind);
+    string name;
+    vector<Obstacle *> points;
+    bool completed;
+    
+private:
+    int targetCount;
 };

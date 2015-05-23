@@ -20,4 +20,7 @@ public:
     void tap(float x, float y);
     
     ofxXmlSettings XML;
+    
+private:
+    int currentLevel;
 };

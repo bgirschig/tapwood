@@ -24,7 +24,7 @@ Wave::Wave(float x, float y, float _force, int _resolution){
     }
 }
 
-void Wave::update(vector<Obstacle *> obstacles){
+void Wave::update(vector<Obstacle *>& obstacles){
     
     int s = mesh.getNumVertices();
     int os = obstacles.size();
