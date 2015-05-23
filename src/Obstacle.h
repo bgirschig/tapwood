@@ -24,7 +24,6 @@ class Obstacle {
     void collided();
     void draw();
     
-    
     private:
     int getSide(ofVec2f a, ofVec2f b);          // collision detection utils
     ofVec2f a, b, affine_segment, affine_point; //  --

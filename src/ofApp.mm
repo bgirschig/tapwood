@@ -7,20 +7,8 @@ void ofApp::setup(){
 //  ofSetFrameRate(10);
     
     // server connection
-    ofAddListener(serverConnection.serverEvent, this, &ofApp::onServerEvent);
-    ofAddListener(serverConnection.deviceEvent, this, &ofApp::onDeviceEvent);
-    ofAddListener(serverConnection.dataEvent, this, &ofApp::onDataEvent);
+    initServer();
 
-//    serverConnection.setup("192.168.0.101", 11999);
-//    serverConnection.setup("10.192.250.112", 11999);
-//    serverConnection.setup("192.168.1.119", 11999);
-//    serverConnection.setup("192.168.0.11", 11999);
-    
-    obstacles.push_back(new Obstacle(ofVec2f(500,300), DESTROYER_OBSTACLE));
-    obstacles.push_back(new Obstacle(ofVec2f(900,600), TARGET_OBSTACLE));
-    obstacles.push_back(new Obstacle(ofVec2f(1200,900), TARGET_OBSTACLE));
-    obstacles.push_back(new Obstacle(ofVec2f(50,1000), TARGET_OBSTACLE));
-    
     game.init();
 }
 
@@ -33,30 +21,20 @@ void ofApp::update(){
         ofxiOSGetGLView().frame = CGRectMake(0,0,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height);
     }
     
-    // Update each wave
-    int s = waves.size();
-    for(int i=0;i<s;i++){
-        if(!waves[i].alive){waves.erase(waves.begin()+i); s--;}
-        else waves[i].update(obstacles);
-    }
+    game.update();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
     ofDrawBitmapString(ofToString(ofGetFrameRate())+"fps", 10, 15);
-    
-    for(Wave &w : waves) w.draw();
-
-    int s = obstacles.size();
-    for (int i=0; i<s; i++) obstacles[i]->draw();
+    game.draw();
 }
 
 void ofApp::exit(){}
 
 void ofApp::touchDown(ofTouchEventArgs & touch){
-    // x, y, force, resolution
-    waves.push_back( Wave(touch.x, touch.y, 200, 200) );
     if(serverConnection.Connected) serverConnection.send("screenTap");
+    game.tap(touch.x, touch.y);
 }
 
 void ofApp::touchMoved(ofTouchEventArgs & touch){}
@@ -68,6 +46,15 @@ void ofApp::gotFocus(){}
 void ofApp::gotMemoryWarning(){}
 void ofApp::deviceOrientationChanged(int newOrientation){}
 
+void ofApp::initServer(){
+    //    serverConnection.setup("192.168.0.101", 11999);  // home
+    //    serverConnection.setup("10.192.250.112", 11999); // ecal
+    //    serverConnection.setup("192.168.1.119", 11999);  // ?
+    //    serverConnection.setup("192.168.0.11", 11999);   // camille
+    ofAddListener(serverConnection.serverEvent, this, &ofApp::onServerEvent);
+    ofAddListener(serverConnection.deviceEvent, this, &ofApp::onDeviceEvent);
+    ofAddListener(serverConnection.dataEvent, this, &ofApp::onDataEvent);
+}
 void ofApp::onServerEvent(string & e){
     cout << "server event:" << e << endl;
 }
@@ -76,7 +63,7 @@ void ofApp::onDeviceEvent(string & e){
 }
 void ofApp::onDataEvent(string &e){
 //    cout << "DATA: " << e << endl;
-    if(e=="tap"){
-        waves.push_back( Wave(ofRandom(ofGetWidth()),ofRandom(ofGetHeight()), 40, 100) );
-    }
+//    if(e=="tap"){
+//        waves.push_back( Wave(ofRandom(ofGetWidth()),ofRandom(ofGetHeight()), 40, 100) );
+//    }
 }

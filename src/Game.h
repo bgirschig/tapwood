@@ -1,31 +1,23 @@
 #pragma once
 
+#include <stdio.h>
 #include "ofMain.h"
-#include "ofxiOS.h"
-
-#include "ofxXmlSettings.h"
 #include "Level.h"
-
 #include "Wave.h"
 #include "Obstacle.h"
+#include "ofxXmlSettings.h"
 
-class GameHandler {
+class Game{
 public:
-    
-    // constructors
-    GameHandler();
+    Game();
     void init();
-    
-    // levels
-    ofxXmlSettings XML;
     vector<Level> levels;
-    
-    // game elements
     vector<Wave> waves;
     vector<Obstacle *> obstacles;
     
-    // methods
     void update();
     void draw();
-    void onTap(float x, float y);
+    void tap(float x, float y);
+    
+    ofxXmlSettings XML;
 };

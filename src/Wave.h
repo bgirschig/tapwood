@@ -1,6 +1,8 @@
 #pragma once
 
 #include <stdio.h>
+
+#include "ofMain.h"
 #include "Particle.h"
 #include "Obstacle.h"
 

@@ -8,6 +8,7 @@ Wave::Wave(float x, float y, float _force, int _resolution){
     resolution = _resolution;
     speed = 1;
     alive = true;
+    blackHole = NULL;
     
 //    mesh.setMode(OF_PRIMITIVE_LINE_LOOP);
 //    mesh.setMode(OF_PRIMITIVE_LINES);

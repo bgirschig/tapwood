@@ -11,7 +11,7 @@
 #include "connection.h"
 #include "Obstacle.h"
 #include "Wave.h"
-#include "GameHandler.h"
+#include "Game.h"
 
 class ofApp : public ofxiOSApp {
 	
@@ -33,16 +33,17 @@ class ofApp : public ofxiOSApp {
         void deviceOrientationChanged(int newOrientation);
     
         // preso vars
-        vector<Wave> waves;
-        vector<Obstacle *> obstacles;
+//        vector<Wave> waves;
+//        vector<Obstacle *> obstacles;
     
         // events
+        void initServer();
         void onServerEvent(string & e);
         void onDeviceEvent(string & e);
         void onDataEvent(string & e);
         connection serverConnection;
     
-        GameHandler game;
+        Game game;
 };
 
 
