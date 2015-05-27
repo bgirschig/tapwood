@@ -21,6 +21,3 @@ void Level::update(){
     for (int i=0; i<points.size(); i++) if(points[i]->valid) validCount++;
     if(validCount==targetCount) completed = true;
 }
-void Level::draw(){
-    
-}

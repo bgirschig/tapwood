@@ -10,7 +10,6 @@
 #include "ofxiOSExtras.h"
 #include "connection.h"
 #include "Obstacle.h"
-#include "Wave.h"
 #include "Game.h"
 
 class ofApp : public ofxiOSApp {
@@ -32,18 +31,17 @@ class ofApp : public ofxiOSApp {
         void gotMemoryWarning();
         void deviceOrientationChanged(int newOrientation);
     
-        // preso vars
-//        vector<Wave> waves;
-//        vector<Obstacle *> obstacles;
-    
         // events
         void initServer();
         void onServerEvent(string & e);
         void onDeviceEvent(string & e);
         void onDataEvent(string & e);
         connection serverConnection;
-    
+        ofVec2f testPos;
         Game game;
+    
+        // utils
+        void split(const string& s, char c, vector<string>& v);
 };
 
 

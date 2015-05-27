@@ -8,8 +8,7 @@ public:
     Level(string name);
    
     void update();
-    void draw();
-    
+
     void addPoint(float x, float y, ElementKind kind);
     void addPoint(float x, float y, string kind);
     string name;

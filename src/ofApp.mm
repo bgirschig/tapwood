@@ -12,7 +12,7 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-//    serverConnection.update();
+    serverConnection.update();
     
     // orientation fix
     if(ofxiOSGetGLView().frame.origin.x != 0 || ofxiOSGetGLView().frame.size.width != [[UIScreen mainScreen] bounds].size.width){
@@ -24,6 +24,10 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+
+    ofSetColor(255, 80, 100); ofFill();
+    ofCircle(testPos.x, testPos.y, 10);
+//    serverConnection.drawInterface();
     ofDrawBitmapString(ofToString(ofGetFrameRate())+"fps", 10, 15);
     game.draw();
 }
@@ -45,10 +49,10 @@ void ofApp::gotMemoryWarning(){}
 void ofApp::deviceOrientationChanged(int newOrientation){}
 
 void ofApp::initServer(){
-    //    serverConnection.setup("192.168.0.101", 11999);  // home
-    //    serverConnection.setup("10.192.250.112", 11999); // ecal
-    //    serverConnection.setup("192.168.1.119", 11999);  // ?
-    //    serverConnection.setup("192.168.0.11", 11999);   // camille
+    serverConnection.setup("192.168.0.101", 11999);  // home
+//    serverConnection.setup("10.192.250.112", 11999); // ecal
+//    serverConnection.setup("192.168.1.119", 11999);  // ?
+//    serverConnection.setup("192.168.0.11", 11999);   // camille
     ofAddListener(serverConnection.serverEvent, this, &ofApp::onServerEvent);
     ofAddListener(serverConnection.deviceEvent, this, &ofApp::onDeviceEvent);
     ofAddListener(serverConnection.dataEvent, this, &ofApp::onDataEvent);
@@ -59,7 +63,22 @@ void ofApp::onServerEvent(string & e){
 void ofApp::onDeviceEvent(string & e){
     cout << "device event:" << e << endl;
 }
-void ofApp::onDataEvent(string &e){
-//    if(e=="tap")
-//        waves.push_back( Wave(ofRandom(ofGetWidth()),ofRandom(ofGetHeight()), 40, 100) );
+void ofApp::onDataEvent(string &e){ 
+    vector<string> data = ofSplitString(e, ",");
+
+    testPos.set(ofToInt(data[0]), ofToInt(data[1]));
+    game.tap(ofToInt(data[0]), ofToInt(data[1]));
+}
+void split(const string& s, char c, vector<string>& v) {
+    string::size_type i = 0;
+    string::size_type j = s.find(c);
+    
+    while (j != string::npos) {
+        v.push_back(s.substr(i, j-i));
+        i = ++j;
+        j = s.find(c, j);
+        
+        if (j == string::npos)
+            v.push_back(s.substr(i, s.length()));
+    }
 }
