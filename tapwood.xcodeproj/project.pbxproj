@@ -23,6 +23,10 @@
 		B91F317C1AFFE24600016819 /* ofxTCPServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B91F31751AFFE24600016819 /* ofxTCPServer.cpp */; };
 		B91F317D1AFFE24600016819 /* ofxUDPManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B91F31771AFFE24600016819 /* ofxUDPManager.cpp */; };
 		B91F318B1B00094900016819 /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B91F31891B00094900016819 /* connection.cpp */; };
+		B92EBF4A1B1622C80095C5BA /* .gitattributes in Resources */ = {isa = PBXBuildFile; fileRef = B92EBF441B1622C80095C5BA /* .gitattributes */; };
+		B92EBF4B1B1622C80095C5BA /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = B92EBF451B1622C80095C5BA /* .gitignore */; };
+		B92EBF4C1B1622C80095C5BA /* readme.md in Sources */ = {isa = PBXBuildFile; fileRef = B92EBF461B1622C80095C5BA /* readme.md */; };
+		B92EBF4D1B1622C80095C5BA /* ofxMask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B92EBF481B1622C80095C5BA /* ofxMask.cpp */; };
 		B944415E1B07669C00B7B2A1 /* Obstacle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B944415C1B07669C00B7B2A1 /* Obstacle.cpp */; };
 		B993E5A81AFBF1A700FA2887 /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B993E5A61AFBF1A700FA2887 /* Particle.cpp */; };
 		B993E5AB1AFC004C00FA2887 /* Wave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B993E5A91AFC004C00FA2887 /* Wave.cpp */; };
@@ -91,6 +95,11 @@
 		B91F31781AFFE24600016819 /* ofxUDPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxUDPManager.h; sourceTree = "<group>"; };
 		B91F31891B00094900016819 /* connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = connection.cpp; sourceTree = "<group>"; };
 		B91F318A1B00094900016819 /* connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = connection.h; sourceTree = "<group>"; };
+		B92EBF441B1622C80095C5BA /* .gitattributes */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitattributes; sourceTree = "<group>"; };
+		B92EBF451B1622C80095C5BA /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		B92EBF461B1622C80095C5BA /* readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
+		B92EBF481B1622C80095C5BA /* ofxMask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMask.cpp; sourceTree = "<group>"; };
+		B92EBF491B1622C80095C5BA /* ofxMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMask.h; sourceTree = "<group>"; };
 		B944415C1B07669C00B7B2A1 /* Obstacle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Obstacle.cpp; sourceTree = "<group>"; };
 		B944415D1B07669C00B7B2A1 /* Obstacle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Obstacle.h; sourceTree = "<group>"; };
 		B993E5A61AFBF1A700FA2887 /* Particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Particle.cpp; sourceTree = "<group>"; };
@@ -229,6 +238,26 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		B92EBF431B1622C80095C5BA /* ofxMask */ = {
+			isa = PBXGroup;
+			children = (
+				B92EBF441B1622C80095C5BA /* .gitattributes */,
+				B92EBF451B1622C80095C5BA /* .gitignore */,
+				B92EBF461B1622C80095C5BA /* readme.md */,
+				B92EBF471B1622C80095C5BA /* src */,
+			);
+			path = ofxMask;
+			sourceTree = "<group>";
+		};
+		B92EBF471B1622C80095C5BA /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B92EBF481B1622C80095C5BA /* ofxMask.cpp */,
+				B92EBF491B1622C80095C5BA /* ofxMask.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		B99D6F9C1B0FE229007BD475 /* gameElements */ = {
 			isa = PBXGroup;
 			children = (
@@ -302,6 +331,7 @@
 		BB16F26B0F2B646B00518274 /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				B92EBF431B1622C80095C5BA /* ofxMask */,
 				B9BF438F1B108F14009EAE5C /* ofxXmlSettings */,
 				B91F316B1AFFE24600016819 /* ofxNetwork */,
 			);
@@ -424,7 +454,9 @@
 				B9BF43B91B10D4D9009EAE5C /* mySettings.xml in Resources */,
 				E41D3EE613B3906D00A75A5D /* CoreOF.xcconfig in Resources */,
 				678E130817951530005B6D19 /* Icon@2x.png in Resources */,
+				B92EBF4B1B1622C80095C5BA /* .gitignore in Resources */,
 				B91F31791AFFE24600016819 /* Instructions.txt in Resources */,
+				B92EBF4A1B1622C80095C5BA /* .gitattributes in Resources */,
 				678E130A17951536005B6D19 /* Icon.png in Resources */,
 				678E130C1795153C005B6D19 /* Default.png in Resources */,
 				678E130E17951540005B6D19 /* Default@2x.png in Resources */,
@@ -458,6 +490,7 @@
 				B91F317C1AFFE24600016819 /* ofxTCPServer.cpp in Sources */,
 				B9BF439B1B108F14009EAE5C /* ofxXmlSettings.cpp in Sources */,
 				B993E5AB1AFC004C00FA2887 /* Wave.cpp in Sources */,
+				B92EBF4D1B1622C80095C5BA /* ofxMask.cpp in Sources */,
 				B9BF43B51B10BBE3009EAE5C /* Game.cpp in Sources */,
 				B91F317B1AFFE24600016819 /* ofxTCPManager.cpp in Sources */,
 				B91F317D1AFFE24600016819 /* ofxUDPManager.cpp in Sources */,
@@ -470,6 +503,7 @@
 				B993E5A81AFBF1A700FA2887 /* Particle.cpp in Sources */,
 				B9BF43991B108F14009EAE5C /* tinyxmlerror.cpp in Sources */,
 				B9BF439A1B108F14009EAE5C /* tinyxmlparser.cpp in Sources */,
+				B92EBF4C1B1622C80095C5BA /* readme.md in Sources */,
 				E4D8936F11527B74007E1F53 /* ofApp.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

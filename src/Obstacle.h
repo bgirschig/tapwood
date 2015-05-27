@@ -20,6 +20,7 @@ class Obstacle {
     ElementKind kind;
     bool valid;
     
+    
     // public functions
     bool collisionCheck(ofVec2f pt1, ofVec2f pt2, ofVec2f pt3, ofVec2f pt4);
     void collided();

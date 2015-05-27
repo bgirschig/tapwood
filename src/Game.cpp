@@ -3,7 +3,7 @@
 
 Game::Game(){}
 void Game::init(){
-    currentLevel = 1;
+    currentLevel = 0;
     
     XML.loadFile("mySettings.xml");
 
@@ -20,23 +20,34 @@ void Game::init(){
         }
         XML.popTag();
     }
+    font.loadFont("AvenirNext-UltraLight.ttf", 100);
+    testImage.loadImage("Default.png");
 }
 void Game::tap(float x, float y){
     waves.push_back(Wave(x, y, 200, 200));
 }
 
 void Game::update(){
-    // Update each wave
-    int s = waves.size();
-    for(int i=0;i<s;i++){
-        if(!waves[i].alive){waves.erase(waves.begin()+i); s--;}
-        else waves[i].update(levels[currentLevel].points);
-        
+    if(currentLevel<levels.size()){
+        // Update each wave
+        int s = waves.size();
+        for(int i=0;i<s;i++){
+            if(!waves[i].alive){waves.erase(waves.begin()+i); s--;}
+            else waves[i].update(levels[currentLevel].points);
+        }
         levels[currentLevel].update();
-        if(levels[currentLevel].completed) currentLevel ++;
+        if(levels[currentLevel].completed && currentLevel<levels.size()) currentLevel ++;
     }
 }
 void Game::draw(){
-    for(Wave &w : waves) w.draw();
-    for (int i=0; i<levels[currentLevel].points.size(); i++) levels[currentLevel].points[i]->draw();
+    if(currentLevel<levels.size()){
+        for(Wave &w : waves) w.draw();
+       
+        levels[currentLevel].draw();
+    }
+    else{
+        ofSetColor(255);
+        ofRectangle bounds = font.getStringBoundingBox("YOU WON!", 0, 0);
+        font.drawString("YOU WON !!", (ofGetWidth()-bounds.width)/2 , (ofGetHeight()-bounds.height)/2);
+    }
 }

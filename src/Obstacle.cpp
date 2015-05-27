@@ -49,7 +49,7 @@ void Obstacle::draw(){
             
             if(hasCollided){
                 if(secondaryAnim <= 17) secondaryAnim += (18-secondaryAnim)/(secondaryAnim+4);
-                else valid = true;
+                if(secondaryAnim > 17) valid = true;
                 
                 ofFill();
                 ofCircle(pos.x, pos.y, secondaryAnim);
