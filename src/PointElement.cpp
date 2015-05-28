@@ -58,12 +58,11 @@ void PointElement::draw(float opacity){
                 ofCircle(pos.x, pos.y, secondaryAnim);
             }
         }
-        
     }
     glLineWidth(0);
 }
+
 void PointElement::collided(){
     hasCollided = true;
-//    if(kind==DESTROYER_ELEMENT) cout<<"obst";
-    if(kind==TARGET_ELEMENT && !hasCollided) secondaryAnim = 0;
+    if(kind==TARGET_ELEMENT && !hasCollided) secondaryAnim = 0; // start validation animation
 }

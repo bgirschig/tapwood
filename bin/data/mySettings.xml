@@ -4,13 +4,21 @@
     <level>
         <name>intro</name>
         <point>
-            <kind>DESTROYER_ELEMENT</kind>
-            <pos> <x>100</x> <y>100</y>
+            <kind>TARGET_ELEMENT</kind>
+            <pos> <x>1024</x> <y>768</y>
             </pos>
         </point>
         <point>
-            <kind>TARGET_ELEMENT</kind>
-            <pos> <x>200</x> <y>100</y> </pos>
+            <kind>DESTROYER_ELEMENT</kind>
+            <pos> <x>724</x> <y>568</y> </pos>
+        </point>
+        <point>
+            <kind>DESTROYER_ELEMENT</kind>
+            <pos> <x>1324</x> <y>568</y> </pos>
+        </point>
+        <point>
+            <kind>DESTROYER_ELEMENT</kind>
+            <pos> <x>1024</x> <y>1000</y> </pos>
         </point>
     </level>
     <level>
