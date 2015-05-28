@@ -3,9 +3,9 @@
 //default constructor
 Wave::Wave(){ }
 
-Wave::Wave(float x, float y, float _force, int _resolution){
-    force = _force;
-    resolution = _resolution;
+Wave::Wave(float x, float y){
+    force = 1;
+    resolution = 200;
     speed = 1;
     alive = true;
     blackHole = NULL;
@@ -24,7 +24,7 @@ Wave::Wave(float x, float y, float _force, int _resolution){
     }
 }
 
-void Wave::update(vector<Obstacle *>& obstacles){
+void Wave::update(vector<Obstacle *>& obstacles, float opacity){
     
     int s = mesh.getNumVertices();
     int os = obstacles.size();
@@ -46,7 +46,6 @@ void Wave::update(vector<Obstacle *>& obstacles){
                    )){
                     obstacles[j]->collided();
                     if(obstacles[j]->kind == DESTROYER_OBSTACLE) blackHole = obstacles[j];  // DESTROYER_OBSTACLE -> destroy wave on collision
-                    else alive = false;
                 }
             }
         }
@@ -54,12 +53,16 @@ void Wave::update(vector<Obstacle *>& obstacles){
         
         else{
             mesh.setVertex(i, particles[i].position);               // update 'mesh vertice' to particle position
-            // mesh.setColor(i, ofColor(255,speed*255));            // set particle opacity (for fade out effects)
+             mesh.setColor(i, ofColor(255,opacity*force*255));              // set particle opacity (for fade out effects)
         }
 
        
     }
     if(s==0) alive = false; // kill wave if there are no particles.
+    if(fadeout){
+        force -= force/10;
+        speed -= speed/10;
+    }
 }
 
 void Wave::draw(){

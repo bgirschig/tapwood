@@ -6,7 +6,6 @@
 #include "Wave.h"
 #include "Obstacle.h"
 #include "ofxXmlSettings.h"
-#include "ofxMask.h"
 
 class Game{
 public:
@@ -21,10 +20,7 @@ public:
     void tap(float x, float y);
     
     ofxXmlSettings XML;
-    ofxMask mask;
-    ofImage testImage;
-    
+    float transitionTimer;
 private:
     int currentLevel;
-    ofTrueTypeFont font;
 };

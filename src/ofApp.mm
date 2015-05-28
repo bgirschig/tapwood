@@ -6,13 +6,13 @@ void ofApp::setup(){
 //  ofSetBackgroundAuto(false);
 //  ofSetFrameRate(10);
     
-    initServer();
+    if(connect) initServer();
     game.init();
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    serverConnection.update();
+    if(connect) serverConnection.update();
     
     // orientation fix
     if(ofxiOSGetGLView().frame.origin.x != 0 || ofxiOSGetGLView().frame.size.width != [[UIScreen mainScreen] bounds].size.width){
@@ -24,18 +24,19 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-
-    ofSetColor(255, 80, 100); ofFill();
-    ofCircle(testPos.x, testPos.y, 10);
-//    serverConnection.drawInterface();
-    ofDrawBitmapString(ofToString(ofGetFrameRate())+"fps", 10, 15);
+    if(debug){
+        ofSetColor(255, 80, 100); ofFill();
+        ofCircle(testPos.x, testPos.y, 10);
+    }
+    if(connect && serverInterface) serverConnection.drawInterface();
+    if(debug){ofSetColor(255);ofDrawBitmapString(ofToString(ofGetFrameRate())+"fps", 10, 15);}
     game.draw();
 }
 
 void ofApp::exit(){}
 
 void ofApp::touchDown(ofTouchEventArgs & touch){
-    if(serverConnection.Connected) serverConnection.send("screenTap");
+    if(connect && serverConnection.Connected) serverConnection.send("screenTap");
     game.tap(touch.x, touch.y);
 }
 

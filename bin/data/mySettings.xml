@@ -16,7 +16,7 @@
     <level>
         <name>exposition</name>
         <point>
-            <kind>DESTROYER_OBSTACLE</kind>
+            <kind>TARGET_OBSTACLE</kind>
             <pos> <x>700</x> <y>700</y></pos>
         </point>
         <point>
@@ -24,7 +24,7 @@
             <pos> <x>700</x> <y>300</y> </pos>
         </point>
         <point>
-            <kind>TARGET_OBSTACLE</kind>
+            <kind>DESTROYER_OBSTACLE</kind>
             <pos> <x>700</x> <y>500</y> </pos>
         </point>
     </level>

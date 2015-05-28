@@ -6,6 +6,9 @@ Obstacle::Obstacle(){}
 Obstacle::Obstacle(ofVec2f position, ElementKind type){
     pos = position;
     kind = type;
+    reset();
+}
+void Obstacle::reset(){
     animation = -1;
     secondaryAnim = -1;
     scale = 10;
@@ -25,16 +28,16 @@ bool Obstacle::collisionCheck(ofVec2f pt1, ofVec2f pt2, ofVec2f pt3, ofVec2f pt4
     return true;
 }
 
-void Obstacle::draw(){
+void Obstacle::draw(float opacity){
     ofNoFill(); ofSetLineWidth(3);
     
     if(kind==DESTROYER_OBSTACLE){
         animation = (animation+1) % 60;
         
-        ofSetColor(255, 4*animation-1);
+        ofSetColor(255, opacity*4*animation-1);
         ofCircle(pos.x, pos.y, 30-(animation*0.5));
         
-        ofSetColor(255, 4*((animation<30)? (animation+30): (animation-30))-1);
+        ofSetColor(255, opacity*4*((animation<30)? (animation+30): (animation-30))-1);
         ofCircle(pos.x, pos.y, (animation<30)?15-(animation*0.5):45-(animation*0.5));
     }
     else if(kind==TARGET_OBSTACLE){
@@ -44,7 +47,7 @@ void Obstacle::draw(){
                 if(animation>=120) animation = 0;
             }
             
-            ofSetColor(255);
+            ofSetColor(255, 255*opacity);
             ofCircle(pos.x, pos.y, 15+sin((animation*TWO_PI)/120)*3);
             
             if(hasCollided){

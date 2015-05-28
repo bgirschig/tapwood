@@ -19,12 +19,13 @@ class Obstacle {
     ofVec2f pos;
     ElementKind kind;
     bool valid;
-    
+    bool hasCollided;
     
     // public functions
     bool collisionCheck(ofVec2f pt1, ofVec2f pt2, ofVec2f pt3, ofVec2f pt4);
     void collided();
-    void draw();
+    void draw(float opacity);
+    void reset();
     
     private:
     int getSide(ofVec2f a, ofVec2f b);          // collision detection utils
@@ -33,5 +34,4 @@ class Obstacle {
     int animation;
     float secondaryAnim;
     float scale;
-    bool hasCollided;
 };
