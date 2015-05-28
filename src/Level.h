@@ -1,7 +1,7 @@
 #pragma once
 #include <stdio.h>
 #include "ofMain.h"
-#include "Obstacle.h"
+#include "PointElement.h"
 
 class Level{
 public:
@@ -14,7 +14,7 @@ public:
     void addPoint(float x, float y, ElementKind kind);
     void addPoint(float x, float y, string kind);
     string name;
-    vector<Obstacle *> points;
+    vector<PointElement *> points;
     bool completed, intro;
     float transitionAnimation;
     int specialLevel;

@@ -1,14 +1,14 @@
-#include "Obstacle.h"
+#include "PointElement.h"
 
 
 
-Obstacle::Obstacle(){}
-Obstacle::Obstacle(ofVec2f position, ElementKind type){
+PointElement::PointElement(){}
+PointElement::PointElement(ofVec2f position, ElementKind type){
     pos = position;
     kind = type;
     reset();
 }
-void Obstacle::reset(){
+void PointElement::reset(){
     animation = -1;
     secondaryAnim = -1;
     scale = 10;
@@ -16,7 +16,7 @@ void Obstacle::reset(){
     valid = false;
 }
 
-bool Obstacle::collisionCheck(ofVec2f pt1, ofVec2f pt2, ofVec2f pt3, ofVec2f pt4){
+bool PointElement::collisionCheck(ofVec2f pt1, ofVec2f pt2, ofVec2f pt3, ofVec2f pt4){
     // bounding box collision check
     if((pos.x<pt1.x && pos.x<pt2.x && pos.x<pt3.x && pos.x<pt4.x) ||
        (pos.x>pt1.x && pos.x>pt2.x && pos.x>pt3.x && pos.x>pt4.x) ||
@@ -28,10 +28,10 @@ bool Obstacle::collisionCheck(ofVec2f pt1, ofVec2f pt2, ofVec2f pt3, ofVec2f pt4
     return true;
 }
 
-void Obstacle::draw(float opacity){
+void PointElement::draw(float opacity){
     ofNoFill(); ofSetLineWidth(3);
     
-    if(kind==DESTROYER_OBSTACLE){
+    if(kind==DESTROYER_ELEMENT){
         animation = (animation+1) % 60;
         
         ofSetColor(255, opacity*4*animation-1);
@@ -40,7 +40,7 @@ void Obstacle::draw(float opacity){
         ofSetColor(255, opacity*4*((animation<30)? (animation+30): (animation-30))-1);
         ofCircle(pos.x, pos.y, (animation<30)?15-(animation*0.5):45-(animation*0.5));
     }
-    else if(kind==TARGET_OBSTACLE){
+    else if(kind==TARGET_ELEMENT){
         if(animation<120){
             if(secondaryAnim < 17){
                 animation ++;
@@ -62,8 +62,8 @@ void Obstacle::draw(float opacity){
     }
     glLineWidth(0);
 }
-void Obstacle::collided(){
+void PointElement::collided(){
     hasCollided = true;
-//    if(kind==DESTROYER_OBSTACLE) cout<<"obst";
-    if(kind==TARGET_OBSTACLE && !hasCollided) secondaryAnim = 0;
+//    if(kind==DESTROYER_ELEMENT) cout<<"obst";
+    if(kind==TARGET_ELEMENT && !hasCollided) secondaryAnim = 0;
 }

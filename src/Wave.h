@@ -4,7 +4,7 @@
 
 #include "ofMain.h"
 #include "Particle.h"
-#include "Obstacle.h"
+#include "PointElement.h"
 
 class Wave {
     public:
@@ -15,7 +15,7 @@ class Wave {
     
     // methods
     void test();
-    void update(vector<Obstacle *>& obstacles, float opacity);
+    void update(vector<PointElement *>& elements, float opacity);
     void draw();
     
     vector<Particle> particles;
@@ -23,7 +23,7 @@ class Wave {
     bool randomise = false;
     bool alive = false;
     bool fadeout = false;
-    Obstacle * blackHole;
+    PointElement * blackHole;
     float force;
     
     private:

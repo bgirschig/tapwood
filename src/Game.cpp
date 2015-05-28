@@ -8,7 +8,7 @@ void Game::init(){
     // first 'level'
     Level first = Level("start");
     first.specialLevel = 0;
-    first.addPoint(ofGetHeight()/2, ofGetWidth()/2+100, TARGET_OBSTACLE); // restart button
+    first.addPoint(ofGetHeight()/2, ofGetWidth()/2+100, TARGET_ELEMENT); // restart button
     levels.push_back(first);
     
     // load levels
@@ -27,7 +27,7 @@ void Game::init(){
     // last 'level'
     Level last = Level("you won");
     last.specialLevel = 1;
-    last.addPoint(ofGetHeight()/2, ofGetWidth()/2+100, TARGET_OBSTACLE); // restart button
+    last.addPoint(ofGetHeight()/2, ofGetWidth()/2+100, TARGET_ELEMENT); // restart button
     levels.push_back(last);
     
     // inits

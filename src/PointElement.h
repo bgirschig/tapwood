@@ -4,16 +4,16 @@
 #include "ofMain.h"
 
 enum ElementKind{
-    DESTROYER_OBSTACLE,
-    TARGET_OBSTACLE
+    DESTROYER_ELEMENT,
+TARGET_ELEMENT
 };
 
-class Obstacle {
+class PointElement {
     public:
     
     // constructors
-    Obstacle();
-    Obstacle(ofVec2f position, ElementKind type);
+    PointElement();
+    PointElement(ofVec2f position, ElementKind type);
 
     // public vars
     ofVec2f pos;

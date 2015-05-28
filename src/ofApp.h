@@ -9,7 +9,7 @@
 #include "ofxiOS.h"
 #include "ofxiOSExtras.h"
 #include "connection.h"
-#include "Obstacle.h"
+#include "PointElement.h"
 #include "Game.h"
 
 class ofApp : public ofxiOSApp {

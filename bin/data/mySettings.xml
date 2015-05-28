@@ -4,27 +4,27 @@
     <level>
         <name>intro</name>
         <point>
-            <kind>DESTROYER_OBSTACLE</kind>
+            <kind>DESTROYER_ELEMENT</kind>
             <pos> <x>100</x> <y>100</y>
             </pos>
         </point>
         <point>
-            <kind>TARGET_OBSTACLE</kind>
+            <kind>TARGET_ELEMENT</kind>
             <pos> <x>200</x> <y>100</y> </pos>
         </point>
     </level>
     <level>
         <name>exposition</name>
         <point>
-            <kind>TARGET_OBSTACLE</kind>
+            <kind>TARGET_ELEMENT</kind>
             <pos> <x>700</x> <y>700</y></pos>
         </point>
         <point>
-            <kind>TARGET_OBSTACLE</kind>
+            <kind>TARGET_ELEMENT</kind>
             <pos> <x>700</x> <y>300</y> </pos>
         </point>
         <point>
-            <kind>DESTROYER_OBSTACLE</kind>
+            <kind>DESTROYER_ELEMENT</kind>
             <pos> <x>700</x> <y>500</y> </pos>
         </point>
     </level>

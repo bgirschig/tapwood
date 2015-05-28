@@ -24,10 +24,10 @@ Wave::Wave(float x, float y){
     }
 }
 
-void Wave::update(vector<Obstacle *>& obstacles, float opacity){
+void Wave::update(vector<PointElement *>& elements, float opacity){
     
     int s = mesh.getNumVertices();
-    int os = obstacles.size();
+    int os = elements.size();
     for (int i=0; i<s; i++) {
 
         // black hole deletion
@@ -38,14 +38,14 @@ void Wave::update(vector<Obstacle *>& obstacles, float opacity){
         else{
             particles[i].update(speed);                                              // update particle position
             for (int j=0; j < os; j++) {
-                if(obstacles[j]->collisionCheck(                                     // (bounding box) collision check
+                if(elements[j]->collisionCheck(                                     // (bounding box) collision check
                    particles[i].position,
                    particles[(i+1)%s].position,
                    particles[(i+1)%s].pPosition,
                    particles[i].pPosition
                    )){
-                    obstacles[j]->collided();
-                    if(obstacles[j]->kind == DESTROYER_OBSTACLE) blackHole = obstacles[j];  // DESTROYER_OBSTACLE -> destroy wave on collision
+                    elements[j]->collided();
+                    if(elements[j]->kind == DESTROYER_ELEMENT) blackHole = elements[j];  // DESTROYER_ELEMENT -> destroy wave on collision
                 }
             }
         }

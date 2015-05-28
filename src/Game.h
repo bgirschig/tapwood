@@ -4,7 +4,7 @@
 #include "ofMain.h"
 #include "Level.h"
 #include "Wave.h"
-#include "Obstacle.h"
+#include "PointElement.h"
 #include "ofxXmlSettings.h"
 
 class Game{
@@ -13,7 +13,7 @@ public:
     void init();
     vector<Level> levels;
     vector<Wave> waves;
-    vector<Obstacle *> obstacles;
+    vector<PointElement *> elements;
     
     void update();
     void draw();
