@@ -1,6 +1,4 @@
 #include "Wave.h"
-#define WINDOW_W 1500
-#define WINDOW_H 1000
 
 //default constructor
 Wave::Wave(){ }
@@ -11,6 +9,8 @@ Wave::Wave(float x, float y){
     speed = 1;
     alive = true;
     blackHole = NULL;
+    screenW = ofGetScreenWidth();
+    screenH = ofGetScreenHeight();
     
 //    mesh.setMode(OF_PRIMITIVE_LINE_LOOP);
 //    mesh.setMode(OF_PRIMITIVE_LINES);
@@ -38,19 +38,19 @@ bool Wave::rayIntersects(int x, int y, float angle){
     
     // intersection with left side of rect
     px = 0; py = (a*px)+b;
-    if( ( py < WINDOW_H ) && ( py > 0 ) && (x-px)*side<0) return true;
+    if( ( py < screenH ) && ( py > 0 ) && (x-px)*side<0) return true;
 
     // intersection with right side of rect
-    px = WINDOW_W; py = (a*px)+b;
-    if( ( py < WINDOW_H ) && ( py > 0 ) && (x-px)*side<0) return true;
+    px = screenW; py = (a*px)+b;
+    if( ( py < screenH ) && ( py > 0 ) && (x-px)*side<0) return true;
     
     // intersection with bottom side of rect
-    py = WINDOW_H; px = (py-b)/a;
-    if( (px>0) && (px<WINDOW_W) && (y-py)*side*a<0) return true;
+    py = screenH; px = (py-b)/a;
+    if( (px>0) && (px<screenW) && (y-py)*side*a<0) return true;
 
     // intersection with top side of rect
     py = 0; px = (py-b)/a;
-    if( (px>0) && (px<WINDOW_W) && (y-py)*side*a<0) return true;
+    if( (px>0) && (px<screenW) && (y-py)*side*a<0) return true;
 //
     return false;
 };
@@ -68,7 +68,16 @@ void Wave::update(vector<PointElement *>& elements, float opacity){
         }
         else{
             particles[i].update(speed);                                                // update particle position
-            if(i<s-1){                                                                 // do not check edge points to avoid 'wrap' bugs.
+            
+            if((particles[i].speed.x>0 && particles[i].position.x > screenW+20)||     // FIXME: the '+20' / '-20' thing is a quick fix for a bug (animation problem on edge). Fix the bug instead.
+               (particles[i].speed.y>0 && particles[i].position.y > screenH+20)||
+               (particles[i].speed.x<0 && particles[i].position.x < -20)||
+               (particles[i].speed.y<0 && particles[i].position.y < -20)){
+                    // particle is going away from the screen
+                    particles[i].alive = false;
+                }
+            // check collisions with point elements
+            else if(i<s-1){                                                            // do not check edge points to avoid 'wrap' bugs.
                 for (int j=0; j < os; j++) {
                     if(elements[j]->collisionCheck(                                    // (bounding box) collision check
                        particles[i].position,
@@ -82,11 +91,10 @@ void Wave::update(vector<PointElement *>& elements, float opacity){
                 }
             }
         }
-        if (!particles[i].alive){ killParticle(i); s--; }           // kill particle if needed (and update the loop limit consequently)
-        
+        if (!particles[i].alive){ killParticle(i); s--; }           // kill particle if needed (and update the loop limit to match)
         else{
             mesh.setVertex(i, particles[i].position);               // update 'mesh vertice' to particle position
-             mesh.setColor(i, ofColor(255,opacity*force*255));              // set particle opacity (for fade out effects)
+            mesh.setColor(i, ofColor(255,opacity*force*255));              // set particle opacity (for fade out effects)
         }
 
        
@@ -100,7 +108,7 @@ void Wave::update(vector<PointElement *>& elements, float opacity){
 
 void Wave::draw(){
     ofSetColor(255);
-    ofRect(0, 0, WINDOW_W, WINDOW_H);
+//    ofRect(0, 0, screenW, screenH);
     glPointSize(3);
     mesh.draw();
     glPointSize(1);

@@ -32,4 +32,5 @@ class Wave {
     ofMesh mesh;
     void killParticle(int index);
     bool rayIntersects(int x, int y, float angle);
+    int screenW, screenH;
 };
