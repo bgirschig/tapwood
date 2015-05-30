@@ -20,7 +20,7 @@ class connection{
     ofEvent<string> deviceEvent;
     ofEvent<string> dataEvent;
     bool Connected;
-    
+
     private:
     int msgCount;
     int connectTime;

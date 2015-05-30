@@ -8,6 +8,7 @@ class LineElement {
 public:
     ofVec2f pt1;
     ofVec2f pt2;
+    void draw();
 private:
     
 };

@@ -6,6 +6,12 @@ void ofApp::setup(){
 //  ofSetBackgroundAuto(false);
 //  ofSetFrameRate(10);
     
+    // settings
+    connect = true;
+    debug = false;
+    serverInterface = true;
+    cmToPx = 104;
+    
     if(connect) initServer();
     game.init();
 }
@@ -36,7 +42,7 @@ void ofApp::draw(){
 void ofApp::exit(){}
 
 void ofApp::touchDown(ofTouchEventArgs & touch){
-    if(connect && serverConnection.Connected) serverConnection.send("screenTap");
+//    if(connect && serverConnection.Connected) serverConnection.send("screenTap");
     game.tap(touch.x, touch.y);
 }
 
@@ -52,7 +58,7 @@ void ofApp::deviceOrientationChanged(int newOrientation){}
 void ofApp::initServer(){
     serverConnection.setup("192.168.0.101", 11999);  // home
 //    serverConnection.setup("10.192.250.112", 11999); // ecal
-//    serverConnection.setup("192.168.1.119", 11999);  // ?
+//    serverConnection.setup("10.206.104.38", 11999);  // LAB
 //    serverConnection.setup("192.168.0.11", 11999);   // camille
     ofAddListener(serverConnection.serverEvent, this, &ofApp::onServerEvent);
     ofAddListener(serverConnection.deviceEvent, this, &ofApp::onDeviceEvent);
@@ -67,8 +73,8 @@ void ofApp::onDeviceEvent(string & e){
 void ofApp::onDataEvent(string &e){ 
     vector<string> data = ofSplitString(e, ",");
 
-    testPos.set(ofToInt(data[0]), ofToInt(data[1]));
-    game.tap(ofToInt(data[0]), ofToInt(data[1]));
+    testPos.set(ofToInt(data[0])*cmToPx, ofToInt(data[1])*cmToPx);
+    game.tap(ofToInt(data[0])*cmToPx, ofToInt(data[1])*cmToPx);
 }
 void split(const string& s, char c, vector<string>& v) {
     string::size_type i = 0;

@@ -44,9 +44,10 @@ class ofApp : public ofxiOSApp {
         void split(const string& s, char c, vector<string>& v);
     
         //settings
-        bool connect = false;
-        bool serverInterface = false;
-        bool debug = false;
+        bool connect;
+        bool serverInterface;
+        bool debug;
+        int cmToPx;
 };
 
 
