@@ -7,7 +7,7 @@ void ofApp::setup(){
 //  ofSetFrameRate(10);
     
     // settings
-    connect = true;
+    connect = false;
     debug = false;
     serverInterface = true;
     cmToPx = 104;

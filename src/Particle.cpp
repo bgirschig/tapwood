@@ -2,15 +2,16 @@
 
 #include "Wave.h"
 
-Particle::Particle(int & _index, float _x, float _y, double direction, float _speed)
+Particle::Particle(float _x, float _y, double direction, float _speed)
 {
     position.set(_x, _y);
     pPosition.set(_x,_y);
-    speed.set(cos(direction)*_speed,sin(direction)*_speed);
+    speed.set(cos(direction)*_speed, sin(direction)*_speed);
     
     alive = true;
     killWave = false;
     isNextKilled = false;
+    isEdge = false;
 }
 
 void Particle::update(float _speed){
