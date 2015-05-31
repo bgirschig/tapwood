@@ -40,11 +40,11 @@
         <name>empty</name>
         <point>
             <kind>TARGET_ELEMENT</kind>
-            <pos> <x>5</x> <y>5</y></pos>
+            <pos> <x>-100</x> <y>-100</y></pos>
         </point>
         <point>
             <kind>DESTROYER_ELEMENT</kind>
-            <pos> <x>50</x> <y>50</y></pos>
+            <pos> <x>100</x> <y>100</y></pos>
         </point>
     </level>
 </levels>

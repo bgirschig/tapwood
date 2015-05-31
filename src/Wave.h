@@ -26,6 +26,7 @@ class Wave {
     bool fadeout = false;
     PointElement * blackHole;
     float force;
+    double pitch;
     
     private:
     float speed;

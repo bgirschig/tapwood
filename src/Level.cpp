@@ -8,7 +8,7 @@ Level::Level(string _name){
     targetCount = 0;
     specialLevel = -1; // false by default
     reset();
-    lines.push_back( new LineElement(ofVec2f(100, 100), ofVec2f(400,40)) );
+    lines.push_back( new LineElement(ofVec2f(400, 400), ofVec2f(600,700)) );
 }
 
 void Level::reset(){
