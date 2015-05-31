@@ -17,26 +17,11 @@ Particle::Particle(float _x, float _y, double direction, float _speed)
 void Particle::update(float _speed){
     pPosition = position;
     position+=speed*_speed;
-    
-    // bounce
-    // ?
-
-    // kill
-//    if(position.x<0 || position.x>ofGetWidth() || position.y<0 || position.y>ofGetHeight()) alive = false;
-    
-    // killWave
-    // if(position.x>ofGetWidth()/2) killWave=true;
-}
-void Particle::debugDraw(){
-    if(killWave) ofSetColor(255,0,0);
-    else ofSetColor(255);
-    ofCircle(position.x, position.y+5, 2);
-    ofSetColor(255);
 }
 
-void Particle::lineBounce(LineElement *l){
-    float a = speed.y/speed.x;
-    float b = position.y-(a*position.x);
+bool Particle::lineBounce(LineElement *l){
+    float a = speed.y/speed.x;                  // OPTIM: only update when direction changes (already calculated on creation by Wave::rayIntersects())
+    float b = position.y-(a*position.x);        // idem
     float intersectX = (l->b - b) / (a - l->a);
     float intersectY = (l->a * intersectX)+l->b;
     if(
@@ -47,5 +32,7 @@ void Particle::lineBounce(LineElement *l){
        ){
         float dot = (speed.x*l->normal.x)+(speed.y*l->normal.y);
         speed.set((speed.x-(2*dot*l->normal.x))*l->dampening, (speed.y-(2*dot*l->normal.y))*l->dampening);
+        return true;
     }
+    return false;
 }

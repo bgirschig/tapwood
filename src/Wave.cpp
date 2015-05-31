@@ -9,8 +9,8 @@ Wave::Wave(float x, float y){
     speed = 1;
     alive = true;
     blackHole = NULL;
-    screenW = ofGetScreenWidth();
-    screenH = ofGetScreenHeight();
+    screenW = ofGetScreenWidth()/2;
+    screenH = ofGetScreenHeight()/2;
     
 //    mesh.setMode(OF_PRIMITIVE_LINE_LOOP);
 //    mesh.setMode(OF_PRIMITIVE_LINES);
@@ -80,6 +80,8 @@ void Wave::update(vector<PointElement *>& points, vector<LineElement *>& lines, 
                (particles[i].speed.y<0 && particles[i].position.y < -20)){
                     particles[i].alive = false;
                 }
+
+            // alive and well particles...
             else{
                 // check collisions with point elements
                 for (int j=0; j < pc; j++) {
@@ -100,12 +102,22 @@ void Wave::update(vector<PointElement *>& points, vector<LineElement *>& lines, 
                 }
                 // check line elements
                 for (int l=0; l < lc; l++) particles[i].lineBounce(lines[l]);
+                
+                if(
+                particles[i].speed.angle(particles[(i+1)%vc].speed) > 1
+                || particles[i].position.distance(particles[(i+1)%vc].position) > 100
+                || i==0
+                || i==vc
+                ) particles[i].isEdge = true;
+                else particles[i].isEdge = false;
             }
+            
         }
         if (!particles[i].alive){ killParticle(i); vc--; }           // kill particle if needed (and update the loop limit to match)
         else{
             mesh.setVertex(i, particles[i].position);               // update 'mesh vertice' to particle position
-            mesh.setColor(i, ofColor(255,opacity*force*255));              // set particle opacity (for fade out effects)
+            if(particles[i].isEdge)mesh.setColor(i, ofColor(255,0,0,opacity*force*255));
+            else mesh.setColor(i, ofColor(255,opacity*force*255));       // set particle opacity (for fade out effects)
         }
 
        
@@ -119,7 +131,7 @@ void Wave::update(vector<PointElement *>& points, vector<LineElement *>& lines, 
 
 void Wave::draw(){
     ofSetColor(255);
-//    ofRect(0, 0, screenW, screenH);
+    ofRect(0, 0, screenW, screenH);
     glPointSize(3);
     mesh.draw();
     glPointSize(1);

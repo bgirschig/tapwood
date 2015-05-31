@@ -21,7 +21,6 @@ class Particle
     
     // methods
     void update(float speed);
-    void debugDraw();
-    void lineBounce(LineElement *l);
+    bool lineBounce(LineElement *l);
     void setEquation();
 };

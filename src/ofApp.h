@@ -3,6 +3,13 @@
  pb: mesh's drawVertices() does not seem to be able to draw more than 1px -> too small
 */
 
+/*
+flags:
+    FIXME: ...
+    OPTIM: ...
+    TODO: ...
+*/
+
 #pragma once
 
 #include "ofMain.h"
