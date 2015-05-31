@@ -3,6 +3,7 @@
 #include <stdio.h>
 
 #include "ofMain.h"
+#include "LineElement.h"
 
 class Particle
 {
@@ -21,4 +22,6 @@ class Particle
     // methods
     void update(float speed);
     void debugDraw();
+    void lineBounce(LineElement *l);
+    void setEquation();
 };

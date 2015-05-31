@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include "ofMain.h"
 #include "PointElement.h"
+#include "LineElement.h"
+
 
 class Level{
 public:
@@ -15,6 +17,8 @@ public:
     void addPoint(float x, float y, string kind);
     string name;
     vector<PointElement *> points;
+    vector<LineElement *> lines;
+
     bool completed, intro;
     float transitionAnimation;
     int specialLevel;

@@ -43,7 +43,7 @@ void Game::update(){
         int waveCount = waves.size();
         for(int i=0;i<waveCount;i++){
             if(!waves[i].alive || waves[i].force < 0.3){waves.erase(waves.begin()+i); waveCount--;}
-            else waves[i].update(levels[currentLevel].points, 1-transitionTimer);
+            else waves[i].update(levels[currentLevel].points, levels[currentLevel].lines, 1-transitionTimer);
             if( levels[currentLevel].completed ) waves[i].fadeout = true;
         }
         
@@ -71,7 +71,7 @@ void Game::draw(){
     levels[currentLevel].draw(1);
     
     if(levels[currentLevel].completed){    // transition
-        ofSetColor(0,10,30,255*transitionTimer);
+        ofFill();ofSetColor(0,10,30,255*transitionTimer);
         ofRect(0, 0, ofGetWidth(), ofGetHeight());
         
         levels[(currentLevel+1)%levels.size()].draw(transitionTimer);

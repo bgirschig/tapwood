@@ -2,7 +2,7 @@
 
 <levels>
     <level>
-        <name>intro</name>
+        <name>triangle</name>
         <point>
             <kind>TARGET_ELEMENT</kind>
             <pos> <x>1024</x> <y>768</y>
@@ -22,7 +22,7 @@
         </point>
     </level>
     <level>
-        <name>exposition</name>
+        <name>test</name>
         <point>
             <kind>TARGET_ELEMENT</kind>
             <pos> <x>700</x> <y>700</y></pos>
@@ -34,6 +34,17 @@
         <point>
             <kind>DESTROYER_ELEMENT</kind>
             <pos> <x>700</x> <y>500</y> </pos>
+        </point>
+    </level>
+    <level>
+        <name>empty</name>
+        <point>
+            <kind>TARGET_ELEMENT</kind>
+            <pos> <x>5</x> <y>5</y></pos>
+        </point>
+        <point>
+            <kind>DESTROYER_ELEMENT</kind>
+            <pos> <x>50</x> <y>50</y></pos>
         </point>
     </level>
 </levels>

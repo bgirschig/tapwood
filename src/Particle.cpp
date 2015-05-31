@@ -33,3 +33,19 @@ void Particle::debugDraw(){
     ofCircle(position.x, position.y+5, 2);
     ofSetColor(255);
 }
+
+void Particle::lineBounce(LineElement *l){
+    float a = speed.y/speed.x;
+    float b = position.y-(a*position.x);
+    float intersectX = (l->b - b) / (a - l->a);
+    float intersectY = (l->a * intersectX)+l->b;
+    if(
+       l->local.x/(intersectX-l->pt1.x) > 1
+       && l->local.y/(intersectY-l->pt1.y) > 1
+       && abs(speed.x) > abs(intersectX-position.x)
+       && abs(speed.y) > abs(intersectY-position.y)
+       ){
+        float dot = (speed.x*l->normal.x)+(speed.y*l->normal.y);
+        speed.set((speed.x-(2*dot*l->normal.x))*l->dampening, (speed.y-(2*dot*l->normal.y))*l->dampening);
+    }
+}

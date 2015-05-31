@@ -8,6 +8,7 @@ Level::Level(string _name){
     targetCount = 0;
     specialLevel = -1; // false by default
     reset();
+    lines.push_back( new LineElement(ofVec2f(100, 100), ofVec2f(400,40)) );
 }
 
 void Level::reset(){
@@ -36,12 +37,14 @@ void Level::update(){
 
 void Level::draw(float opacity){
     for (int i=0; i<points.size(); i++) points[i]->draw(opacity);
+    for (int i=0; i<lines.size(); i++) lines[i]->draw(opacity);
+        
     if(specialLevel == 0){              // start level
         ofSetColor(255, 255, 255, 255*opacity);
         ofRectangle bounds = smallFont.getStringBoundingBox(restartText, 0, 0);
         smallFont.drawString(beginText, (ofGetWidth()-bounds.width)/2, (ofGetHeight()-bounds.height)/2+70);
     }
-    else if(specialLevel==1){           // you won level
+    else if(specialLevel==1){           // 'you won' level
         ofSetColor(255, 255, 255, 255*opacity);
         
         ofRectangle bounds = bigFont.getStringBoundingBox(wonText, 0, 0);

@@ -5,6 +5,7 @@
 #include "ofMain.h"
 #include "Particle.h"
 #include "PointElement.h"
+#include "LineElement.h"
 
 class Wave {
     public:
@@ -15,7 +16,7 @@ class Wave {
     
     // methods
     void test();
-    void update(vector<PointElement *>& elements, float opacity);
+    void update(vector<PointElement *>& points, vector<LineElement *>& lines, float opacity);
     void draw();
     
     vector<Particle> particles;
