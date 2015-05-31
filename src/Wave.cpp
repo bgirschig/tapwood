@@ -100,14 +100,10 @@ void Wave::update(vector<PointElement *>& points, vector<LineElement *>& lines, 
                 // check line elements
                 for (int l=0; l < lc; l++) particles[i].lineBounce(lines[l]);
                 
-                if(abs(particles[i].speed.angle( particles[(i+1)%vc].speed) - pitch)>1 ||
-                   abs(particles[i].speed.angle( particles[(i>0)?i-1:vc].speed) - pitch)>1){
-                    particles[i].isEdge = true;
-                }
-                else{
-                    particles[i].isEdge = false;
-                    particles[(i+1)%vc].isEdge = false;
-                }
+                // check if particle is edge
+                if(abs(particles[i].speed.angle( particles[(i+1)%vc].speed) - pitch)>1.2 ||
+                   abs(particles[i].speed.angle( particles[(i>0)?i-1:vc].speed) - pitch)>1.2) particles[i].isEdge = true;
+                else particles[i].isEdge = false;
             }
         }
         if (!particles[i].alive){ killParticle(i); vc--; }           // kill particle if needed (and update the loop limit to match)

@@ -4,7 +4,7 @@
 void ofApp::setup(){
     ofBackground(0,10,30);
 //  ofSetBackgroundAuto(false);
-  ofSetFrameRate(20);
+//  ofSetFrameRate(10);
     
     // settings
     connect = false;
