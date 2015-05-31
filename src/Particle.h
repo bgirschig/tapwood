@@ -4,6 +4,7 @@
 
 #include "ofMain.h"
 #include "LineElement.h"
+#include "PointElement.h"
 
 class Particle
 {
@@ -18,6 +19,7 @@ class Particle
     bool killWave;
     bool isNextKilled;
     bool isEdge;
+    PointElement * blackHole;
     
     // methods
     void update(float speed);

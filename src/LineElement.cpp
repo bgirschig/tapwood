@@ -5,7 +5,7 @@ LineElement::LineElement(ofVec2f _point1, ofVec2f _point2){
     pt1 = _point1;
     pt2 = _point2;
     
-    dampening = 0.9;
+    dampening = 1;
     setEquation();
 }
 void LineElement::draw(float opacity){

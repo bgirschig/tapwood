@@ -12,16 +12,25 @@ Particle::Particle(float _x, float _y, double direction, float _speed)
     killWave = false;
     isNextKilled = false;
     isEdge = false;
+
+    blackHole = NULL;
 }
 
 void Particle::update(float _speed){
-    pPosition = position;
-    position+=speed*_speed;
+    if(blackHole != NULL){
+        position += (blackHole->pos - position)/ofRandom(2,20);        // ease to black hole, with some random.
+        if(position.distance(blackHole->pos) < 1) alive = false;       // arrived at blackhole, delete this particle
+    }
+    else{
+        pPosition = position;
+        position+=speed*_speed;
+    }
 }
 
 bool Particle::lineBounce(LineElement *l){
     float a = speed.y/speed.x;                  // OPTIM: only update when direction changes (already calculated on creation by Wave::rayIntersects())
     float b = position.y-(a*position.x);        // idem
+    
     float intersectX = (l->b - b) / (a - l->a);
     float intersectY = (l->a * intersectX)+l->b;
     if(

@@ -24,7 +24,6 @@ class Wave {
     bool randomise = false;
     bool alive = false;
     bool fadeout = false;
-    PointElement * blackHole;
     float force;
     double pitch;
     
