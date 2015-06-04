@@ -36,15 +36,15 @@
             <pos> <x>700</x> <y>500</y> </pos>
         </point>
     </level>
-    <level>
-        <name>empty</name>
-        <point>
-            <kind>TARGET_ELEMENT</kind>
-            <pos> <x>-100</x> <y>-100</y></pos>
-        </point>
-        <point>
-            <kind>DESTROYER_ELEMENT</kind>
-            <pos> <x>100</x> <y>100</y></pos>
-        </point>
-    </level>
+<!--    <level>-->
+<!--        <name>empty</name>-->
+<!--        <point>-->
+<!--            <kind>TARGET_ELEMENT</kind>-->
+<!--            <pos> <x>-100</x> <y>-100</y></pos>-->
+<!--        </point>-->
+<!--        <point>-->
+<!--            <kind>DESTROYER_ELEMENT</kind>-->
+<!--            <pos> <x>100</x> <y>100</y></pos>-->
+<!--        </point>-->
+<!--    </level>-->
 </levels>

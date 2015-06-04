@@ -8,9 +8,10 @@ void ofApp::setup(){
     
     // settings
     connect = false;
-    debug = false;
-    serverInterface = true;
+    debug = true;
+    serverInterface = false;
     cmToPx = 104;
+    cmToPx = 90;
     
     if(connect) initServer();
     game.init();
@@ -56,10 +57,9 @@ void ofApp::gotMemoryWarning(){}
 void ofApp::deviceOrientationChanged(int newOrientation){}
 
 void ofApp::initServer(){
-    serverConnection.setup("192.168.0.101", 11999);  // home
-//    serverConnection.setup("10.192.250.112", 11999); // ecal
-//    serverConnection.setup("10.206.104.38", 11999);  // LAB
-//    serverConnection.setup("192.168.0.11", 11999);   // camille
+    serverConnection.setup("169.254.122.219", 11999);
+    
+
     ofAddListener(serverConnection.serverEvent, this, &ofApp::onServerEvent);
     ofAddListener(serverConnection.deviceEvent, this, &ofApp::onDeviceEvent);
     ofAddListener(serverConnection.dataEvent, this, &ofApp::onDataEvent);
@@ -72,7 +72,6 @@ void ofApp::onDeviceEvent(string & e){
 }
 void ofApp::onDataEvent(string &e){ 
     vector<string> data = ofSplitString(e, ",");
-
     testPos.set(ofToInt(data[0])*cmToPx, ofToInt(data[1])*cmToPx);
     game.tap(ofToInt(data[0])*cmToPx, ofToInt(data[1])*cmToPx);
 }

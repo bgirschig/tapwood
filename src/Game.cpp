@@ -58,7 +58,6 @@ void Game::update(){
                 levels[currentLevel].reset();
                 for(int i=waveCount-1;i>0;i++){
                     waves.erase(waves.begin()+i);
-                    cout << "erase wave" << endl;
                 }
                 currentLevel = (currentLevel+1)%levels.size();
                 transitionTimer = 0;
