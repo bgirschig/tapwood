@@ -19,6 +19,7 @@ public:
     
     ofxXmlSettings XML;
     float transitionTimer;
+    bool active;
 private:
     int currentLevel;
 };

@@ -42,7 +42,7 @@ void Level::draw(float opacity){
     if(specialLevel == 0){              // start level
         ofSetColor(255, 255, 255, 255*opacity);
         ofRectangle bounds = smallFont.getStringBoundingBox(restartText, 0, 0);
-        smallFont.drawString(beginText, (ofGetWidth()-bounds.width)/2, (ofGetHeight()-bounds.height)/2+70);
+        smallFont.drawString(beginText, (ofGetWidth()-bounds.width)/2, (ofGetHeight()-bounds.height)/2);
     }
     else if(specialLevel==1){           // 'you won' level
         ofSetColor(255, 255, 255, 255*opacity);
@@ -51,6 +51,6 @@ void Level::draw(float opacity){
         bigFont.drawString(wonText, (ofGetWidth()-bounds.width)/2 , (ofGetHeight()-bounds.height)/2);
         
         bounds = smallFont.getStringBoundingBox(restartText, 0, 0);
-        smallFont.drawString(restartText, (ofGetWidth()-bounds.width)/2, (ofGetHeight()-bounds.height)/2+70);
+        smallFont.drawString(restartText, (ofGetWidth()-bounds.width)/2, (ofGetHeight()-bounds.height)/2);
     }
 }

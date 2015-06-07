@@ -1,14 +1,17 @@
 #include "Game.h"
 
 
-Game::Game(){}
+Game::Game(){
+    active = false;
+}
+
 void Game::init(){
     currentLevel = 0;
     
     // first 'level'
     Level first = Level("start");
     first.specialLevel = 0;
-    first.addPoint(ofGetHeight()/2, ofGetWidth()/2+100, TARGET_ELEMENT); // restart button
+    first.addPoint(ofGetHeight()/2, ofGetWidth()/2+100, TARGET_ELEMENT); // start button
     levels.push_back(first);
     
     // load levels
@@ -32,13 +35,16 @@ void Game::init(){
     
     // inits
     transitionTimer = 0;
+    active = true;
 }
 void Game::tap(float x, float y){
-    waves.push_back(Wave(x, y));
+    if(active){
+        waves.push_back(Wave(x, y));
+    }
 }
 
 void Game::update(){
-    if(currentLevel<levels.size()){
+    if(currentLevel<levels.size() && active){
         // Update each wave
         int waveCount = waves.size();
         for(int i=0;i<waveCount;i++){
@@ -66,13 +72,15 @@ void Game::update(){
     }
 }
 void Game::draw(){
-    for(Wave &w : waves) w.draw();
-    levels[currentLevel].draw(1);
-    
-    if(levels[currentLevel].completed){    // transition
-        ofFill();ofSetColor(0,10,30,255*transitionTimer);
-        ofRect(0, 0, ofGetWidth(), ofGetHeight());
+    if(active){
+        for(Wave &w : waves) w.draw();
+        levels[currentLevel].draw(1);
         
-        levels[(currentLevel+1)%levels.size()].draw(transitionTimer);
+        if(levels[currentLevel].completed){    // transition
+            ofFill();ofSetColor(0,10,30,255*transitionTimer);
+            ofRect(0, 0, ofGetWidth(), ofGetHeight());
+            
+            levels[(currentLevel+1)%levels.size()].draw(transitionTimer);
+        }
     }
 }

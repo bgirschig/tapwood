@@ -105,6 +105,7 @@ bool ofxTCPClient::send(string message){
 		return false;
 	}
 	message = partialPrevMsg + message + messageDelimiter;
+    
 	message += (char)0; //for flash
 	int ret = TCPClient.SendAll( message.c_str(), message.length() );
 	if( ret == 0 ){
@@ -125,6 +126,7 @@ bool ofxTCPClient::send(string message){
 		partialPrevMsg = "";
 		return true;
 	}
+    return true;
 }
 
 bool ofxTCPClient::sendRawMsg(const char * msg, int size){

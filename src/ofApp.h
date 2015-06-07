@@ -18,6 +18,7 @@ flags:
 #include "connection.h"
 #include "PointElement.h"
 #include "Game.h"
+#include "errno.h"
 
 class ofApp : public ofxiOSApp {
 	
@@ -43,6 +44,7 @@ class ofApp : public ofxiOSApp {
         void onServerEvent(string & e);
         void onDeviceEvent(string & e);
         void onDataEvent(string & e);
+        void onTapEvent(ofVec2f & e);
         connection serverConnection;
         ofVec2f testPos;
         Game game;

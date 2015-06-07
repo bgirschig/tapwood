@@ -7,14 +7,14 @@ void ofApp::setup(){
 //  ofSetFrameRate(5);
     
     // settings
-    connect = false;
+    connect = true;
     debug = true;
-    serverInterface = false;
+    serverInterface = true;
     cmToPx = 104;
     cmToPx = 90;
     
     if(connect) initServer();
-    game.init();
+//    game.init();
 }
 
 //--------------------------------------------------------------
@@ -34,6 +34,7 @@ void ofApp::draw(){
     if(debug){
         ofSetColor(255, 80, 100); ofFill();
         ofCircle(testPos.x, testPos.y, 10);
+        ofLine(ofGetWidth()/2, ofGetHeight()/2, testPos.x, testPos.y);
     }
     if(connect && serverInterface) serverConnection.drawInterface();
     if(debug){ofSetColor(255);ofDrawBitmapString(ofToString(ofGetFrameRate())+"fps", 10, 15);}
@@ -43,7 +44,7 @@ void ofApp::draw(){
 void ofApp::exit(){}
 
 void ofApp::touchDown(ofTouchEventArgs & touch){
-//    if(connect && serverConnection.Connected) serverConnection.send("screenTap");
+    if(connect && serverConnection.Connected) serverConnection.send("calibration:"+ofToString(touch.x)+","+ofToString(touch.y));
     game.tap(touch.x, touch.y);
 }
 
@@ -57,12 +58,13 @@ void ofApp::gotMemoryWarning(){}
 void ofApp::deviceOrientationChanged(int newOrientation){}
 
 void ofApp::initServer(){
-    serverConnection.setup("169.254.122.219", 11999);
+    serverConnection.setup("10.206.104.38", 11999);
     
 
     ofAddListener(serverConnection.serverEvent, this, &ofApp::onServerEvent);
     ofAddListener(serverConnection.deviceEvent, this, &ofApp::onDeviceEvent);
     ofAddListener(serverConnection.dataEvent, this, &ofApp::onDataEvent);
+    ofAddListener(serverConnection.tapEvent, this, &ofApp::onTapEvent);
 }
 void ofApp::onServerEvent(string & e){
     cout << "server event:" << e << endl;
@@ -70,11 +72,19 @@ void ofApp::onServerEvent(string & e){
 void ofApp::onDeviceEvent(string & e){
     cout << "device event:" << e << endl;
 }
-void ofApp::onDataEvent(string &e){ 
+void ofApp::onDataEvent(string &e){
     vector<string> data = ofSplitString(e, ",");
-    testPos.set(ofToInt(data[0])*cmToPx, ofToInt(data[1])*cmToPx);
-    game.tap(ofToInt(data[0])*cmToPx, ofToInt(data[1])*cmToPx);
+    if(data.size()==2){
+        testPos.set(ofToInt(data[0])*cmToPx, ofToInt(data[1])*cmToPx);
+        game.tap(ofToInt(data[0])*cmToPx, ofToInt(data[1])*cmToPx);
+    }
 }
+void ofApp::onTapEvent(ofVec2f &e){
+    cout << "tap event: " << e;
+    testPos.set(e.x, e.y);
+}
+
+// dafuq is this? oftostring equivalent?
 void split(const string& s, char c, vector<string>& v) {
     string::size_type i = 0;
     string::size_type j = s.find(c);

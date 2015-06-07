@@ -9,7 +9,10 @@
 #include "connection.h"
 
 connection::connection(){}
-void connection::setup(string ip, int port){
+void connection::setup(string _ip, int _port){
+    ip = _ip;
+    port = _port;
+    
     Connected = tcpClient.setup(ip, port);
     tcpClient.setMessageDelimiter("\n");
     
@@ -27,7 +30,7 @@ void connection::update(){
                 
                 msgCount++;
                 
-                vector<string> parts = ofSplitString(str, ",");
+                vector<string> parts = ofSplitString(str, ":");
                 
                 if(parts[0]=="serverStatus"){
                     if(parts[1]=="connect"){
@@ -58,8 +61,21 @@ void connection::update(){
                         ofNotifyEvent(deviceEvent, s, this);
                         statusMessages = "the device is connected\n"+statusMessages;
                     }
+                    else{
+                        string s = "unknown";
+                        ofNotifyEvent(deviceEvent, s, this);
+                        statusMessages = "unknown device message:\n   "+ofToString(parts[1])+"\n"+statusMessages;
+                    }
                 }
-                
+                else if(parts[0]=="calibration"){
+                    vector<string> pt = ofSplitString(parts[1], ",");
+                    cout << "calibration. x:" << ofToInt(pt[0]) << ", x:" << ofToInt(pt[1]) << endl;
+                }
+                else if(parts[0]=="tap"){
+                    vector<string> pt = ofSplitString(parts[1], ",");
+                    ofVec2f vect = ofVec2f(ofToFloat(pt[0]), ofToFloat(pt[1]));
+                    ofNotifyEvent(tapEvent, vect, this);
+                }
                 else ofNotifyEvent(dataEvent, str, this);
                 
                 // for interface only
@@ -72,7 +88,8 @@ void connection::update(){
     // retry connection
     else{
         if( ofGetElapsedTimeMillis() - connectTime > 5000 ){
-            Connected = tcpClient.setup("127.0.0.1", 11999);
+            cout << "trying connection to server..." << endl;
+            Connected = tcpClient.setup(ip, port);
             connectTime = ofGetElapsedTimeMillis();
         }
     }
@@ -88,5 +105,5 @@ void connection::drawInterface(){
 }
 
 void connection::send(string msg){
-    tcpClient.send(msg);
+    if(tcpClient.isConnected()) tcpClient.send(msg);
 }
