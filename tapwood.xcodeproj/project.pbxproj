@@ -29,6 +29,7 @@
 		B92EBF4D1B1622C80095C5BA /* ofxMask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B92EBF481B1622C80095C5BA /* ofxMask.cpp */; };
 		B934923C1B16FB9600DF2C4B /* LineElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B934923A1B16FB9600DF2C4B /* LineElement.cpp */; };
 		B944415E1B07669C00B7B2A1 /* PointElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B944415C1B07669C00B7B2A1 /* PointElement.cpp */; };
+		B9876E761B24A0620060895C /* Calibrator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9876E741B24A0620060895C /* Calibrator.cpp */; };
 		B993E5A81AFBF1A700FA2887 /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B993E5A61AFBF1A700FA2887 /* Particle.cpp */; };
 		B993E5AB1AFC004C00FA2887 /* Wave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B993E5A91AFC004C00FA2887 /* Wave.cpp */; };
 		B99D6FA11B0FE2CC007BD475 /* Level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B99D6F9F1B0FE2CC007BD475 /* Level.cpp */; };
@@ -105,6 +106,8 @@
 		B934923B1B16FB9600DF2C4B /* LineElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineElement.h; sourceTree = "<group>"; };
 		B944415C1B07669C00B7B2A1 /* PointElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointElement.cpp; sourceTree = "<group>"; };
 		B944415D1B07669C00B7B2A1 /* PointElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointElement.h; sourceTree = "<group>"; };
+		B9876E741B24A0620060895C /* Calibrator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Calibrator.cpp; sourceTree = "<group>"; };
+		B9876E751B24A0620060895C /* Calibrator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Calibrator.h; sourceTree = "<group>"; };
 		B993E5A61AFBF1A700FA2887 /* Particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Particle.cpp; sourceTree = "<group>"; };
 		B993E5A71AFBF1A700FA2887 /* Particle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Particle.h; sourceTree = "<group>"; };
 		B993E5A91AFC004C00FA2887 /* Wave.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Wave.cpp; sourceTree = "<group>"; };
@@ -281,6 +284,8 @@
 			children = (
 				B91F318A1B00094900016819 /* connection.h */,
 				B91F31891B00094900016819 /* connection.cpp */,
+				B9876E751B24A0620060895C /* Calibrator.h */,
+				B9876E741B24A0620060895C /* Calibrator.cpp */,
 			);
 			name = utils;
 			sourceTree = "<group>";
@@ -494,6 +499,7 @@
 			files = (
 				B91F317C1AFFE24600016819 /* ofxTCPServer.cpp in Sources */,
 				B9BF439B1B108F14009EAE5C /* ofxXmlSettings.cpp in Sources */,
+				B9876E761B24A0620060895C /* Calibrator.cpp in Sources */,
 				B934923C1B16FB9600DF2C4B /* LineElement.cpp in Sources */,
 				B993E5AB1AFC004C00FA2887 /* Wave.cpp in Sources */,
 				B92EBF4D1B1622C80095C5BA /* ofxMask.cpp in Sources */,

@@ -7,18 +7,20 @@ void ofApp::setup(){
 //  ofSetFrameRate(5);
     
     // settings
-    connect = true;
     debug = true;
-    serverInterface = true;
+    connect = true;
+    serverInterface = false;
     cmToPx = 104;
     cmToPx = 90;
-    
+
     if(connect) initServer();
+    cal.init();
 //    game.init();
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    
     if(connect) serverConnection.update();
     
     // orientation fix
@@ -26,7 +28,11 @@ void ofApp::update(){
         ofxiOSGetGLView().frame = CGRectMake(0,0,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height);
     }
 
-    game.update();
+    if(game.active) game.update();
+    if(!cal.done) {
+        cal.update();
+        if(cal.done) game.init();
+    }
 }
 
 //--------------------------------------------------------------
@@ -38,14 +44,19 @@ void ofApp::draw(){
     }
     if(connect && serverInterface) serverConnection.drawInterface();
     if(debug){ofSetColor(255);ofDrawBitmapString(ofToString(ofGetFrameRate())+"fps", 10, 15);}
-    game.draw();
+    if(game.active) game.draw();
+    
+    if(!cal.done && serverConnection.Connected) cal.draw();
 }
 
 void ofApp::exit(){}
 
 void ofApp::touchDown(ofTouchEventArgs & touch){
-    if(connect && serverConnection.Connected) serverConnection.send("calibration:"+ofToString(touch.x)+","+ofToString(touch.y));
-    game.tap(touch.x, touch.y);
+    if(connect && serverConnection.Connected && !cal.done){
+        serverConnection.send("calibration:"+ofToString(touch.x)+","+ofToString(touch.y));
+        cal.step++;
+    }
+//    game.tap(touch.x, touch.y);
 }
 
 void ofApp::touchMoved(ofTouchEventArgs & touch){}
@@ -82,6 +93,7 @@ void ofApp::onDataEvent(string &e){
 void ofApp::onTapEvent(ofVec2f &e){
     cout << "tap event: " << e;
     testPos.set(e.x, e.y);
+    game.tap(e.x, e.y);
 }
 
 // dafuq is this? oftostring equivalent?

@@ -19,6 +19,7 @@ flags:
 #include "PointElement.h"
 #include "Game.h"
 #include "errno.h"
+#include "Calibrator.h"
 
 class ofApp : public ofxiOSApp {
 	
@@ -51,6 +52,7 @@ class ofApp : public ofxiOSApp {
     
         // utils
         void split(const string& s, char c, vector<string>& v);
+        Calibrator cal;
     
         //settings
         bool connect;

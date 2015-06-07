@@ -44,7 +44,7 @@ void Game::tap(float x, float y){
 }
 
 void Game::update(){
-    if(currentLevel<levels.size() && active){
+    if(currentLevel<levels.size()){
         // Update each wave
         int waveCount = waves.size();
         for(int i=0;i<waveCount;i++){
@@ -72,15 +72,13 @@ void Game::update(){
     }
 }
 void Game::draw(){
-    if(active){
-        for(Wave &w : waves) w.draw();
-        levels[currentLevel].draw(1);
+    for(Wave &w : waves) w.draw();
+    levels[currentLevel].draw(1);
+    
+    if(levels[currentLevel].completed){    // transition
+        ofFill();ofSetColor(0,10,30,255*transitionTimer);
+        ofRect(0, 0, ofGetWidth(), ofGetHeight());
         
-        if(levels[currentLevel].completed){    // transition
-            ofFill();ofSetColor(0,10,30,255*transitionTimer);
-            ofRect(0, 0, ofGetWidth(), ofGetHeight());
-            
-            levels[(currentLevel+1)%levels.size()].draw(transitionTimer);
-        }
+        levels[(currentLevel+1)%levels.size()].draw(transitionTimer);
     }
 }
