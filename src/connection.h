@@ -27,4 +27,5 @@ class connection{
     int connectTime;
     string ip;
     int port;
+    
 };

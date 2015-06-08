@@ -15,7 +15,6 @@ void ofApp::setup(){
 
     if(connect) initServer();
     cal.init();
-//    game.init();
 }
 
 //--------------------------------------------------------------
@@ -54,7 +53,6 @@ void ofApp::exit(){}
 void ofApp::touchDown(ofTouchEventArgs & touch){
     if(connect && serverConnection.Connected && !cal.done){
         serverConnection.send("calibration:"+ofToString(touch.x)+","+ofToString(touch.y));
-        cal.step++;
     }
 //    game.tap(touch.x, touch.y);
 }
@@ -92,21 +90,9 @@ void ofApp::onDataEvent(string &e){
 }
 void ofApp::onTapEvent(ofVec2f &e){
     cout << "tap event: " << e;
-    testPos.set(e.x, e.y);
-    game.tap(e.x, e.y);
-}
-
-// dafuq is this? oftostring equivalent?
-void split(const string& s, char c, vector<string>& v) {
-    string::size_type i = 0;
-    string::size_type j = s.find(c);
-    
-    while (j != string::npos) {
-        v.push_back(s.substr(i, j-i));
-        i = ++j;
-        j = s.find(c, j);
-        
-        if (j == string::npos)
-            v.push_back(s.substr(i, s.length()));
+    if(!cal.done) cal.step++;
+    else{
+        testPos.set(e.x, e.y);
+        game.tap(e.x, e.y);
     }
 }
