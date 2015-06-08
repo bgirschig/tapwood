@@ -48,8 +48,11 @@ void Game::update(){
         // Update each wave
         int waveCount = waves.size();
         for(int i=0;i<waveCount;i++){
+            // erase waves that are not alive
             if(!waves[i].alive || waves[i].force < 0.3){waves.erase(waves.begin()+i); waveCount--;}
+            // update the others
             else waves[i].update(levels[currentLevel].points, levels[currentLevel].lines, 1-transitionTimer);
+            
             if( levels[currentLevel].completed ) waves[i].fadeout = true;
         }
         

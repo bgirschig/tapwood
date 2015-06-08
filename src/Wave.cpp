@@ -120,7 +120,7 @@ void Wave::update(vector<PointElement *>& points, vector<LineElement *>& lines, 
             mesh.setVertex(i, particles[i].position);                                       // update 'mesh vertice' to particle position
             if(particles[i].isEdge) mesh.setColor(i, ofColor(255,0,0,opacity*force*255));   // debug color
             else
-                mesh.setColor(i, ofColor(255,opacity*force*255));                          // set particle opacity (for fade out effects)
+                mesh.setColor(i, ofColor(255,opacity*force*255));                           // set particle opacity (for fade out effects)
         }
     }
     
