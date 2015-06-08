@@ -1,6 +1,6 @@
 #include "Calibrator.h"
 
-Calibrator::Calibrator(){ }
+Calibrator::Calibrator(){}
 
 void Calibrator::init(){
     step = 0;
