@@ -9,7 +9,7 @@ void ofApp::setup(){
     // settings
     debug = true;
     connect = true;
-    serverInterface = false;
+    serverInterface = true;
     cmToPx = 104;
     cmToPx = 90;
 

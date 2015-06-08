@@ -68,8 +68,9 @@ void connection::update(){
                     }
                 }
                 else if(parts[0]=="calibration"){
-                    vector<string> pt = ofSplitString(parts[1], ",");
-                    cout << "calibration. x:" << ofToInt(pt[0]) << ", x:" << ofToInt(pt[1]) << endl;
+                    cout << "calstep" << endl;
+                    ofVec2f v;
+                    if(parts[1]=="step") ofNotifyEvent(tapEvent, v, this);
                 }
                 else if(parts[0]=="tap"){
                     vector<string> pt = ofSplitString(parts[1], ",");
