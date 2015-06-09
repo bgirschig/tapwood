@@ -25,4 +25,10 @@ class Particle
     void update(float speed);
     bool lineBounce(LineElement *l);
     void setEquation();
+    
+    float slope;
+    float offset;
+    
+    bool special;
+private:
 };

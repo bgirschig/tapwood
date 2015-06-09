@@ -20,6 +20,8 @@ Wave::Wave(float x, float y){
         if(rayIntersects(x, y, i)){                                             // only add particles that are aimed to the screen
             mesh.addVertex(ofPoint(x,y)); mesh.addColor(ofFloatColor(1,1,1));   // add vertexes to mesh, and create new particles
             particles.push_back(Particle(x, y, i, 4));                          // FIXME: particles are a double of mesh verteces.
+            int s = particles.size();
+            if(s==100) particles[i].special = true;
         }
     }
 }
@@ -120,6 +122,7 @@ void Wave::update(vector<PointElement *>& points, vector<LineElement *>& lines, 
         else{
             mesh.setVertex(i, particles[i].position);                                       // update 'mesh vertice' to particle position
             if(particles[i].isEdge) mesh.setColor(i, ofColor(255,0,0,opacity*force*255));   // debug color
+            else if(particles[i].special) mesh.setColor(i, ofColor(0,255,0,opacity*force*255));
             else
                 mesh.setColor(i, ofColor(255,opacity*force*255));                           // set particle opacity (for fade out effects)
         }

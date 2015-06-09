@@ -14,6 +14,8 @@ Particle::Particle(float _x, float _y, double direction, float _speed)
     isEdge = false;
 
     blackHole = NULL;
+    
+    special = false;
 }
 
 void Particle::update(float _speed){
@@ -28,10 +30,11 @@ void Particle::update(float _speed){
 }
 
 bool Particle::lineBounce(LineElement *l){
-    float a = speed.y/speed.x;                  // OPTIM: only update when direction changes (already calculated on creation by Wave::rayIntersects())
-    float b = position.y-(a*position.x);        // idem
+    slope = speed.y/speed.x;
+    offset = position.y-(slope*position.x);
+    if(special) cout << "a: " << slope << ", b" << offset << endl;
     
-    float intersectX = (l->b - b) / (a - l->a);
+    float intersectX = (l->b - offset) / (slope - l->a);
     float intersectY = (l->a * intersectX)+l->b;
     if(
        l->local.x/(intersectX-l->pt1.x) > 1
