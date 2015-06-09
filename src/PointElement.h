@@ -2,15 +2,10 @@
 
 #include <stdio.h>
 #include "ofMain.h"
-
-enum ElementKind{
-    DESTROYER_ELEMENT,
-TARGET_ELEMENT
-};
+#include "Utils.h"
 
 class PointElement {
-    public:
-    
+public:
     // constructors
     PointElement();
     PointElement(ofVec2f position, ElementKind type);
@@ -20,6 +15,7 @@ class PointElement {
     ElementKind kind;
     bool valid;
     bool hasCollided;
+    bool buttonClicked = false;
     
     // public functions
     bool collisionCheck(ofVec2f pt1, ofVec2f pt2, ofVec2f pt3, ofVec2f pt4);
@@ -27,7 +23,10 @@ class PointElement {
     void draw(float opacity);
     void reset();
     
-    private:
+//    static ofEvent<ElementKind> buttonEvent;
+    static ofEvent<ElementKind> buttonEvent;
+    
+private:
     int getSide(ofVec2f a, ofVec2f b);          // collision detection utils
     ofVec2f a, b, affine_segment, affine_point; //  --
     int current_side;                           //  --

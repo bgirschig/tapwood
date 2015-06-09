@@ -2,11 +2,11 @@
 
 Calibrator::Calibrator(){}
 
-void Calibrator::init(){
+void Calibrator::init(ofTrueTypeFont *_fonts){
     step = 0;
     animation = 0;
     done = false;
-    myFont.loadFont("Melbourne_light.otf", 60);
+    fonts = _fonts;
     glEnable(GL_LINE_SMOOTH);
 }
 
@@ -55,25 +55,25 @@ void Calibrator::draw(){
     ofSetColor(fg);
     if(step<3){
         s = "First, we need to do a little calibration:";
-        shape = myFont.getStringBoundingBox(s, ofGetWidth()/2, ofGetWidth()/2);
-        myFont.drawString(s, shape.x-shape.width/2, shape.y-shape.height/2-3*myFont.getLineHeight());
+        shape = fonts[MEDIUM].getStringBoundingBox(s, ofGetWidth()/2, ofGetWidth()/2);
+        fonts[MEDIUM].drawString(s, shape.x-shape.width/2, shape.y-shape.height/2-3*fonts[MEDIUM].getLineHeight());
         s = "Place the ipad on the table";
-        shape = myFont.getStringBoundingBox(s, ofGetWidth()/2, ofGetWidth()/2);
-        myFont.drawString(s, shape.x-shape.width/2, shape.y-shape.height/2-2*myFont.getLineHeight());
+        shape = fonts[MEDIUM].getStringBoundingBox(s, ofGetWidth()/2, ofGetWidth()/2);
+        fonts[MEDIUM].drawString(s, shape.x-shape.width/2, shape.y-shape.height/2-2*fonts[MEDIUM].getLineHeight());
         s = "then touch the white circle";
-        shape = myFont.getStringBoundingBox(s, ofGetWidth()/2, ofGetWidth()/2);
-        myFont.drawString(s, shape.x-shape.width/2, shape.y-shape.height/2-myFont.getLineHeight());
+        shape = fonts[MEDIUM].getStringBoundingBox(s, ofGetWidth()/2, ofGetWidth()/2);
+        fonts[MEDIUM].drawString(s, shape.x-shape.width/2, shape.y-shape.height/2-fonts[MEDIUM].getLineHeight());
     }
     
     else if(step<9){
         if(fg==0xffffff) s = "touch the white circle";
         else s = "now touch the black circle";
-        shape = myFont.getStringBoundingBox(s, ofGetWidth()/2, ofGetWidth()/2);
-        myFont.drawString(s, shape.x-shape.width/2, shape.y-shape.height/2-myFont.getLineHeight());
+        shape = fonts[MEDIUM].getStringBoundingBox(s, ofGetWidth()/2, ofGetWidth()/2);
+        fonts[MEDIUM].drawString(s, shape.x-shape.width/2, shape.y-shape.height/2-fonts[MEDIUM].getLineHeight());
     }
     else{
         s = "... etc";
-        shape = myFont.getStringBoundingBox(s, ofGetWidth()/2, ofGetWidth()/2);
-        myFont.drawString(s, shape.x-shape.width/2, shape.y-shape.height/2-myFont.getLineHeight());
+        shape = fonts[MEDIUM].getStringBoundingBox(s, ofGetWidth()/2, ofGetWidth()/2);
+        fonts[MEDIUM].drawString(s, shape.x-shape.width/2, shape.y-shape.height/2-fonts[MEDIUM].getLineHeight());
     }
 }

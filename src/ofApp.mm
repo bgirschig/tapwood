@@ -2,33 +2,46 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    fonts[BIG].loadFont("Melbourne_light.otf", 100);
+    fonts[MEDIUM].loadFont("Melbourne_light.otf", 70);
+    fonts[SMALL].loadFont("Melbourne_light.otf", 40);
+    
     ofBackground(0,10,30);
 //  ofSetBackgroundAuto(false);
 //  ofSetFrameRate(5);
     
     // settings
-    debug = true;
-    connect = true;
-    serverInterface = true;
+    debug = false;
+    connect = false;
+    serverInterface = false;
+    touchDebug = true;
+    
     cmToPx = 104;
     cmToPx = 90;
 
-    if(connect) initServer();
-    cal.init();
+    initEvents();
+    if(connect){
+        serverConnection.setup("10.206.104.38", 11999);
+        cal.init(fonts);
+    }
+    else{
+        cal.done = true;
+        game.init(fonts);
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     
     if(connect) serverConnection.update();
-    
+
     // orientation fix
     if(ofxiOSGetGLView().frame.origin.x != 0 || ofxiOSGetGLView().frame.size.width != [[UIScreen mainScreen] bounds].size.width) ofxiOSGetGLView().frame = CGRectMake(0,0,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height);
 
     if(game.active) game.update();
     if(!cal.done) {
         cal.update();
-        if(cal.done) game.init();
+        if(cal.done) game.init(fonts);
     }
 }
 
@@ -39,7 +52,6 @@ void ofApp::draw(){
         ofCircle(testPos.x, testPos.y, 10);
         ofLine(ofGetWidth()/2, ofGetHeight()/2, testPos.x, testPos.y);
     }
-    
     if(!cal.done && serverConnection.Connected) cal.draw();
     if(game.active) game.draw();
     if(connect && serverInterface) serverConnection.drawInterface();
@@ -51,6 +63,7 @@ void ofApp::exit(){}
 void ofApp::touchDown(ofTouchEventArgs & touch){
     // on touch, send position to server for calinration. (if calibration is not done)
     if(connect && serverConnection.Connected && !cal.done) serverConnection.send("calibration:"+ofToString(touch.x)+","+ofToString(touch.y));
+    if(touchDebug) game.tap(touch.x, touch.y);
 }
 
 void ofApp::touchMoved(ofTouchEventArgs & touch){}
@@ -62,12 +75,14 @@ void ofApp::gotFocus(){}
 void ofApp::gotMemoryWarning(){}
 void ofApp::deviceOrientationChanged(int newOrientation){}
 
-void ofApp::initServer(){
-    serverConnection.setup("10.206.104.38", 11999);
-    ofAddListener(serverConnection.serverEvent, this, &ofApp::onServerEvent);
-    ofAddListener(serverConnection.deviceEvent, this, &ofApp::onDeviceEvent);
-    ofAddListener(serverConnection.dataEvent, this, &ofApp::onDataEvent);
-    ofAddListener(serverConnection.tapEvent, this, &ofApp::onTapEvent);
+void ofApp::initEvents(){
+    if(connect){
+        ofAddListener(serverConnection.serverEvent, this, &ofApp::onServerEvent);
+        ofAddListener(serverConnection.deviceEvent, this, &ofApp::onDeviceEvent);
+        ofAddListener(serverConnection.dataEvent, this, &ofApp::onDataEvent);
+        ofAddListener(serverConnection.tapEvent, this, &ofApp::onTapEvent);
+    }
+    ofAddListener(PointElement::buttonEvent, this, &ofApp::onButton);
 }
 
 void ofApp::onServerEvent(string & e){ cout << "server event:" << e << endl; }
@@ -87,4 +102,7 @@ void ofApp::onTapEvent(ofVec2f &e){
         testPos.set(e.x, e.y);
         game.tap(e.x, e.y);
     }
+}
+void ofApp::onButton(ElementKind & kind){
+    cout << "button: " << kind << endl;
 }

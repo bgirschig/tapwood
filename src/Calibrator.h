@@ -1,12 +1,13 @@
 #pragma once
 
 #include "ofMain.h"
+#include "Utils.h"
 #include <stdio.h>
 
 class Calibrator{
 public:
     Calibrator();
-    void init();
+    void init(ofTrueTypeFont *_fonts);
     void update();
     void draw();
     
@@ -24,5 +25,5 @@ public:
 
 private:
     float animation;
-    ofTrueTypeFont myFont;
+    ofTrueTypeFont *fonts;
 };

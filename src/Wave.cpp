@@ -5,15 +5,13 @@ Wave::Wave(){ }
 
 Wave::Wave(float x, float y){
     force = 1;
-    resolution = 1000;
+    resolution = 300;
     speed = 1;
     alive = true;
     
     screenW = ofGetScreenWidth();
     screenH = ofGetScreenHeight();
     
-//    mesh.setMode(OF_PRIMITIVE_LINE_LOOP);
-//    mesh.setMode(OF_PRIMITIVE_LINES);
     mesh.setMode(OF_PRIMITIVE_POINTS);
 
     pitch = TWO_PI/resolution;                                                  // 'angle' between each point
@@ -75,12 +73,12 @@ void Wave::update(vector<PointElement *>& points, vector<LineElement *>& lines, 
             else{
                 // check collisions
                 for (int j=0; j < pc; j++) {
-                        // vc-1: do not check edge points to avoid 'wrap' bugs.
-                        if(i<vc-1){
-                    
-                        // (bounding box) collision check
-                            if(!particles[i].isEdge){
-                                if(points[j]->collisionCheck( particles[i].position, particles[(i+1)].position, particles[(i+1)].pPosition, particles[i].pPosition )){
+                    // vc-1: do not check edge points to avoid 'wrap' bugs.
+                    if(i<vc-1){
+                
+                    // (bounding box) collision check
+                        if(!particles[i].isEdge){
+                            if(points[j]->collisionCheck( particles[i].position, particles[(i+1)].position, particles[(i+1)].pPosition, particles[i].pPosition )){
                                 points[j]->collided();
                                 
                                 // DESTROYER_ELEMENT -> destroy wave on collision
@@ -132,8 +130,6 @@ void Wave::update(vector<PointElement *>& points, vector<LineElement *>& lines, 
 }
 
 void Wave::draw(){
-    ofSetColor(255);ofNoFill();
-    ofRect(0, 0, screenW, screenH);
     glPointSize(3);
     mesh.draw();
     glPointSize(1);

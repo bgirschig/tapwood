@@ -15,6 +15,7 @@ flags:
 #include "Game.h"
 #include "errno.h"
 #include "Calibrator.h"
+#include "Utils.h"
 
 class ofApp : public ofxiOSApp {
 	
@@ -36,11 +37,12 @@ class ofApp : public ofxiOSApp {
         void deviceOrientationChanged(int newOrientation);
     
         // events
-        void initServer();
+        void initEvents();
         void onServerEvent(string & e);
         void onDeviceEvent(string & e);
         void onDataEvent(string & e);
         void onTapEvent(ofVec2f & e);
+        void onButton(ElementKind & kind);
     
         // main elements
         Calibrator cal;
@@ -49,11 +51,13 @@ class ofApp : public ofxiOSApp {
     
         // utils
         ofVec2f testPos;
+        ofTrueTypeFont fonts[3];
     
         //settings
         bool connect;
         bool serverInterface;
         bool debug;
+        bool touchDebug;
         int cmToPx;
 };
 

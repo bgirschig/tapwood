@@ -5,42 +5,28 @@ Game::Game(){
     active = false;
 }
 
-void Game::init(){
-    currentLevel = 0;
+void Game::init(ofTrueTypeFont *_fonts){
+    fonts = _fonts;
     
-    // first 'level'
-    Level first = Level("start");
-    first.specialLevel = 0;
-    first.addPoint(ofGetHeight()/2, ofGetWidth()/2+100, TARGET_ELEMENT); // start button
-    levels.push_back(first);
-    
-    // load levels
-    XML.loadFile("mySettings.xml");
-    XML.pushTag("levels");
-    int lvlCount = XML.getNumTags("level");
-    for(int l =0; l<lvlCount; l++){
-        Level lvl = Level(XML.getValue("level:name", "no-name", l));
-        XML.pushTag("level", l);
-        int ptCount = XML.getNumTags("point");
-        for (int p=0; p<ptCount; p++) lvl.addPoint(XML.getValue("point:pos:x",0,p), XML.getValue("point:pos:y",0,p), XML.getValue("point:kind","none",p) );
-        XML.popTag();
-        
-        levels.push_back( lvl );
+    ofBuffer buffer = ofBufferFromFile("Levels.lvl");
+    while (!buffer.isLastLine()) {
+        int currentLevel = levels.size()-1;
+        string line = Poco::replace(buffer.getNextLine(), "\t\t", "\t"); // TODO: regex.
+        line = Poco::replace(line, "\t\t", "\t");
+
+        vector<string> parts = ofSplitString(line, "\t");
+        if(parts[0]=="level") levels.push_back(Level(parts[1], fonts));
+        else if(parts[0]=="point") levels[currentLevel].addPoint(parts[1], parts[2], parts[3]);
+        else if(parts[0]=="line") levels[currentLevel].addLine(parts[1], parts[2], parts[3], parts[4]);
+        else if(parts[0]=="title") levels[currentLevel].addTitle(parts[1], parts[2], parts[3], parts[4]);
     }
-    // last 'level'
-    Level last = Level("you won");
-    last.specialLevel = 1;
-    last.addPoint(ofGetHeight()/2, ofGetWidth()/2+100, TARGET_ELEMENT); // restart button
-    levels.push_back(last);
     
     // inits
     transitionTimer = 0;
     active = true;
 }
 void Game::tap(float x, float y){
-    if(active){
-        waves.push_back(Wave(x, y));
-    }
+    if(active) waves.push_back(Wave(x, y));
 }
 
 void Game::update(){
@@ -52,13 +38,14 @@ void Game::update(){
             if(!waves[i].alive || waves[i].force < 0.3){waves.erase(waves.begin()+i); waveCount--;}
             // update the others
             else waves[i].update(levels[currentLevel].points, levels[currentLevel].lines, 1-transitionTimer);
-            
+            // fade out if level is done
             if( levels[currentLevel].completed ) waves[i].fadeout = true;
         }
         
         levels[currentLevel].update();
         
-        if(levels[currentLevel].completed){                             // current level is done
+        // current level is done
+        if(levels[currentLevel].completed){
             if(transitionTimer < 1){
                 transitionTimer+=0.07;
                 levels[(currentLevel+1)%levels.size()].update();

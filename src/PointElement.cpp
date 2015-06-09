@@ -1,6 +1,7 @@
 #include "PointElement.h"
 
 
+ofEvent<ElementKind> PointElement::buttonEvent = ofEvent<ElementKind>();
 
 PointElement::PointElement(){}
 PointElement::PointElement(ofVec2f position, ElementKind type){
@@ -40,7 +41,7 @@ void PointElement::draw(float opacity){
         ofSetColor(255, opacity*4*((animation<30)? (animation+30): (animation-30))-1);
         ofCircle(pos.x, pos.y, (animation<30)?15-(animation*0.5):45-(animation*0.5));
     }
-    else if(kind==TARGET_ELEMENT){
+    else{
         if(animation<120){
             if(secondaryAnim < 17){
                 animation ++;
@@ -52,13 +53,19 @@ void PointElement::draw(float opacity){
             
             if(hasCollided){
                 if(secondaryAnim <= 17) secondaryAnim += (18-secondaryAnim)/(secondaryAnim+4);
-                if(secondaryAnim > 17) valid = true;
+                else if(kind == TARGET_ELEMENT) valid = true;
+                else if(!buttonClicked){
+                    ofNotifyEvent(buttonEvent, kind);
+                    buttonClicked = true;
+                }
                 
                 ofFill();
                 ofCircle(pos.x, pos.y, secondaryAnim);
+                // if this is not a target or a destroyer, it must be a button. Notify the event.
             }
         }
     }
+    
     glLineWidth(0);
 }
 

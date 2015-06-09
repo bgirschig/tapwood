@@ -14,7 +14,6 @@ Particle::Particle(float _x, float _y, double direction, float _speed)
     isEdge = false;
 
     blackHole = NULL;
-    
 }
 
 void Particle::update(float _speed){

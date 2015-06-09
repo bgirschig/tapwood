@@ -4,12 +4,12 @@
 #include "ofMain.h"
 #include "Level.h"
 #include "Wave.h"
-#include "ofxXmlSettings.h"
+#include "poco/string.h"
 
 class Game{
 public:
     Game();
-    void init();
+    void init(ofTrueTypeFont *_fonts);
     vector<Level> levels;
     vector<Wave> waves;
     
@@ -17,9 +17,10 @@ public:
     void draw();
     void tap(float x, float y);
     
-    ofxXmlSettings XML;
     float transitionTimer;
     bool active;
+    
+    ofTrueTypeFont *fonts;
 private:
     int currentLevel;
 };
