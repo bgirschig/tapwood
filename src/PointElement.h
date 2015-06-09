@@ -13,9 +13,9 @@ public:
     // public vars
     ofVec2f pos;
     ElementKind kind;
+    ButtonKind buttonKind;
     bool valid;
     bool hasCollided;
-    bool buttonClicked = false;
     
     // public functions
     bool collisionCheck(ofVec2f pt1, ofVec2f pt2, ofVec2f pt3, ofVec2f pt4);
@@ -23,10 +23,10 @@ public:
     void draw(float opacity);
     void reset();
     
-//    static ofEvent<ElementKind> buttonEvent;
-    static ofEvent<ElementKind> buttonEvent;
+    static ofEvent<ButtonKind> buttonEvent;
     
 private:
+    bool buttonClicked;
     int getSide(ofVec2f a, ofVec2f b);          // collision detection utils
     ofVec2f a, b, affine_segment, affine_point; //  --
     int current_side;                           //  --

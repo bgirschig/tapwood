@@ -103,6 +103,7 @@ void ofApp::onTapEvent(ofVec2f &e){
         game.tap(e.x, e.y);
     }
 }
-void ofApp::onButton(ElementKind & kind){
-    cout << "button: " << kind << endl;
+void ofApp::onButton(ButtonKind & kind){
+    if(kind==RESTART) game.levels[game.currentLevel].completed = true;
+    else cout << "btn " << kind;
 }

@@ -42,7 +42,7 @@ class ofApp : public ofxiOSApp {
         void onDeviceEvent(string & e);
         void onDataEvent(string & e);
         void onTapEvent(ofVec2f & e);
-        void onButton(ElementKind & kind);
+        void onButton(ButtonKind & kind);
     
         // main elements
         Calibrator cal;

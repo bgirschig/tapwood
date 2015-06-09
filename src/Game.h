@@ -19,8 +19,7 @@ public:
     
     float transitionTimer;
     bool active;
+    int currentLevel;
     
     ofTrueTypeFont *fonts;
-private:
-    int currentLevel;
 };

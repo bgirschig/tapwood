@@ -95,6 +95,9 @@ void Wave::update(vector<PointElement *>& points, vector<LineElement *>& lines, 
                                         else break; // stop at first wave edge (do not affect parts of the wave that separated)
                                     }
                                 }
+                                else if(points[j]->kind == TARGET_ELEMENT && points[j]->buttonKind!=NOT_BUTTON){
+                                    fadeout = true;
+                                }
                             }
                         }
                     }

@@ -19,6 +19,7 @@ void Game::init(ofTrueTypeFont *_fonts){
         else if(parts[0]=="point") levels[currentLevel].addPoint(parts[1], parts[2], parts[3]);
         else if(parts[0]=="line") levels[currentLevel].addLine(parts[1], parts[2], parts[3], parts[4]);
         else if(parts[0]=="title") levels[currentLevel].addTitle(parts[1], parts[2], parts[3], parts[4]);
+        else if(parts[0]=="button") levels[currentLevel].addButton(parts[1], parts[2], parts[3], parts[4]);
     }
     
     // inits

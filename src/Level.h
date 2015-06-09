@@ -17,6 +17,7 @@ public:
     void addPoint(string x, string y, string kind);
     void addLine(string x1, string y1, string x2, string y2);
     void addTitle(string text, string x, string y, string font);
+    void addButton(string x, string y, string kind, string text);
     string name;
     
     vector<PointElement *> points;
@@ -25,7 +26,6 @@ public:
 
     bool completed, intro;
     float transitionAnimation;
-    int specialLevel;
     
     string wonText = "YOU WON !!!";
     string restartText = "restart";

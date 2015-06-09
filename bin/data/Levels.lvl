@@ -2,8 +2,7 @@
 # the first ‘block’ is the type of the element, the others are its parameters.
 
 level	intro
-title	1024	700		SMALL	start
-point	1024	768		TARGET
+button	1024	768		START			Start
 
 level	one
 point	400		768		TARGET
@@ -11,8 +10,7 @@ point	1648	768		TARGET
 #line	300	1530	1300	40
 
 level	end
-title	700		700		SMALL			start over
-point	700		768		TARGET
-title	1348	700		SMALL			credits
-point	1348	768		CREDITS_BUTTON
+title	1024	550		BIG				YOU WON!
+button	700		768		START			Restart
+button	1348	768		CREDITS			Credits
 #line	300	1530	1300	40

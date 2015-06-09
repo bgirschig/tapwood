@@ -7,7 +7,6 @@ Level::Level(string _name, ofTrueTypeFont *_fonts){
     fonts = _fonts;
     
     targetCount = 0;
-    specialLevel = -1; // false by default
     reset();
 }
 
@@ -24,7 +23,16 @@ void Level::addPoint(string x, string y, string kind){
         points.push_back(new PointElement(ofVec2f(ofToInt(x),ofToInt(y)), TARGET_ELEMENT));
         targetCount ++;
     }
-    else if (kind=="CREDITS_BUTTON") points.push_back(new PointElement(ofVec2f(ofToInt(x),ofToInt(y)), CREDITS_BUTTON));
+}
+void Level::addButton(string x, string y, string kind, string text){
+    ofVec2f pos = ofVec2f(ofToInt(x), ofToInt(y));
+    PointElement *p = new PointElement(pos, TARGET_ELEMENT);
+    cout << "kind " << kind << endl;
+    if(kind=="START") p->buttonKind = RESTART;
+    else if(kind=="CREDITS") p->buttonKind = CREDITS;
+    
+    titles.push_back(new Title(text, pos.x, pos.y-60, &fonts[SMALL]));
+    points.push_back(p);
 }
 
 void Level::addLine(string x1, string y1, string x2, string y2){

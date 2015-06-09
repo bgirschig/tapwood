@@ -10,3 +10,8 @@ enum ElementKind{
     TARGET_ELEMENT,
     CREDITS_BUTTON
 };
+enum ButtonKind{
+    NOT_BUTTON,
+    RESTART,
+    CREDITS
+};

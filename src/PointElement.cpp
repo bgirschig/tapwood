@@ -1,20 +1,22 @@
 #include "PointElement.h"
 
 
-ofEvent<ElementKind> PointElement::buttonEvent = ofEvent<ElementKind>();
+ofEvent<ButtonKind> PointElement::buttonEvent = ofEvent<ButtonKind>();
 
 PointElement::PointElement(){}
 PointElement::PointElement(ofVec2f position, ElementKind type){
     pos = position;
     kind = type;
     reset();
+    buttonKind = NOT_BUTTON;
 }
 void PointElement::reset(){
     animation = -1;
-    secondaryAnim = -1;
+    secondaryAnim = 0;
     scale = 10;
     hasCollided = false;
     valid = false;
+    buttonClicked = false;
 }
 
 bool PointElement::collisionCheck(ofVec2f pt1, ofVec2f pt2, ofVec2f pt3, ofVec2f pt4){
@@ -41,7 +43,7 @@ void PointElement::draw(float opacity){
         ofSetColor(255, opacity*4*((animation<30)? (animation+30): (animation-30))-1);
         ofCircle(pos.x, pos.y, (animation<30)?15-(animation*0.5):45-(animation*0.5));
     }
-    else{
+    else if(kind == TARGET_ELEMENT){
         if(animation<120){
             if(secondaryAnim < 17){
                 animation ++;
@@ -53,15 +55,10 @@ void PointElement::draw(float opacity){
             
             if(hasCollided){
                 if(secondaryAnim <= 17) secondaryAnim += (18-secondaryAnim)/(secondaryAnim+4);
-                else if(kind == TARGET_ELEMENT) valid = true;
-                else if(!buttonClicked){
-                    ofNotifyEvent(buttonEvent, kind);
-                    buttonClicked = true;
-                }
+                else if (buttonKind == NOT_BUTTON) valid = true;
                 
                 ofFill();
                 ofCircle(pos.x, pos.y, secondaryAnim);
-                // if this is not a target or a destroyer, it must be a button. Notify the event.
             }
         }
     }
@@ -70,6 +67,6 @@ void PointElement::draw(float opacity){
 }
 
 void PointElement::collided(){
+    if(buttonKind!=NOT_BUTTON && !hasCollided) ofNotifyEvent(buttonEvent, buttonKind, this);
     hasCollided = true;
-    if(kind==TARGET_ELEMENT && !hasCollided) secondaryAnim = 0; // start validation animation
 }
