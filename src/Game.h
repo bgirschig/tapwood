@@ -12,6 +12,7 @@ public:
     void init(ofTrueTypeFont *_fonts);
     vector<Level> levels;
     vector<Wave> waves;
+    vector<ofImage> backgrounds;
     
     void update();
     void draw();

@@ -32,7 +32,6 @@ void Particle::update(float _speed){
 bool Particle::lineBounce(LineElement *l){
     slope = speed.y/speed.x;
     offset = position.y-(slope*position.x);
-    if(special) cout << "a: " << slope << ", b" << offset << endl;
     
     float intersectX = (l->b - offset) / (slope - l->a);
     float intersectY = (l->a * intersectX)+l->b;

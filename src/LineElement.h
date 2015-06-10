@@ -15,6 +15,7 @@ public:
     ofVec2f normal;
     
     float dampening;
+    float animFrame;
     
     // equation
     float a,b;

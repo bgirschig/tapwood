@@ -16,10 +16,10 @@ line	612		768		1024	200
 line	1436	200		1024	768
 line	1024	1300	1848	768
 
-level	impossible
-point	-100	0		TARGET
-point	10		10		DESTROYER
-line	2048	1536	2040	1100
+# level	impossible
+# point	-100	0		TARGET
+# point	200		200		DESTROYER
+# line	2048	1536	2040	1100
 
 level	end
 title	1024	550		BIG				YOU WON!

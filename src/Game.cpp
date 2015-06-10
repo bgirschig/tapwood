@@ -7,8 +7,14 @@ Game::Game(){
 
 void Game::init(ofTrueTypeFont *_fonts){
     fonts = _fonts;
+
+    ofImage img;
+    for (int i=0; i<4; i++) {
+        img.loadImage("assets/backgrounds/bg_"+ofToString(i)+".png");
+        backgrounds.push_back(img);
+    }
     
-    ofBuffer buffer = ofBufferFromFile("Levels.lvl");
+    ofBuffer buffer = ofBufferFromFile("assets/Levels.lvl");
     while (!buffer.isLastLine()) {
         int currentLevel = levels.size()-1;
         string line = Poco::replace(buffer.getNextLine(), "\t\t", "\t"); // TODO: regex.
@@ -63,12 +69,15 @@ void Game::update(){
     }
 }
 void Game::draw(){
+    ofSetColor(255);
+    backgrounds[currentLevel%4].draw(0, 0);
+    
     for(Wave &w : waves) w.draw();
     levels[currentLevel].draw(1);
     
     if(levels[currentLevel].completed){    // transition
-        ofFill();ofSetColor(0,10,30,255*transitionTimer);
-        ofRect(0, 0, ofGetWidth(), ofGetHeight());
+//        ofFill();ofSetColor(0,10,30,255*transitionTimer);
+//        ofRect(0, 0, ofGetWidth(), ofGetHeight());
         
         levels[(currentLevel+1)%levels.size()].draw(transitionTimer);
     }

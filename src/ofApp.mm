@@ -2,13 +2,14 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    fonts[BIG].loadFont("Melbourne_light.otf", 100);
-    fonts[MEDIUM].loadFont("Melbourne_light.otf", 70);
-    fonts[SMALL].loadFont("Melbourne_light.otf", 40);
+    fonts[BIG].loadFont("assets/Melbourne_light.otf", 100);
+    fonts[MEDIUM].loadFont("assets/Melbourne_light.otf", 70);
+    fonts[SMALL].loadFont("assets/Melbourne_light.otf", 40);
     
     ofBackground(0,10,30);
 //  ofSetBackgroundAuto(false);
 //  ofSetFrameRate(5);
+//  ofSetLogLevel(OF_LOG_WARNING);
     
     // settings
     debug = false;

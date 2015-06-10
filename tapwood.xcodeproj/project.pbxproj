@@ -25,7 +25,6 @@
 		B91F318B1B00094900016819 /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B91F31891B00094900016819 /* connection.cpp */; };
 		B9276F851B26CA2D003DF091 /* Title.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9276F831B26CA2D003DF091 /* Title.cpp */; };
 		B9276F881B2709BB003DF091 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9276F861B2709BB003DF091 /* Button.cpp */; };
-		B9276F8D1B2731B9003DF091 /* Levels.lvl in Resources */ = {isa = PBXBuildFile; fileRef = B9276F8C1B2731B9003DF091 /* Levels.lvl */; };
 		B934923C1B16FB9600DF2C4B /* LineElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B934923A1B16FB9600DF2C4B /* LineElement.cpp */; };
 		B944415E1B07669C00B7B2A1 /* PointElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B944415C1B07669C00B7B2A1 /* PointElement.cpp */; };
 		B9876E761B24A0620060895C /* Calibrator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9876E741B24A0620060895C /* Calibrator.cpp */; };
@@ -96,7 +95,6 @@
 		B9276F841B26CA2D003DF091 /* Title.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Title.h; sourceTree = "<group>"; };
 		B9276F861B2709BB003DF091 /* Button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Button.cpp; sourceTree = "<group>"; };
 		B9276F871B2709BB003DF091 /* Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Button.h; sourceTree = "<group>"; };
-		B9276F8C1B2731B9003DF091 /* Levels.lvl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Levels.lvl; path = bin/data/Levels.lvl; sourceTree = SOURCE_ROOT; };
 		B934923A1B16FB9600DF2C4B /* LineElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LineElement.cpp; sourceTree = "<group>"; };
 		B934923B1B16FB9600DF2C4B /* LineElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineElement.h; sourceTree = "<group>"; };
 		B944415C1B07669C00B7B2A1 /* PointElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointElement.cpp; sourceTree = "<group>"; };
@@ -246,7 +244,6 @@
 		B99D6F9C1B0FE229007BD475 /* gameElements */ = {
 			isa = PBXGroup;
 			children = (
-				B9276F8C1B2731B9003DF091 /* Levels.lvl */,
 				B9276F891B2709CC003DF091 /* wave */,
 				B944415D1B07669C00B7B2A1 /* PointElement.h */,
 				B944415C1B07669C00B7B2A1 /* PointElement.cpp */,
@@ -410,7 +407,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9276F8D1B2731B9003DF091 /* Levels.lvl in Resources */,
 				E41D3ED713B38FB500A75A5D /* Project.xcconfig in Resources */,
 				E41D3EE613B3906D00A75A5D /* CoreOF.xcconfig in Resources */,
 				678E130817951530005B6D19 /* Icon@2x.png in Resources */,

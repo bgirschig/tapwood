@@ -34,6 +34,7 @@ public:
 private:
     int targetCount;
     ofTrueTypeFont *fonts;
+    ofImage *bg;
 //    ofTrueTypeFont bigFont;
 //    ofTrueTypeFont smallFont;
 };
