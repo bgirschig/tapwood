@@ -41,6 +41,7 @@ class ofApp : public ofxiOSApp {
         void onServerEvent(string & e);
         void onDeviceEvent(string & e);
         void onDataEvent(string & e);
+    
         void onTapEvent(ofVec2f & e);
         void onButton(ButtonKind & kind);
     
@@ -52,6 +53,7 @@ class ofApp : public ofxiOSApp {
         // utils
         ofVec2f testPos;
         ofTrueTypeFont fonts[3];
+        ofSoundPlayer tapSounds[5];
     
         //settings
         bool connect;

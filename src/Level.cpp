@@ -27,7 +27,6 @@ void Level::addPoint(string x, string y, string kind){
 void Level::addButton(string x, string y, string kind, string text){
     ofVec2f pos = ofVec2f(ofToInt(x), ofToInt(y));
     PointElement *p = new PointElement(pos, TARGET_ELEMENT);
-    cout << "kind " << kind << endl;
     if(kind=="START") p->buttonKind = RESTART;
     else if(kind=="CREDITS") p->buttonKind = CREDITS;
     

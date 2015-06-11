@@ -9,7 +9,7 @@ void Game::init(ofTrueTypeFont *_fonts){
     fonts = _fonts;
 
     ofImage img;
-    for (int i=0; i<4; i++) {
+    for (int i=0; i<0; i++) {
         img.loadImage("assets/backgrounds/bg_"+ofToString(i)+".png");
         backgrounds.push_back(img);
     }
@@ -69,8 +69,8 @@ void Game::update(){
     }
 }
 void Game::draw(){
-    ofSetColor(255);
-    backgrounds[currentLevel%4].draw(0, 0);
+//    ofSetColor(255);
+//    backgrounds[currentLevel%4].draw(0, 0);
     
     for(Wave &w : waves) w.draw();
     levels[currentLevel].draw(1);

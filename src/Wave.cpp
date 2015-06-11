@@ -6,7 +6,7 @@ Wave::Wave(){ }
 Wave::Wave(float x, float y){
     force = 1;
     resolution = 300;
-    speed = 1;
+    speed = 2;
     alive = true;
     
     screenW = ofGetScreenWidth();
@@ -121,7 +121,7 @@ void Wave::update(vector<PointElement *>& points, vector<LineElement *>& lines, 
         if (!particles[i].alive){ killParticle(i); vc--; i--;} // TODO: reverse main loop
         else{
             mesh.setVertex(i, particles[i].position);                                       // update 'mesh vertice' to particle position
-            if(particles[i].isEdge) mesh.setColor(i, ofColor(255,0,0,opacity*force*255));   // debug color
+            if(particles[i].isEdge && false) mesh.setColor(i, ofColor(255,0,0,opacity*force*255));   // debug color
             else if(particles[i].special) mesh.setColor(i, ofColor(0,255,0,opacity*force*255));
             else
                 mesh.setColor(i, ofColor(255,opacity*force*255));                           // set particle opacity (for fade out effects)
