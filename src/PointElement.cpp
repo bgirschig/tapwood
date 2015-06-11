@@ -35,20 +35,19 @@ void PointElement::draw(float opacity){
     ofNoFill(); ofSetLineWidth(3);
     
     if(kind==DESTROYER_ELEMENT){
-        animation = (animation+1) % 60;
+        animation = (animation+1) % 90;
         
+        ofSetLineWidth(3);
         ofSetColor(255, opacity*4*animation-1);
-        ofCircle(pos.x, pos.y, 30-(animation*0.5));
+        ofCircle(pos.x, pos.y, 45-(animation*0.5));
         
-        ofSetColor(255, opacity*4*((animation<30)? (animation+30): (animation-30))-1);
-        ofCircle(pos.x, pos.y, (animation<30)?15-(animation*0.5):45-(animation*0.5));
+        ofSetColor(255, opacity*4*((animation<45)? (animation+45): (animation-45))-1);
+        ofCircle(pos.x, pos.y, (animation<45)?22.5-(animation*0.5):67.5-(animation*0.5));
     }
     else if(kind == TARGET_ELEMENT){
         if(animation<120){
-            if(secondaryAnim < 17){
-                animation ++;
-                if(animation>=120) animation = 0;
-            }
+            animation ++;
+            if(animation>=120) animation = 0;
             
             ofSetColor(255, 255*opacity);
             ofCircle(pos.x, pos.y, 15+sin((animation*TWO_PI)/120)*3);
@@ -59,6 +58,17 @@ void PointElement::draw(float opacity){
                 
                 ofFill();
                 ofCircle(pos.x, pos.y, secondaryAnim);
+            }
+            // lines
+            if(buttonKind == NOT_BUTTON){
+                ofPushMatrix();
+                ofTranslate(pos.x, pos.y);
+                ofRotate(animation*0.2);
+                for(int i=0;i<15;i++){
+                    ofRotate(24);
+                    ofLine(30, 0, 35, 0);
+                }
+                ofPopMatrix();
             }
         }
     }

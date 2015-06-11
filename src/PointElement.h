@@ -24,7 +24,7 @@ public:
     void reset();
     
     static ofEvent<ButtonKind> buttonEvent;
-    
+
 private:
     bool buttonClicked;
     int getSide(ofVec2f a, ofVec2f b);          // collision detection utils
