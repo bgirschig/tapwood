@@ -8,7 +8,10 @@ public:
     Link();
     void update();
     void draw(float opacity);
+    void add(PointElement* el);
     
     float animation;
-    vector<PointElement> elements;
+    vector<PointElement*> elements;
+    
+    bool valid;
 };

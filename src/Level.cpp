@@ -10,6 +10,18 @@ Level::Level(string _name, string _minWaveCount, ofTrueTypeFont *_fonts){
     targetCount = 0;
     
     reset();
+    
+    if(name=="test"){
+        points.push_back(new PointElement(ofVec2f(100,100), LINKED_TARGET_ELEMENT));
+        points.push_back(new PointElement(ofVec2f(700,400), LINKED_TARGET_ELEMENT));
+        points.push_back(new PointElement(ofVec2f(500,1000), LINKED_TARGET_ELEMENT));
+        
+        links.push_back(Link());
+        links[links.size()-1].add(points[0]);
+        links[links.size()-1].add(points[1]);
+        links[links.size()-1].add(points[2]);
+        targetCount = 1;
+    }
 }
 
 void Level::reset(){
@@ -50,14 +62,26 @@ void Level::update(){
     int validCount = 0;
     
     for (int i=0; i<points.size(); i++) if(points[i]->kind == TARGET_ELEMENT && points[i]->hasCollided) validCount++;
-    if(targetCount>0 && validCount==targetCount) completed = true;
+    for (int i=0; i<links.size(); i++){
+        links[i].update();
+        if(links[i].valid) validCount++;
+        cout << validCount << "/" << targetCount << endl;
+    }
+    
+    if(targetCount>0 && validCount==targetCount){
+        completed = true;
+//        for (int i=0; i<points.size(); i++) points[i]->size+=2;
+    }
+    for (int i=0; i<links.size(); i++) links[i].update();
 }
 
 void Level::draw(float opacity){
     for (int i=0; i<points.size(); i++) points[i]->draw(opacity);
     for (int i=0; i<lines.size(); i++) lines[i]->draw(opacity);
     for (int i=0; i<titles.size(); i++) titles[i]->draw(opacity);
+    for (int i=0; i<links.size(); i++) links[i].draw(opacity);
     
+    // wave counter
     if(minWaveCount!="0"){
         ofSetColor(255,255,255,255*opacity);
         fonts[SMALL].drawString(ofToString(waveCount)+"/"+minWaveCount, ofGetWidth()/2-50, ofGetHeight()-30);

@@ -7,13 +7,8 @@ Game::Game(){
 
 void Game::init(ofTrueTypeFont *_fonts){
     fonts = _fonts;
-
-    ofImage img;
-    for (int i=0; i<0; i++) {
-        img.loadImage("assets/backgrounds/bg_"+ofToString(i)+".png");
-        backgrounds.push_back(img);
-    }
     
+    // load levels
     ofBuffer buffer = ofBufferFromFile("assets/Levels.lvl");
     while (!buffer.isLastLine()) {
         int currentLevel = levels.size()-1;
@@ -33,6 +28,7 @@ void Game::init(ofTrueTypeFont *_fonts){
     active = true;
 }
 void Game::tap(float x, float y){
+    overlayOpacity = min(overlayOpacity+50, 150);
     if(active && !levels[currentLevel].completed){
         waves.push_back(Wave(x, y));
         levels[currentLevel].waveCount++;
@@ -40,6 +36,9 @@ void Game::tap(float x, float y){
 }
 
 void Game::update(){
+    if(overlayOpacity>3) overlayOpacity -=4;
+    realOpacity += (overlayOpacity-realOpacity)/3;
+    
     if(currentLevel<levels.size()){
         // Update each wave
         int waveCount = waves.size();
@@ -78,15 +77,14 @@ void Game::update(){
     }
 }
 void Game::draw(){
-//    ofSetColor(255);
-//    backgrounds[currentLevel%4].draw(0, 0);
-    
     for(Wave &w : waves) w.draw();
     levels[currentLevel].draw(1);
     
+    ofSetColor(255, 255, 255, realOpacity); ofFill(); ofRect(0, 0, ofGetWidth(), ofGetWidth());
+    
     if(levels[currentLevel].completed){    // transition
-//        ofFill();ofSetColor(0,10,30,255*transitionTimer);
-//        ofRect(0, 0, ofGetWidth(), ofGetHeight());
+        ofFill();ofSetColor(0,10,30,255*transitionTimer);
+        ofRect(0, 0, ofGetWidth(), ofGetHeight());
         
         levels[(currentLevel+1)%levels.size()].draw(transitionTimer);
     }

@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include "ofMain.h"
+#include "Utils.h"
 
 class LineElement {
 

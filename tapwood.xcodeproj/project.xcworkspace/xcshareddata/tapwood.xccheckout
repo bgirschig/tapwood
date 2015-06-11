@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>C287B2D7-524D-4280-AD4D-A15B0C58ADA1</string>
 	<key>IDESourceControlProjectName</key>
-	<string>tapwood</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>5C623867750A9C864CF935C52DDFFB041B89E133</key>
 		<string>https://github.com/bgirschig/tapwood.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>tapwood.xcodeproj</string>
+	<string>tapwood.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>5C623867750A9C864CF935C52DDFFB041B89E133</key>

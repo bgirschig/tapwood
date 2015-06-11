@@ -249,8 +249,6 @@
 			children = (
 				B9276F891B2709CC003DF091 /* wave */,
 				B944415D1B07669C00B7B2A1 /* PointElement.h */,
-				B945D4851B29A84A00C271CC /* Link.h */,
-				B945D4841B29A84A00C271CC /* Link.cpp */,
 				B944415C1B07669C00B7B2A1 /* PointElement.cpp */,
 				B934923B1B16FB9600DF2C4B /* LineElement.h */,
 				B934923A1B16FB9600DF2C4B /* LineElement.cpp */,
@@ -258,6 +256,8 @@
 				B9276F831B26CA2D003DF091 /* Title.cpp */,
 				B9276F871B2709BB003DF091 /* Button.h */,
 				B9276F861B2709BB003DF091 /* Button.cpp */,
+				B945D4851B29A84A00C271CC /* Link.h */,
+				B945D4841B29A84A00C271CC /* Link.cpp */,
 			);
 			name = gameElements;
 			sourceTree = "<group>";

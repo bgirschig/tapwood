@@ -5,6 +5,7 @@
 #include "PointElement.h"
 #include "LineElement.h"
 #include "Title.h"
+#include "Link.h"
 
 class Level{
 public:
@@ -20,10 +21,12 @@ public:
     void addButton(string x, string y, string kind, string text);
     string name;
     
+    // game elements
     vector<PointElement *> points;
     vector<LineElement *> lines;
     vector<Title *> titles;
-
+    vector<Link> links;
+    
     bool completed, intro;
     float transitionAnimation;
     

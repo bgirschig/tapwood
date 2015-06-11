@@ -12,7 +12,7 @@ LineElement::LineElement(ofVec2f _point1, ofVec2f _point2){
 
 void LineElement::draw(float opacity){
     animFrame+=0.1;
-    ofNoFill();ofSetColor(255, 255*opacity);
+    ofNoFill(); ofSetColor(Colors[GAME_OBJ]);
     ofVec2f animVector = normal/(sin(animFrame)+1.18);
     
     ofLine(pt1.x+animVector.x, pt1.y+animVector.y, pt2.x+animVector.x, pt2.y+animVector.y);

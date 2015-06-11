@@ -9,7 +9,8 @@ void ofApp::setup(){
     // load sounds
     for (int i=0; i<5; i++) tapSounds[i].loadSound("assets/tapSounds/tap"+ofToString(i)+".mp3");
     
-    ofBackground(0,10,30);
+    ofBackground(0);
+    
     // ofSetBackgroundAuto(false);
     // ofSetFrameRate(5);
     ofSetLogLevel(OF_LOG_VERBOSE);
@@ -52,7 +53,7 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     if(debug){
-        ofSetColor(255, 80, 100); ofFill();
+        ofSetColor(0); ofFill();
         ofCircle(testPos.x, testPos.y, 10);
         ofLine(ofGetWidth()/2, ofGetHeight()/2, testPos.x, testPos.y);
     }

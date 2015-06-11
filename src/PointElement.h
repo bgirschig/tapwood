@@ -14,6 +14,7 @@ public:
     ofVec2f pos;
     ElementKind kind;
     ButtonKind buttonKind;
+    
     bool valid;
     bool hasCollided;
     
@@ -22,15 +23,18 @@ public:
     void collided();
     void draw(float opacity);
     void reset();
+    float size;
     
     static ofEvent<ButtonKind> buttonEvent;
 
+    int tolerance;
+    float secondaryAnim;
+    
 private:
     bool buttonClicked;
     int getSide(ofVec2f a, ofVec2f b);          // collision detection utils
     ofVec2f a, b, affine_segment, affine_point; //  --
     int current_side;                           //  --
-    int animation;
-    float secondaryAnim;
+    float animation;
     float scale;
 };

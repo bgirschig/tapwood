@@ -10,6 +10,7 @@ class Game{
 public:
     Game();
     void init(ofTrueTypeFont *_fonts);
+    
     vector<Level> levels;
     vector<Wave> waves;
     vector<ofImage> backgrounds;
@@ -21,6 +22,9 @@ public:
     float transitionTimer;
     bool active;
     int currentLevel;
+    
+    int overlayOpacity;
+    int realOpacity;
     
     ofTrueTypeFont *fonts;
 };
