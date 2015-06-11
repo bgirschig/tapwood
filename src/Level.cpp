@@ -1,12 +1,14 @@
 #include "Level.h"
 
-Level::Level(string _name, ofTrueTypeFont *_fonts){
+Level::Level(string _name, string _minWaveCount, ofTrueTypeFont *_fonts){
     cout << "creating level: " << _name << endl;
     
     name = _name;
     fonts = _fonts;
+    minWaveCount = _minWaveCount;
     
     targetCount = 0;
+    
     reset();
 }
 
@@ -14,6 +16,7 @@ void Level::reset(){
     completed = false;
     intro = false;
     transitionAnimation = ofGetWidth()/1.5;
+    waveCount = 0;
     for (int i=0; i<points.size(); i++) points[i]->reset();
 }
 
@@ -54,4 +57,9 @@ void Level::draw(float opacity){
     for (int i=0; i<points.size(); i++) points[i]->draw(opacity);
     for (int i=0; i<lines.size(); i++) lines[i]->draw(opacity);
     for (int i=0; i<titles.size(); i++) titles[i]->draw(opacity);
+    
+    if(minWaveCount!="0"){
+        ofSetColor(255,255,255,255*opacity);
+        fonts[SMALL].drawString(ofToString(waveCount)+"/"+minWaveCount, ofGetWidth()/2-50, ofGetHeight()-30);
+    }
 }

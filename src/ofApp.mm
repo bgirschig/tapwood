@@ -60,7 +60,7 @@ void ofApp::draw(){
     if(game.active) game.draw();
     if(connect && serverInterface) serverConnection.drawInterface();
     if(debug){ ofSetColor(255); ofDrawBitmapString(ofToString(ofGetFrameRate())+"fps", 500, 15); }
-    if(!serverConnection.Connected){
+    if(!serverConnection.Connected && connect){
         ofRectangle shape = fonts[SMALL].getStringBoundingBox("You are not connected. Please check your network", 0, 0);
         fonts[SMALL].drawString("You are not connected. Please check your network", 1024-shape.width/2, 1450);
     }

@@ -8,7 +8,7 @@
 
 class Level{
 public:
-    Level(string name, ofTrueTypeFont *_fonts);
+    Level(string name, string _minWaveCount, ofTrueTypeFont *_fonts);
     void reset();
     
     void update();
@@ -30,6 +30,9 @@ public:
     string wonText = "YOU WON !!!";
     string restartText = "restart";
     string beginText = "Start";
+    
+    string minWaveCount;
+    int waveCount;
 
 private:
     int targetCount;

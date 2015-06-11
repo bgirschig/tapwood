@@ -21,7 +21,7 @@ void Game::init(ofTrueTypeFont *_fonts){
         line = Poco::replace(line, "\t\t", "\t");
 
         vector<string> parts = ofSplitString(line, "\t");
-        if(parts[0]=="level") levels.push_back(Level(parts[1], fonts));
+        if(parts[0]=="level") levels.push_back(Level(parts[1], parts[2], fonts));
         else if(parts[0]=="point") levels[currentLevel].addPoint(parts[1], parts[2], parts[3]);
         else if(parts[0]=="line") levels[currentLevel].addLine(parts[1], parts[2], parts[3], parts[4]);
         else if(parts[0]=="title") levels[currentLevel].addTitle(parts[1], parts[2], parts[3], parts[4]);
@@ -33,16 +33,23 @@ void Game::init(ofTrueTypeFont *_fonts){
     active = true;
 }
 void Game::tap(float x, float y){
-    if(active) waves.push_back(Wave(x, y));
+    if(active && !levels[currentLevel].completed){
+        waves.push_back(Wave(x, y));
+        levels[currentLevel].waveCount++;
+    }
 }
 
 void Game::update(){
     if(currentLevel<levels.size()){
         // Update each wave
         int waveCount = waves.size();
-        for(int i=0;i<waveCount;i++){
+        for(int i=waveCount-1; i>=0; i--){
             // erase waves that are not alive
-            if(!waves[i].alive || waves[i].force < 0.3){waves.erase(waves.begin()+i); waveCount--;}
+            if(!waves[i].alive || waves[i].force < 0.3){
+                waves[i].kill();
+                waves.erase(waves.begin()+i);
+            }
+            
             // update the others
             else waves[i].update(levels[currentLevel].points, levels[currentLevel].lines, 1-transitionTimer);
             // fade out if level is done
@@ -59,7 +66,9 @@ void Game::update(){
             }
             else{
                 levels[currentLevel].reset();
-                for(int i=waveCount-1;i>0;i++){
+                // erase all waves
+                for(int i=waveCount-1;i>=0;i--){
+                    waves[i].kill();
                     waves.erase(waves.begin()+i);
                 }
                 currentLevel = (currentLevel+1)%levels.size();

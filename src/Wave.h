@@ -18,6 +18,7 @@ class Wave {
     void test();
     void update(vector<PointElement *>& points, vector<LineElement *>& lines, float opacity);
     void draw();
+    void kill();
     
     vector<Particle> particles;
     bool slow = false;

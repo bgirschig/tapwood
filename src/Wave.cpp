@@ -54,84 +54,85 @@ bool Wave::rayIntersects(int x, int y, float angle){
 };
 
 void Wave::update(vector<PointElement *>& points, vector<LineElement *>& lines, float opacity){
-    int vc = mesh.getNumVertices();
-    int pc = points.size();
-    int lc = lines.size();
-    
-    for (int i=0; i<vc; i++) {
-        // update particle position
-        particles[i].update(speed);
+    if(alive){
+        int vc = mesh.getNumVertices();
+        int pc = points.size();
+        int lc = lines.size();
         
-        if(particles[i].blackHole==NULL){
-            // is particle going away from the screen ?
-            if((particles[i].speed.x>0 && particles[i].position.x > screenW)||
-               (particles[i].speed.y>0 && particles[i].position.y > screenH)||
-               (particles[i].speed.x<0 && particles[i].position.x < 0)||
-               (particles[i].speed.y<0 && particles[i].position.y < 0)){
-                particles[i].alive = false;
-                particles[(i+1)%vc].isEdge = true;          // next particle becomes an edge
-                particles[(i>0)?i-1:vc-1].isEdge = true;    // previous particle becomes an edge
-            }
-            else{
-                // check collisions
-                for (int j=0; j < pc; j++) {
-                    // vc-1: do not check edge points to avoid 'wrap' bugs.
-                    if(i<vc-1){
-                
-                    // (bounding box) collision check
-                        if(!particles[i].isEdge){
-                            if(points[j]->collisionCheck( particles[i].position, particles[(i+1)].position, particles[(i+1)].pPosition, particles[i].pPosition )){
-                                points[j]->collided();
-                                
-                                // DESTROYER_ELEMENT -> destroy wave on collision
-                                if(points[j]->kind == DESTROYER_ELEMENT){
-                                    // go trhough all particles, going forward from the collided point
-                                    particles[i].alive = false;
-                                    for (int k=(i+1)%vc; k!=i; k=(k+1)%vc) {
-                                        if(!particles[k].isEdge) particles[k].blackHole = points[j];
-                                        else break; // stop at first wave edge (do not affect parts of the wave that separated)
+        for (int i=0; i<vc; i++) {
+            // update particle position
+            particles[i].update(speed);
+            
+            if(particles[i].blackHole==NULL){
+                // is particle going away from the screen ?
+                if((particles[i].speed.x>0 && particles[i].position.x > screenW)||
+                   (particles[i].speed.y>0 && particles[i].position.y > screenH)||
+                   (particles[i].speed.x<0 && particles[i].position.x < 0)||
+                   (particles[i].speed.y<0 && particles[i].position.y < 0)){
+                    particles[i].alive = false;
+                    particles[(i+1)%vc].isEdge = true;          // next particle becomes an edge
+                    particles[(i>0)?i-1:vc-1].isEdge = true;    // previous particle becomes an edge
+                }
+                else{
+                    // check collisions
+                    for (int j=0; j < pc; j++) {
+                        // vc-1: do not check edge points to avoid 'wrap' bugs.
+                        if(i<vc-1){
+                    
+                        // (bounding box) collision check
+                            if(!particles[i].isEdge){
+                                if(points[j]->collisionCheck( particles[i].position, particles[(i+1)].position, particles[(i+1)].pPosition, particles[i].pPosition )){
+                                    points[j]->collided();
+                                    
+                                    // DESTROYER_ELEMENT -> destroy wave on collision
+                                    if(points[j]->kind == DESTROYER_ELEMENT){
+                                        // go trhough all particles, going forward from the collided point
+                                        particles[i].alive = false;
+                                        for (int k=(i+1)%vc; k!=i; k=(k+1)%vc) {
+                                            if(!particles[k].isEdge) particles[k].blackHole = points[j];
+                                            else break; // stop at first wave edge (do not affect parts of the wave that separated)
+                                        }
+                                        // go trhough all particles, going backwards from the collided point
+                                        for (int k=(i-1)%vc; k!=i; k=(k>0)?k-1:vc-1) {
+                                            if(!particles[k].isEdge) particles[k].blackHole = points[j];
+                                            else break; // stop at first wave edge (do not affect parts of the wave that separated)
+                                        }
                                     }
-                                    // go trhough all particles, going backwards from the collided point
-                                    for (int k=(i-1)%vc; k!=i; k=(k>0)?k-1:vc-1) {
-                                        if(!particles[k].isEdge) particles[k].blackHole = points[j];
-                                        else break; // stop at first wave edge (do not affect parts of the wave that separated)
+                                    else if(points[j]->kind == TARGET_ELEMENT && points[j]->buttonKind!=NOT_BUTTON){
+                                        fadeout = true;
                                     }
-                                }
-                                else if(points[j]->kind == TARGET_ELEMENT && points[j]->buttonKind!=NOT_BUTTON){
-                                    fadeout = true;
                                 }
                             }
                         }
                     }
+                    // check line elements
+                    for (int l=0; l < lc; l++) particles[i].lineBounce(lines[l]);
+                    
+                    // check if particle is the edge of the wave
+                    if(
+                       abs(particles[i].speed.angleRad( particles[(i+1)%vc].speed)) - pitch > 0.1 ||
+                       abs(particles[i].speed.angleRad( particles[(i>0)?i-1:vc-1].speed)) - pitch > 0.1
+                       ){
+                        particles[i].isEdge = true;
+                    } else particles[i].isEdge = false;
                 }
-                // check line elements
-                for (int l=0; l < lc; l++) particles[i].lineBounce(lines[l]);
-                
-                // check if particle is the edge of the wave
-                if(
-                   abs(particles[i].speed.angleRad( particles[(i+1)%vc].speed)) - pitch > 0.1 ||
-                   abs(particles[i].speed.angleRad( particles[(i>0)?i-1:vc-1].speed)) - pitch > 0.1
-                   ){
-                    particles[i].isEdge = true;
-                } else particles[i].isEdge = false;
+            }
+
+            // kill particle if needed (and update the vertices count (vc) to match)
+            if (!particles[i].alive){ killParticle(i); vc--; i--;} // TODO: reverse main loop
+            else{
+                mesh.setVertex(i, particles[i].position);                                       // update 'mesh vertice' to particle position
+                if(particles[i].isEdge && false) mesh.setColor(i, ofColor(255,0,0,opacity*force*255));   // debug color
+                else if(particles[i].special) mesh.setColor(i, ofColor(0,255,0,opacity*force*255));
+                else mesh.setColor(i, ofColor(255,opacity*force*255));                           // set particle opacity (for fade out effects)
             }
         }
-
-        // kill particle if needed (and update the vertices count (vc) to match)
-        if (!particles[i].alive){ killParticle(i); vc--; i--;} // TODO: reverse main loop
-        else{
-            mesh.setVertex(i, particles[i].position);                                       // update 'mesh vertice' to particle position
-            if(particles[i].isEdge && false) mesh.setColor(i, ofColor(255,0,0,opacity*force*255));   // debug color
-            else if(particles[i].special) mesh.setColor(i, ofColor(0,255,0,opacity*force*255));
-            else
-                mesh.setColor(i, ofColor(255,opacity*force*255));                           // set particle opacity (for fade out effects)
+        
+        if(vc==0) alive = false; // kill wave if there are no particles.
+        if(fadeout){
+            force -= force/10;
+            speed -= speed/10;
         }
-    }
-    
-    if(vc==0) alive = false; // kill wave if there are no particles.
-    if(fadeout){
-        force -= force/10;
-        speed -= speed/10;
     }
 }
 
@@ -144,4 +145,11 @@ void Wave::draw(){
 void Wave::killParticle(int index){
     mesh.removeVertex(index);
     particles.erase(particles.begin()+index);
+}
+void Wave::kill(){
+    alive = false;
+    for (int i=particles.size()-1; i>=0; i--) {
+        mesh.removeVertex(i);
+        particles.erase(particles.begin()+i);
+    }
 }
