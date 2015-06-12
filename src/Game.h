@@ -19,6 +19,7 @@ public:
     void update();
     void draw();
     void tap(float x, float y);
+    void gotoNextLevel();
     
     // various
     bool active;

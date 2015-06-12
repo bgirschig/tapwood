@@ -32,10 +32,10 @@ void Game::init(ofTrueTypeFont *_fonts){
     isInfoScreen = false;
 }
 void Game::tap(float x, float y){
-    // if we are in a
+    // if we are in an info screen
     if(isInfoScreen){
-        gotoNext = true;
-        transitionPos = 0;
+        transitionPos = transitionEnd+1;
+        gotoNextLevel();
     }
     else{
         overlayOpacity = min(overlayOpacity+50, 150);
@@ -54,6 +54,7 @@ void Game::update(){
     if(currentLevel<levels.size()){
         // Update each wave
         int waveCount = waves.size();
+        
         for(int i=waveCount-1; i>=0; i--){
             // erase waves that are not alive
             if(!waves[i].alive || waves[i].force < 0.3) killWave(i);
@@ -67,20 +68,18 @@ void Game::update(){
         
         levels[currentLevel].update();
 
-        // if current level is done, animate transition
+        // if current level is done, transition
         if(levels[currentLevel].completed){
             nextLevel = (currentLevel+1) % levels.size();
-            if(gotoNext) transitionPos -= transitionPos/10;
-            else{
-                if(transitionPos > transitionEnd/2) isInfoScreen = true;
-                if(transitionPos < transitionEnd-50) transitionPos += (transitionEnd-transitionPos) / 20;
-            }
-//            else{
-//                levels[currentLevel].reset();
-//                for(int i=waveCount-1;i>=0;i--) killWave(i);
-//                currentLevel = nextLevel;
-//                transitionPos = 0;
-//            }
+            
+            // animate transition
+            if(transitionPos < transitionEnd-50) transitionPos += (transitionEnd-transitionPos) / 20;
+            
+            // on when the transition circle is half-way to its destination, diplay infoScreen
+            if(transitionPos > transitionEnd/2 && levels[nextLevel].targetCount>0) isInfoScreen = true;
+
+            // if the next level has not targets, do not display the infoscreen
+            else if(levels[nextLevel].targetCount==0) gotoNextLevel();
         }
     }
 }
@@ -97,7 +96,9 @@ void Game::draw(){
         ofSetCircleResolution(10);
         
         if(isInfoScreen){
-            ofSetColor(Colors[GAME_OBJ], 255*(transitionPos - transitionEnd/2)/(transitionEnd/2));
+            float middle = transitionEnd/2;
+            ofSetColor(Colors[GAME_OBJ], 255*(transitionPos-middle)/middle );
+            
             string txt = "LEVEL "+ofToString(nextLevel);
             ofRectangle shape = fonts[BIG].getStringBoundingBox(txt, 0, 0);
             fonts[BIG].drawString(txt, (ofGetWidth()-shape.width)/2, ofGetHeight()/2);
@@ -110,7 +111,15 @@ void Game::draw(){
             shape = fonts[SMALL].getStringBoundingBox(txt, 0, 0);
             fonts[SMALL].drawString(txt, (ofGetWidth()-shape.width)/2, ofGetHeight()-50);
         }
+        else if(transitionPos > transitionEnd/2){ levels[nextLevel].draw(1); }
     }
+}
+void Game::gotoNextLevel(){
+    levels[currentLevel].reset();
+    for(int i=waves.size()-1; i>=0; i--) killWave(i);
+    transitionPos = 0;
+    currentLevel = nextLevel;
+    isInfoScreen = false;
 }
 void Game::killWave(int i){
     waves[i].kill();
