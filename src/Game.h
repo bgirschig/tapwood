@@ -11,20 +11,29 @@ public:
     Game();
     void init(ofTrueTypeFont *_fonts);
     
+    // main elements
     vector<Level> levels;
     vector<Wave> waves;
-    vector<ofImage> backgrounds;
     
+    // methods
     void update();
     void draw();
     void tap(float x, float y);
     
-    float transitionTimer;
+    // various
     bool active;
-    int currentLevel;
+    ofTrueTypeFont *fonts;
     
+    // flash
     int overlayOpacity;
     int realOpacity;
     
-    ofTrueTypeFont *fonts;
+    // transition
+    float transitionPos;
+    float transitionEnd;
+    int nextLevel, currentLevel;
+    bool isInfoScreen, gotoNext;
+
+private:
+    void killWave(int i);
 };

@@ -27,7 +27,7 @@ void Link::update(){
     }
 }
 void Link::draw(float opacity){
-    ofSetColor(255, 255, 255, 255*opacity*0.2);
+    ofSetColor(Colors[GAME_OBJ], 255*opacity*0.2);
     for(int i=0;i<elements.size();i++){
         if(i>0)ofLine(elements[i-1]->pos.x, elements[i-1]->pos.y, elements[i]->pos.x, elements[i]->pos.y);
     }

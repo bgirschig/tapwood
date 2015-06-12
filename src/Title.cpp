@@ -9,6 +9,6 @@ Title::Title(string _text, int _x, int _y, ofTrueTypeFont *_font){
 }
 
 void Title::draw(float opacity){
-    ofSetColor(255*opacity);
+    ofSetColor(Colors[GAME_OBJ] * opacity);
     font->drawString(text, x, y);
 }

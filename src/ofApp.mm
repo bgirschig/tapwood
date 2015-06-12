@@ -3,8 +3,8 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     fonts[BIG].loadFont("assets/fonts/Melbourne_light.otf", 100);
-    fonts[MEDIUM].loadFont("assets/fonts/Melbourne_light.otf", 70);
-    fonts[SMALL].loadFont("assets/fonts/Melbourne_light.otf", 40);
+    fonts[MEDIUM].loadFont("assets/fonts/Melbourne_light.otf", 50);
+    fonts[SMALL].loadFont("assets/fonts/Melbourne_light.otf", 30);
 
     // load sounds
     for (int i=0; i<5; i++) tapSounds[i].loadSound("assets/tapSounds/tap"+ofToString(i)+".mp3");
@@ -13,7 +13,7 @@ void ofApp::setup(){
     
     // ofSetBackgroundAuto(false);
     // ofSetFrameRate(5);
-    ofSetLogLevel(OF_LOG_VERBOSE);
+    // ofSetLogLevel(OF_LOG_VERBOSE);
     
     // settings
     debug = false;
@@ -52,11 +52,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    if(debug){
-        ofSetColor(0); ofFill();
-        ofCircle(testPos.x, testPos.y, 10);
-        ofLine(ofGetWidth()/2, ofGetHeight()/2, testPos.x, testPos.y);
-    }
+    if(debug){}
     if(!cal.done && serverConnection.Connected) cal.draw();
     if(game.active) game.draw();
     if(connect && serverInterface) serverConnection.drawInterface();

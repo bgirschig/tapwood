@@ -17,12 +17,12 @@ enum ButtonKind{
 };
 
 enum colorId{
-    BG,
     FG,
+    BG,
     GAME_OBJ
 };
-static ofColor Colors[] = {ofColor(255,0,0), ofColor(0,100,0), ofColor(255,255,255)};
+static ofColor Colors[] = {ofColor(2,60,75), ofColor(255, 80, 100), ofColor(255)};
 
-//2,60,75
-//255, 80, 100
-//218, 64, 71
+// 2,60,75
+// 255, 80, 100
+// 218, 64, 71

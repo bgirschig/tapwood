@@ -16,22 +16,34 @@ void Game::init(ofTrueTypeFont *_fonts){
         line = Poco::replace(line, "\t\t", "\t");
 
         vector<string> parts = ofSplitString(line, "\t");
-        if(parts[0]=="level") levels.push_back(Level(parts[1], parts[2], fonts));
+        if(parts[0]=="level") levels.push_back(Level(parts[1], parts[2], fonts, Colors[(levels.size()-1)%2]));
         else if(parts[0]=="point") levels[currentLevel].addPoint(parts[1], parts[2], parts[3]);
         else if(parts[0]=="line") levels[currentLevel].addLine(parts[1], parts[2], parts[3], parts[4]);
         else if(parts[0]=="title") levels[currentLevel].addTitle(parts[1], parts[2], parts[3], parts[4]);
         else if(parts[0]=="button") levels[currentLevel].addButton(parts[1], parts[2], parts[3], parts[4]);
+        else if(parts[0]=="chain") levels[currentLevel].addChain();
+        else if(parts[0]=="->") levels[currentLevel].linkToLastChain(parts[1], parts[2]);
     }
     
     // inits
-    transitionTimer = 0;
+    transitionEnd = ofDist(0, 0, ofGetWidth()/2, ofGetHeight()/2)+50;
+    transitionPos = 0;
     active = true;
+    isInfoScreen = false;
 }
 void Game::tap(float x, float y){
-    overlayOpacity = min(overlayOpacity+50, 150);
-    if(active && !levels[currentLevel].completed){
-        waves.push_back(Wave(x, y));
-        levels[currentLevel].waveCount++;
+    // if we are in a
+    if(isInfoScreen){
+        gotoNext = true;
+        transitionPos = 0;
+    }
+    else{
+        overlayOpacity = min(overlayOpacity+50, 150);
+
+        if(active && !levels[currentLevel].completed){
+            waves.push_back(Wave(x, y));
+            levels[currentLevel].waveCount++;
+        }
     }
 }
 
@@ -44,48 +56,63 @@ void Game::update(){
         int waveCount = waves.size();
         for(int i=waveCount-1; i>=0; i--){
             // erase waves that are not alive
-            if(!waves[i].alive || waves[i].force < 0.3){
-                waves[i].kill();
-                waves.erase(waves.begin()+i);
-            }
+            if(!waves[i].alive || waves[i].force < 0.3) killWave(i);
             
-            // update the others
-            else waves[i].update(levels[currentLevel].points, levels[currentLevel].lines, 1-transitionTimer);
-            // fade out if level is done
+            // update the alive ones
+            else waves[i].update(levels[currentLevel].points, levels[currentLevel].lines, 1);
+            
+            // fade out, slow and deactivate if level is done
             if( levels[currentLevel].completed ) waves[i].fadeout = true;
         }
         
         levels[currentLevel].update();
-        
-        // current level is done
+
+        // if current level is done, animate transition
         if(levels[currentLevel].completed){
-            if(transitionTimer < 1){
-                transitionTimer+=0.07;
-                levels[(currentLevel+1)%levels.size()].update();
-            }
+            nextLevel = (currentLevel+1) % levels.size();
+            if(gotoNext) transitionPos -= transitionPos/10;
             else{
-                levels[currentLevel].reset();
-                // erase all waves
-                for(int i=waveCount-1;i>=0;i--){
-                    waves[i].kill();
-                    waves.erase(waves.begin()+i);
-                }
-                currentLevel = (currentLevel+1)%levels.size();
-                transitionTimer = 0;
+                if(transitionPos > transitionEnd/2) isInfoScreen = true;
+                if(transitionPos < transitionEnd-50) transitionPos += (transitionEnd-transitionPos) / 20;
             }
+//            else{
+//                levels[currentLevel].reset();
+//                for(int i=waveCount-1;i>=0;i--) killWave(i);
+//                currentLevel = nextLevel;
+//                transitionPos = 0;
+//            }
         }
     }
 }
 void Game::draw(){
-    for(Wave &w : waves) w.draw();
     levels[currentLevel].draw(1);
+    for(Wave &w : waves) w.draw();
     
-    ofSetColor(255, 255, 255, realOpacity); ofFill(); ofRect(0, 0, ofGetWidth(), ofGetWidth());
+    ofSetColor(Colors[GAME_OBJ], realOpacity); ofFill(); ofRect(0, 0, ofGetWidth(), ofGetWidth());
     
-    if(levels[currentLevel].completed){    // transition
-        ofFill();ofSetColor(0,10,30,255*transitionTimer);
-        ofRect(0, 0, ofGetWidth(), ofGetHeight());
+// transition
+    if(levels[currentLevel].completed){
+        ofSetCircleResolution(60);
+        ofFill(); ofSetColor(levels[nextLevel].bg); ofCircle(ofGetWidth()/2, ofGetHeight()/2, transitionPos);
+        ofSetCircleResolution(10);
         
-        levels[(currentLevel+1)%levels.size()].draw(transitionTimer);
+        if(isInfoScreen){
+            ofSetColor(Colors[GAME_OBJ], 255*(transitionPos - transitionEnd/2)/(transitionEnd/2));
+            string txt = "LEVEL "+ofToString(nextLevel);
+            ofRectangle shape = fonts[BIG].getStringBoundingBox(txt, 0, 0);
+            fonts[BIG].drawString(txt, (ofGetWidth()-shape.width)/2, ofGetHeight()/2);
+            
+            txt = ofToString(levels[nextLevel].targetCount)+" waves";
+            shape = fonts[MEDIUM].getStringBoundingBox(txt, 0, 0);
+            fonts[MEDIUM].drawString(txt, (ofGetWidth()-shape.width)/2, ofGetHeight()/2 + 100);
+            
+            txt = "tap to continue";
+            shape = fonts[SMALL].getStringBoundingBox(txt, 0, 0);
+            fonts[SMALL].drawString(txt, (ofGetWidth()-shape.width)/2, ofGetHeight()-50);
+        }
     }
+}
+void Game::killWave(int i){
+    waves[i].kill();
+    waves.erase(waves.begin()+i);
 }
