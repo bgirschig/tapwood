@@ -36,5 +36,4 @@ private:
     ofVec2f a, b, affine_segment, affine_point; //  --
     int current_side;                           //  --
     float animation;
-    float scale;
 };

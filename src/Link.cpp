@@ -28,8 +28,16 @@ void Link::update(){
 }
 void Link::draw(float opacity){
     ofSetColor(Colors[GAME_OBJ], 255*opacity*0.2);
-    for(int i=0;i<elements.size();i++){
-        if(i>0)ofLine(elements[i-1]->pos.x, elements[i-1]->pos.y, elements[i]->pos.x, elements[i]->pos.y);
+    ofVec2f vect;
+    
+    for(int i=1;i<elements.size();i++){
+        vect = elements[i-1]->pos - elements[i]->pos;
+        vect.normalize();
+        ofLine((elements[i-1]->pos - vect*elements[i-1]->size).x,
+               (elements[i-1]->pos - vect*elements[i-1]->size).y,
+               (elements[i]->pos + vect*elements[i-1]->size).x,
+               (elements[i]->pos + vect*elements[i-1]->size).y
+               );
     }
 }
 void Link::add(PointElement* el){

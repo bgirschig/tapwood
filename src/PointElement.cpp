@@ -14,7 +14,6 @@ PointElement::PointElement(ofVec2f position, ElementKind type){
 void PointElement::reset(){
     animation = 0;
     secondaryAnim = 0;
-    scale = 10;
     hasCollided = false;
     valid = false;
     buttonClicked = false;
@@ -49,9 +48,10 @@ void PointElement::draw(float opacity){
     else if(kind == TARGET_ELEMENT || kind == LINKED_TARGET_ELEMENT){
         animation += 1;
         if(animation>=120) animation = 0;
+        size = 15+sin((animation*TWO_PI)/120)*3;
         
         ofSetColor(Colors[GAME_OBJ], 255*opacity);
-        ofCircle(pos.x, pos.y, 15+sin((animation*TWO_PI)/120)*3);
+        ofCircle(pos.x, pos.y, size);
         
         if(hasCollided){
             if(!valid){
@@ -60,7 +60,7 @@ void PointElement::draw(float opacity){
             }
             
             ofSetColor(Colors[GAME_OBJ]);ofFill();
-            ofCircle(pos.x, pos.y, secondaryAnim*size);
+            ofCircle(pos.x, pos.y, secondaryAnim);
         }
 
         // rays

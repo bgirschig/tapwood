@@ -91,7 +91,6 @@ void Game::draw(){
     if(levels[currentLevel].completed){
         ofSetCircleResolution(60);
         ofFill(); ofSetColor(levels[nextLevel].bg); ofCircle(ofGetWidth()/2, ofGetHeight()/2, transitionPos);
-        ofSetCircleResolution(10);
         
         if(isInfoScreen){
             float opacity = 255 * (transitionPos-(transitionEnd_1/2)) / (transitionEnd_1/2);
@@ -99,11 +98,11 @@ void Game::draw(){
             if(levels[nextLevel].targetCount==0) levels[nextLevel].draw(opacity, false);
             else{
                 ofSetColor(Colors[GAME_OBJ],  opacity);
-                string txt = "LEVEL "+ofToString(nextLevel);
+                string txt = "LEVEL "+ofToString(nextLevel+1);
                 ofRectangle shape = fonts[BIG].getStringBoundingBox(txt, 0, 0);
                 fonts[BIG].drawString(txt, (ofGetWidth()-shape.width)/2, ofGetHeight()/2);
                 
-                txt = ofToString(levels[nextLevel].targetCount)+" waves";
+                txt = ofToString(levels[nextLevel].minWaveCount)+" waves";
                 shape = fonts[MEDIUM].getStringBoundingBox(txt, 0, 0);
                 fonts[MEDIUM].drawString(txt, (ofGetWidth()-shape.width)/2, ofGetHeight()/2 + 100);
                 
