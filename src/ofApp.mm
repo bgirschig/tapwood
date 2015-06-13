@@ -3,11 +3,13 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     fonts[BIG].loadFont("assets/fonts/Melbourne_light.otf", 100);
-    fonts[MEDIUM].loadFont("assets/fonts/Melbourne_light.otf", 50);
-    fonts[SMALL].loadFont("assets/fonts/Melbourne_light.otf", 30);
+    fonts[MEDIUM].loadFont("assets/fonts/Melbourne_light.otf", 60);
+    fonts[SMALL].loadFont("assets/fonts/Melbourne_light.otf", 40);
 
     // load sounds
     for (int i=0; i<5; i++) tapSounds[i].loadSound("assets/tapSounds/tap"+ofToString(i)+".mp3");
+    for (int i=0; i<3; i++) validSounds[i].loadSound("assets/validSounds/valid"+ofToString(i)+".mp3");
+    
     
     ofBackground(0);
     
@@ -25,6 +27,7 @@ void ofApp::setup(){
     cmToPx = 90;
 
     initEvents();
+    
     if(connect){
         serverConnection.setup("10.206.104.38", 11999);
         cal.init(fonts);
@@ -87,11 +90,11 @@ void ofApp::initEvents(){
         ofAddListener(serverConnection.tapEvent, this, &ofApp::onTapEvent);
     }
     ofAddListener(PointElement::buttonEvent, this, &ofApp::onButton);
+    ofAddListener(PointElement::playSoundEvent, this, &ofApp::onPlaySoundEvent);
 }
 
 void ofApp::onServerEvent(string & e){ cout << "server event:" << e << endl; }
 void ofApp::onDeviceEvent(string & e){ cout << "device event:" << e << endl; }
-
 void ofApp::onTapEvent(ofVec2f &e){
     tapSounds[(int)ofRandom(5)].play();
     if(!cal.done) cal.step++;
@@ -103,4 +106,8 @@ void ofApp::onTapEvent(ofVec2f &e){
 void ofApp::onButton(ButtonKind & kind){
     if(kind==RESTART) game.levels[game.currentLevel].completed = true;
     else cout << "btn " << kind;
+}
+void ofApp::onPlaySoundEvent(string & e){
+    cout << "play " << e;
+    if(e == "1") validSounds[(int)floor(ofRandom(3))].play();
 }

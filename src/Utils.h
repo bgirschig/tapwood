@@ -21,6 +21,12 @@ enum colorId{
     BG,
     GAME_OBJ
 };
+enum SOUND_ID{
+    VALID,
+    LEVEL_COMPLETE,
+    LEVEL_FAIL,
+    TAP
+};
 static ofColor Colors[] = {ofColor(2,60,75), ofColor(255, 80, 100), ofColor(255)};
 
 // 2,60,75

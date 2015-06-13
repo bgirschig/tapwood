@@ -102,6 +102,7 @@ void Wave::update(vector<PointElement *>& points, vector<LineElement *>& lines, 
                                     }
                                     else if(points[j]->kind == TARGET_ELEMENT && points[j]->buttonKind!=NOT_BUTTON){
                                         fadeout = true;
+                                        cout << " target reached "<<endl;
                                     }
                                 }
                             }

@@ -26,8 +26,8 @@ public:
     float size;
     
     static ofEvent<ButtonKind> buttonEvent;
-
-    int tolerance;
+    static ofEvent<string> playSoundEvent;
+    
     float secondaryAnim;
     
 private:

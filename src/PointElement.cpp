@@ -2,6 +2,7 @@
 
 
 ofEvent<ButtonKind> PointElement::buttonEvent = ofEvent<ButtonKind>();
+ofEvent<string> PointElement::playSoundEvent = ofEvent<string>();
 
 PointElement::PointElement(){}
 PointElement::PointElement(ofVec2f position, ElementKind type){
@@ -17,7 +18,6 @@ void PointElement::reset(){
     hasCollided = false;
     valid = false;
     buttonClicked = false;
-    tolerance = 0;
 }
 
 bool PointElement::collisionCheck(ofVec2f pt1, ofVec2f pt2, ofVec2f pt3, ofVec2f pt4){
@@ -80,7 +80,10 @@ void PointElement::draw(float opacity){
 }
 
 void PointElement::collided(){
-    if(buttonKind!=NOT_BUTTON && !hasCollided) ofNotifyEvent(buttonEvent, buttonKind, this);
-    hasCollided = true;
-    tolerance = 20;
+    if(!hasCollided){
+        string str = "1";
+        if(buttonKind!=NOT_BUTTON) ofNotifyEvent(buttonEvent, buttonKind, this);
+        else if(kind==TARGET_ELEMENT) ofNotifyEvent(playSoundEvent, str, this);
+        hasCollided = true;
+    }
 }

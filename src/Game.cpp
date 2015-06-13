@@ -119,7 +119,8 @@ void Game::draw(){
                 ofRectangle shape = fonts[BIG].getStringBoundingBox(txt, 0, 0);
                 fonts[BIG].drawString(txt, (ofGetWidth()-shape.width)/2, ofGetHeight()/2);
                 
-                txt = ofToString(levels[nextLevel].minWaveCount)+" waves";
+                txt = ofToString(levels[nextLevel].minWaveCount)+" wave";
+                if(levels[nextLevel].minWaveCount > 1) txt+= "s";
                 shape = fonts[MEDIUM].getStringBoundingBox(txt, 0, 0);
                 fonts[MEDIUM].drawString(txt, (ofGetWidth()-shape.width)/2, ofGetHeight()/2 + 100);
                 
