@@ -34,22 +34,26 @@ void Game::init(ofTrueTypeFont *_fonts){
     isInfoScreen = false;
 }
 void Game::tap(float x, float y){
-    // if we are in an info screen
+    // on tap on an info screen, start the second animation
     if(isInfoScreen && transitionPos<=transitionEnd_1) transitionPos = transitionEnd_1+1;
+    
+    // on tap when no overlay is displayed
     else if(transitionPos==0){
-        overlayOpacity = min(overlayOpacity+50, 150);
-
-        if(active && !levels[currentLevel].completed){
-            if(levels[currentLevel].remainingWaves>0){
+        if(active && !levels[currentLevel].completed && levels[currentLevel].remainingWaves > 0){
+                overlayOpacity = min(overlayOpacity+50, 150);
                 waves.push_back(Wave(x, y));
                 levels[currentLevel].remainingWaves--;
-            }
-            else if(levels[currentLevel].failed) levels[currentLevel].reset();
         }
+    }
+    // on tap, when the 'failed' overlay is displayed
+    else if(levels[currentLevel].failed){
+        levels[currentLevel].reset();
+        if(transitionPos<=transitionEnd_1) transitionPos = transitionEnd_1+1;
     }
 }
 
 void Game::update(){
+    // flash overlay
     if(overlayOpacity>3) overlayOpacity -=4;
     realOpacity += (overlayOpacity-realOpacity)/3;
     
@@ -61,18 +65,15 @@ void Game::update(){
             
             // update the alive ones
             else waves[i].update(levels[currentLevel].points, levels[currentLevel].lines, 1);
-            
-            // fade out, slow and deactivate if level is done
-            if( levels[currentLevel].completed ) waves[i].fadeout = true;
         }
         
         // update level
         levels[currentLevel].update();
 
-        // if current level is done, do transition
+        nextLevel = (currentLevel+1) % levels.size();
+        
+        // victory handling
         if(levels[currentLevel].completed){
-            nextLevel = (currentLevel+1) % levels.size();
-            
             // animate transition
             if(transitionPos < transitionEnd_1) transitionPos += (transitionEnd_1-transitionPos) / 20;
             
@@ -81,10 +82,18 @@ void Game::update(){
         }
         
         // failure handling
-        if(levels[currentLevel].remainingWaves == 0 && waves.size()==0){
-            levels[currentLevel].failed = true;
+        else if(levels[currentLevel].remainingWaves == 0 && waves.size()==0) levels[currentLevel].failed = true;
+        if(levels[currentLevel].failed){
+            if(transitionPos < transitionEnd_1) transitionPos += (transitionEnd_1-transitionPos) / 20;
+            else if(transitionPos > transitionEnd_1){
+                transitionPos += (transitionEnd_2-transitionPos) / 15;
+                if(transitionPos>=transitionEnd_2-10){
+                    levels[currentLevel].failed = false;
+                    transitionPos = 0;
+                }
+            }
         }
-        
+
     }
 }
 
@@ -94,14 +103,15 @@ void Game::draw(){
     
     ofSetColor(Colors[GAME_OBJ], realOpacity); ofFill(); ofRect(0, 0, ofGetWidth(), ofGetWidth());
     
-    // transition
+    // next Level transition
     if(levels[currentLevel].completed){
         ofSetCircleResolution(60);
         ofFill(); ofSetColor(levels[nextLevel].bg); ofCircle(ofGetWidth()/2, ofGetHeight()/2, transitionPos);
         
+        // info screen for next level
         if(isInfoScreen){
             float opacity = 255 * (transitionPos-(transitionEnd_1/2)) / (transitionEnd_1/2);
-            
+
             if(levels[nextLevel].targetCount==0) levels[nextLevel].draw(opacity, false);
             else{
                 ofSetColor(Colors[GAME_OBJ],  opacity);
@@ -124,12 +134,25 @@ void Game::draw(){
             transitionPos+=(transitionEnd_2-transitionPos)/10;
             levels[nextLevel].draw((transitionPos-transitionEnd_1)/(transitionEnd_2-transitionEnd_1));
 
-            if(transitionPos >= transitionEnd_2-10) gotoNextLevel();
+            if(transitionPos >= transitionEnd_2-10)gotoNextLevel();
         }
     }
+    // 'you failed' screen
+    else if(levels[currentLevel].failed){
+        if(transitionPos > transitionEnd_1/2){
+            float opacity;
+            if(transitionPos<transitionEnd_1) opacity = 255 * (transitionPos-(transitionEnd_1/2)) / (transitionEnd_1/2);
+            else opacity = 255 - 255 * ((transitionPos-transitionEnd_1)/(transitionEnd_2-transitionEnd_1));
+            
+            ofFill(); ofSetColor(10,opacity/2); ofRect(0, 0, ofGetWidth(), ofGetHeight());
+            string txt = "you failed. tap to retry";
+            ofSetColor(Colors[GAME_OBJ], opacity);
+            fonts[BIG].drawString(txt, (ofGetWidth()-fonts[BIG].getStringBoundingBox(txt, 0, 0).width)/2, ofGetHeight()/2);
+        }
+    }
+
 }
 void Game::gotoNextLevel(){
-    cout << "gotoNextLevel" << endl;
     levels[currentLevel].reset();
     for(int i=waves.size()-1; i>=0; i--) killWave(i);
     transitionPos = 0;

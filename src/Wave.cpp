@@ -58,6 +58,7 @@ void Wave::update(vector<PointElement *>& points, vector<LineElement *>& lines, 
         int vc = mesh.getNumVertices();
         int pc = points.size();
         int lc = lines.size();
+        int validCount = vc;
         
         for (int i=0; i<vc; i++) {
             // update particle position
@@ -69,9 +70,10 @@ void Wave::update(vector<PointElement *>& points, vector<LineElement *>& lines, 
                    (particles[i].speed.y>0 && particles[i].position.y > screenH)||
                    (particles[i].speed.x<0 && particles[i].position.x < 0)||
                    (particles[i].speed.y<0 && particles[i].position.y < 0)){
-                    particles[i].alive = false;
-                    particles[(i+1)%vc].isEdge = true;          // next particle becomes an edge
-                    particles[(i>0)?i-1:vc-1].isEdge = true;    // previous particle becomes an edge
+                    validCount--;
+//                    particles[i].alive = false;
+//                    particles[(i+1)%vc].isEdge = true;          // next particle becomes an edge
+//                    particles[(i>0)?i-1:vc-1].isEdge = true;    // previous particle becomes an edge
                 }
                 else{
                     // check collisions
@@ -126,7 +128,7 @@ void Wave::update(vector<PointElement *>& points, vector<LineElement *>& lines, 
             }
         }
         
-        if(vc==0) alive = false; // kill wave if there are no particles.
+        if(vc==0 || validCount==0) alive = false; // kill wave if there are no particles.
         if(fadeout){
             force -= force/10;
             speed -= speed/10;

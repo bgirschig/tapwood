@@ -10,9 +10,9 @@ PointElement::PointElement(ofVec2f position, ElementKind type){
     reset();
     buttonKind = NOT_BUTTON;
     size = 1;
+    animation = ofRandom(20);
 }
 void PointElement::reset(){
-    animation = 0;
     secondaryAnim = 0;
     hasCollided = false;
     valid = false;

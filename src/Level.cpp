@@ -9,14 +9,13 @@ Level::Level(string _name, string _minWaveCount, ofTrueTypeFont *_fonts, ofColor
     bg = _bg;
     
     targetCount = 0;
-    
+    failed = false;
     reset();
 }
 
 void Level::reset(){
     completed = false;
     intro = false;
-    failed = false;
     transitionAnimation = ofGetWidth()/1.5;
     remainingWaves = minWaveCount;
     for (int i=0; i<points.size(); i++) points[i]->reset();
@@ -64,7 +63,7 @@ void Level::update(){
         if(chains[i]->valid) validCount++;
     }
     
-    if(targetCount>0 && validCount==targetCount && !completed){ completed = true; }
+    if(targetCount>0 && validCount==targetCount && !completed) completed = true;
     for (int i=0; i<chains.size(); i++) chains[i]->update();
 }
 
@@ -81,12 +80,9 @@ void Level::draw(float opacity, bool background){
         string str;
         if(remainingWaves > 1) str = ofToString(remainingWaves) + " waves remaining";
         else if(remainingWaves == 1) str = ofToString(remainingWaves) + " wave remaining";
-        else{
-            if(failed) str = "You failed. Tap to retry";
-            else str = "no more waves";
-        }
-        if(failed) fonts[BIG].drawString(str, ofGetWidth()/2-fonts[BIG].getStringBoundingBox(str, 0, 0).width/2, ofGetHeight()/2);
-        else fonts[SMALL].drawString(str, ofGetWidth()/2-fonts[SMALL].getStringBoundingBox(str, 0, 0).width/2, ofGetHeight() - 30);
+        else str = "no more waves";
+        
+        fonts[SMALL].drawString(str, ofGetWidth()/2-fonts[SMALL].getStringBoundingBox(str, 0, 0).width/2, ofGetHeight() - 50);
     }
 }
 void Level::draw(float opacity){
