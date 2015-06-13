@@ -31,9 +31,10 @@ public:
     
     // transition
     float transitionPos;
-    float transitionEnd;
+    float transitionEnd_1;
+    float transitionEnd_2;
     int nextLevel, currentLevel;
-    bool isInfoScreen, gotoNext;
+    bool isInfoScreen, isMenuScreen, gotoNext;
 
 private:
     void killWave(int i);

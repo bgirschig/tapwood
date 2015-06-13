@@ -57,21 +57,18 @@ void Level::linkToLastChain(string x, string y){
 void Level::update(){
     int validCount = 0;
     
-    for (int i=0; i<points.size(); i++) if(points[i]->kind == TARGET_ELEMENT && points[i]->hasCollided) validCount++;
+    for (int i=0; i<points.size(); i++) if(points[i]->kind == TARGET_ELEMENT && points[i]->valid) validCount++;
     for (int i=0; i<chains.size(); i++){
         chains[i]->update();
         if(chains[i]->valid) validCount++;
     }
     
-    if(targetCount>0 && validCount==targetCount && !completed){
-        completed = true;
-//        for (int i=0; i<points.size(); i++) points[i]->size+=2;
-    }
+    if(targetCount>0 && validCount==targetCount && !completed){ completed = true; }
     for (int i=0; i<chains.size(); i++) chains[i]->update();
 }
 
-void Level::draw(float opacity){
-    ofSetColor(bg, 255*opacity);ofFill();ofRect(0, 0, ofGetWidth(), ofGetHeight());
+void Level::draw(float opacity, bool background){
+    if(background) ofSetColor(bg, 255*opacity);ofFill();ofRect(0, 0, ofGetWidth(), ofGetHeight());
     for (int i=0; i<points.size(); i++) points[i]->draw(opacity);
     for (int i=0; i<lines.size(); i++) lines[i]->draw(opacity);
     for (int i=0; i<titles.size(); i++) titles[i]->draw(opacity);
@@ -82,4 +79,7 @@ void Level::draw(float opacity){
         ofSetColor(Colors[GAME_OBJ],255*opacity);
         fonts[SMALL].drawString(ofToString(waveCount)+"/"+minWaveCount, ofGetWidth()/2-50, ofGetHeight()-30);
     }
+}
+void Level::draw(float opacity){
+    draw(opacity, true);
 }

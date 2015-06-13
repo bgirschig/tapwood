@@ -26,18 +26,17 @@ void Game::init(ofTrueTypeFont *_fonts){
     }
     
     // inits
-    transitionEnd = ofDist(0, 0, ofGetWidth()/2, ofGetHeight()/2)+50;
+    transitionEnd_1 = ofDist(0, 0, ofGetWidth()/2, ofGetHeight()/2)+50;
+    transitionEnd_2 = transitionEnd_1+200;
+    
     transitionPos = 0;
     active = true;
     isInfoScreen = false;
 }
 void Game::tap(float x, float y){
     // if we are in an info screen
-    if(isInfoScreen){
-        transitionPos = transitionEnd+1;
-        gotoNextLevel();
-    }
-    else{
+    if(isInfoScreen && transitionPos<=transitionEnd_1) transitionPos = transitionEnd_1+1;
+    else if(transitionPos==0){
         overlayOpacity = min(overlayOpacity+50, 150);
 
         if(active && !levels[currentLevel].completed){
@@ -73,48 +72,58 @@ void Game::update(){
             nextLevel = (currentLevel+1) % levels.size();
             
             // animate transition
-            if(transitionPos < transitionEnd-50) transitionPos += (transitionEnd-transitionPos) / 20;
+            if(transitionPos < transitionEnd_1) transitionPos += (transitionEnd_1-transitionPos) / 20;
+//            else transitionPos = transitionEnd_1;
             
-            // on when the transition circle is half-way to its destination, diplay infoScreen
-            if(transitionPos > transitionEnd/2 && levels[nextLevel].targetCount>0) isInfoScreen = true;
-
-            // if the next level has not targets, do not display the infoscreen
-            else if(levels[nextLevel].targetCount==0) gotoNextLevel();
+            // when the transition circle is half-way to its destination, start displaying infoScreen
+            if(transitionPos > transitionEnd_1/2) isInfoScreen = true;
         }
     }
 }
+
 void Game::draw(){
     levels[currentLevel].draw(1);
     for(Wave &w : waves) w.draw();
     
     ofSetColor(Colors[GAME_OBJ], realOpacity); ofFill(); ofRect(0, 0, ofGetWidth(), ofGetWidth());
     
-// transition
+    // transition
     if(levels[currentLevel].completed){
         ofSetCircleResolution(60);
         ofFill(); ofSetColor(levels[nextLevel].bg); ofCircle(ofGetWidth()/2, ofGetHeight()/2, transitionPos);
         ofSetCircleResolution(10);
         
         if(isInfoScreen){
-            float middle = transitionEnd/2;
-            ofSetColor(Colors[GAME_OBJ], 255*(transitionPos-middle)/middle );
+            float opacity = 255 * (transitionPos-(transitionEnd_1/2)) / (transitionEnd_1/2);
             
-            string txt = "LEVEL "+ofToString(nextLevel);
-            ofRectangle shape = fonts[BIG].getStringBoundingBox(txt, 0, 0);
-            fonts[BIG].drawString(txt, (ofGetWidth()-shape.width)/2, ofGetHeight()/2);
-            
-            txt = ofToString(levels[nextLevel].targetCount)+" waves";
-            shape = fonts[MEDIUM].getStringBoundingBox(txt, 0, 0);
-            fonts[MEDIUM].drawString(txt, (ofGetWidth()-shape.width)/2, ofGetHeight()/2 + 100);
-            
-            txt = "tap to continue";
-            shape = fonts[SMALL].getStringBoundingBox(txt, 0, 0);
-            fonts[SMALL].drawString(txt, (ofGetWidth()-shape.width)/2, ofGetHeight()-50);
+            if(levels[nextLevel].targetCount==0) levels[nextLevel].draw(opacity, false);
+            else{
+                ofSetColor(Colors[GAME_OBJ],  opacity);
+                string txt = "LEVEL "+ofToString(nextLevel);
+                ofRectangle shape = fonts[BIG].getStringBoundingBox(txt, 0, 0);
+                fonts[BIG].drawString(txt, (ofGetWidth()-shape.width)/2, ofGetHeight()/2);
+                
+                txt = ofToString(levels[nextLevel].targetCount)+" waves";
+                shape = fonts[MEDIUM].getStringBoundingBox(txt, 0, 0);
+                fonts[MEDIUM].drawString(txt, (ofGetWidth()-shape.width)/2, ofGetHeight()/2 + 100);
+                
+                txt = "tap to continue";
+                shape = fonts[SMALL].getStringBoundingBox(txt, 0, 0);
+                fonts[SMALL].drawString(txt, (ofGetWidth()-shape.width)/2, ofGetHeight()-50);
+            }
         }
-        else if(transitionPos > transitionEnd/2){ levels[nextLevel].draw(1); }
+        
+        // transition step 2
+        if(transitionPos > transitionEnd_1 && transitionPos < transitionEnd_2-2){
+            transitionPos+=(transitionEnd_2-transitionPos)/10;
+            levels[nextLevel].draw((transitionPos-transitionEnd_1)/(transitionEnd_2-transitionEnd_1));
+
+            if(transitionPos >= transitionEnd_2-10) gotoNextLevel();
+        }
     }
 }
 void Game::gotoNextLevel(){
+    cout << "gotoNextLevel" << endl;
     levels[currentLevel].reset();
     for(int i=waves.size()-1; i>=0; i--) killWave(i);
     transitionPos = 0;

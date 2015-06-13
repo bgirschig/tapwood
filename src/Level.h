@@ -14,6 +14,7 @@ public:
     
     void update();
     void draw(float opacity);
+    void draw(float opacity, bool background);
     
     void addPoint(string x, string y, string kind);
     void addLine(string x1, string y1, string x2, string y2);
