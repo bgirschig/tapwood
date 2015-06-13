@@ -38,8 +38,10 @@ public:
     string restartText = "restart";
     string beginText = "Start";
     
-    string minWaveCount;
-    int waveCount;
+    int minWaveCount;
+    int remainingWaves;
+    int retryTimer;
+    bool failed;
     ofColor bg;
 
 private:

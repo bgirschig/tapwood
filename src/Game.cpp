@@ -40,8 +40,11 @@ void Game::tap(float x, float y){
         overlayOpacity = min(overlayOpacity+50, 150);
 
         if(active && !levels[currentLevel].completed){
-            waves.push_back(Wave(x, y));
-            levels[currentLevel].waveCount++;
+            if(levels[currentLevel].remainingWaves>0){
+                waves.push_back(Wave(x, y));
+                levels[currentLevel].remainingWaves--;
+            }
+            else if(levels[currentLevel].failed) levels[currentLevel].reset();
         }
     }
 }
@@ -52,9 +55,7 @@ void Game::update(){
     
     if(currentLevel<levels.size()){
         // Update each wave
-        int waveCount = waves.size();
-        
-        for(int i=waveCount-1; i>=0; i--){
+        for(int i = waves.size()-1; i>=0; i--){
             // erase waves that are not alive
             if(!waves[i].alive || waves[i].force < 0.3) killWave(i);
             
@@ -65,19 +66,25 @@ void Game::update(){
             if( levels[currentLevel].completed ) waves[i].fadeout = true;
         }
         
+        // update level
         levels[currentLevel].update();
 
-        // if current level is done, transition
+        // if current level is done, do transition
         if(levels[currentLevel].completed){
             nextLevel = (currentLevel+1) % levels.size();
             
             // animate transition
             if(transitionPos < transitionEnd_1) transitionPos += (transitionEnd_1-transitionPos) / 20;
-//            else transitionPos = transitionEnd_1;
             
             // when the transition circle is half-way to its destination, start displaying infoScreen
             if(transitionPos > transitionEnd_1/2) isInfoScreen = true;
         }
+        
+        // failure handling
+        if(levels[currentLevel].remainingWaves == 0 && waves.size()==0){
+            levels[currentLevel].failed = true;
+        }
+        
     }
 }
 
