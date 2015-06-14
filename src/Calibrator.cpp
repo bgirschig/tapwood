@@ -15,8 +15,8 @@ void Calibrator::onCalibrationPoint(){
 //    animation = 0;
 };
 void Calibrator::update(){
-    bg = ofColor(fmod(floor(step/3),2)*255);
-    fg = ofColor((1-fmod(floor(step/3),2))*255);
+    bg = Colors[(int)(  fmod(floor(step/3), 2))];
+    fg = Colors[(int)(1-fmod(floor(step/3), 2))];
     
     if(next) animation = 0;
     next = false;
@@ -52,7 +52,7 @@ void Calibrator::draw(){
     // text
     ofRectangle shape;
     string s;
-    ofSetColor(fg);
+    ofSetColor(Colors[GAME_OBJ]);
     if(step<3){
         s = "First, we need to do a little calibration:";
         shape = fonts[MEDIUM].getStringBoundingBox(s, ofGetWidth()/2, ofGetWidth()/2);

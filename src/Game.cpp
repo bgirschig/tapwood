@@ -40,7 +40,7 @@ void Game::tap(float x, float y){
     // on tap when no overlay is displayed
     else if(transitionPos==0){
         if(active && !levels[currentLevel].completed && levels[currentLevel].remainingWaves > 0){
-                overlayOpacity = min(overlayOpacity+50, 150);
+                overlayOpacity = min(overlayOpacity+100, 200);
                 waves.push_back(Wave(x, y));
                 levels[currentLevel].remainingWaves--;
         }

@@ -19,9 +19,9 @@ void ofApp::setup(){
     
     // settings
     debug = false;
-    connect = false;
+    connect = true;
     serverInterface = false;
-    touchDebug = true;
+    touchDebug = false;
     
     cmToPx = 104;
     cmToPx = 90;
