@@ -8,6 +8,7 @@ Wave::Wave(float x, float y){
     resolution = 300;
     speed = 2;
     alive = true;
+    closestDist = INFINITY;
     
     screenW = ofGetScreenWidth();
     screenH = ofGetScreenHeight();
@@ -20,8 +21,6 @@ Wave::Wave(float x, float y){
         if(rayIntersects(x, y, i)){                                             // only add particles that are aimed to the screen
             mesh.addVertex(ofPoint(x,y)); mesh.addColor(ofFloatColor(1,1,1));   // add vertexes to mesh, and create new particles
             particles.push_back(Particle(x, y, i, 4));                          // FIXME: particles are a double of mesh verteces.
-            int s = particles.size();
-            if(s==100) particles[i].special = true;
         }
     }
 }
@@ -59,8 +58,13 @@ void Wave::update(vector<PointElement *>& points, vector<LineElement *>& lines, 
         int pc = points.size();
         int lc = lines.size();
         int validCount = vc;
+        closestDist = INFINITY;
         
         for (int i=0; i<vc; i++) {
+            // get distance between closest particle and center of screen
+            float dist = ofDistSquared(ofGetWidth()/2, ofGetHeight()/2, particles[i].position.x, particles[i].position.y);
+            if( dist < closestDist ) closestDist = dist;
+            
             // update particle position
             particles[i].update(speed);
             
@@ -76,12 +80,11 @@ void Wave::update(vector<PointElement *>& points, vector<LineElement *>& lines, 
 //                    particles[(i>0)?i-1:vc-1].isEdge = true;    // previous particle becomes an edge
                 }
                 else{
-                    // check collisions
+                    // check collisions with point elements
                     for (int j=0; j < pc; j++) {
                         // vc-1: do not check edge points to avoid 'wrap' bugs.
                         if(i<vc-1){
-                    
-                        // (bounding box) collision check
+                            // (bounding box) collision check
                             if(!particles[i].isEdge){
                                 if(points[j]->collisionCheck( particles[i].position, particles[(i+1)].position, particles[(i+1)].pPosition, particles[i].pPosition )){
                                     points[j]->collided();
@@ -129,6 +132,10 @@ void Wave::update(vector<PointElement *>& points, vector<LineElement *>& lines, 
             }
         }
         
+        // set speed depending on the distance of the closest particle
+        if(closestDist>1638400) speed = 2+closestDist/1000000;
+        else speed = 2;
+        
         if(vc==0 || validCount==0) alive = false; // kill wave if there are no particles.
         if(fadeout){
             force -= force/10;
@@ -138,7 +145,7 @@ void Wave::update(vector<PointElement *>& points, vector<LineElement *>& lines, 
 }
 
 void Wave::draw(){
-    glPointSize(3);
+    glPointSize(5);
     mesh.draw();
     glPointSize(1);
 }

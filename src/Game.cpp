@@ -9,9 +9,11 @@ void Game::init(ofTrueTypeFont *_fonts){
     fonts = _fonts;
     
     // load levels
-    ofBuffer buffer = ofBufferFromFile("assets/Levels.lvl");
+    ofBuffer buffer = ofBufferFromFile("assets/levels-2.lvl");
+    
     while (!buffer.isLastLine()) {
         int currentLevel = levels.size()-1;
+
         string line = Poco::replace(buffer.getNextLine(), "\t\t", "\t"); // TODO: regex.
         line = Poco::replace(line, "\t\t", "\t");
 
@@ -32,6 +34,7 @@ void Game::init(ofTrueTypeFont *_fonts){
     transitionPos = 0;
     active = true;
     isInfoScreen = false;
+    simulateTouch = false;
 }
 void Game::tap(float x, float y){
     // on tap on an info screen, start the second animation
@@ -39,8 +42,12 @@ void Game::tap(float x, float y){
     
     // on tap when no overlay is displayed
     else if(transitionPos==0){
-        if(active && !levels[currentLevel].completed && levels[currentLevel].remainingWaves > 0){
-                overlayOpacity = min(overlayOpacity+100, 200);
+        if(active &&                                                                // if game is active
+           !levels[currentLevel].completed &&                                       // ...and level is not done yet
+           levels[currentLevel].remainingWaves > 0 &&                               // ...and player still has waves
+           (x<0 || x>ofGetWidth() || y<0 || y>ofGetHeight() || simulateTouch))      // ... and touch is out of screen
+        {
+                overlayOpacity = min(overlayOpacity+100, 200);     // Then, create a wave
                 waves.push_back(Wave(x, y));
                 levels[currentLevel].remainingWaves--;
         }
@@ -98,60 +105,61 @@ void Game::update(){
 }
 
 void Game::draw(){
-    levels[currentLevel].draw(1);
-    for(Wave &w : waves) w.draw();
-    
-    ofSetColor(Colors[GAME_OBJ], realOpacity); ofFill(); ofRect(0, 0, ofGetWidth(), ofGetWidth());
-    
-    // next Level transition
-    if(levels[currentLevel].completed){
-        ofSetCircleResolution(60);
-        ofFill(); ofSetColor(levels[nextLevel].bg); ofCircle(ofGetWidth()/2, ofGetHeight()/2, transitionPos);
+    if(levels.size()>0){
+        levels[currentLevel].draw(1);
+        for(Wave &w : waves) w.draw();
         
-        // info screen for next level
-        if(isInfoScreen){
-            float opacity = 255 * (transitionPos-(transitionEnd_1/2)) / (transitionEnd_1/2);
+        ofSetColor(Colors[GAME_OBJ], realOpacity); ofFill(); ofRect(0, 0, ofGetWidth(), ofGetWidth());
+        
+        // next Level transition
+        if(levels[currentLevel].completed){
+            ofSetCircleResolution(60);
+            ofFill(); ofSetColor(levels[nextLevel].bg); ofCircle(ofGetWidth()/2, ofGetHeight()/2, transitionPos);
+            
+            // info screen for next level
+            if(isInfoScreen){
+                float opacity = 255 * (transitionPos-(transitionEnd_1/2)) / (transitionEnd_1/2);
 
-            if(levels[nextLevel].targetCount==0) levels[nextLevel].draw(opacity, false);
-            else{
-                ofSetColor(Colors[GAME_OBJ],  opacity);
-                string txt = "LEVEL "+ofToString(nextLevel+1);
-                ofRectangle shape = fonts[BIG].getStringBoundingBox(txt, 0, 0);
-                fonts[BIG].drawString(txt, (ofGetWidth()-shape.width)/2, ofGetHeight()/2);
-                
-                txt = ofToString(levels[nextLevel].minWaveCount)+" wave";
-                if(levels[nextLevel].minWaveCount > 1) txt+= "s";
-                shape = fonts[MEDIUM].getStringBoundingBox(txt, 0, 0);
-                fonts[MEDIUM].drawString(txt, (ofGetWidth()-shape.width)/2, ofGetHeight()/2 + 100);
-                
-                txt = "tap to continue";
-                shape = fonts[SMALL].getStringBoundingBox(txt, 0, 0);
-                fonts[SMALL].drawString(txt, (ofGetWidth()-shape.width)/2, ofGetHeight()-50);
+                if(levels[nextLevel].targetCount==0) levels[nextLevel].draw(opacity, false);
+                else{
+                    ofSetColor(Colors[GAME_OBJ],  opacity);
+                    string txt = "LEVEL "+ofToString(nextLevel+1);
+                    ofRectangle shape = fonts[BIG].getStringBoundingBox(txt, 0, 0);
+                    fonts[BIG].drawString(txt, (ofGetWidth()-shape.width)/2, ofGetHeight()/2);
+                    
+                    txt = ofToString(levels[nextLevel].minWaveCount)+" wave";
+                    if(levels[nextLevel].minWaveCount > 1) txt+= "s";
+                    shape = fonts[MEDIUM].getStringBoundingBox(txt, 0, 0);
+                    fonts[MEDIUM].drawString(txt, (ofGetWidth()-shape.width)/2, ofGetHeight()/2 + 100);
+                    
+                    txt = "tap to continue";
+                    shape = fonts[SMALL].getStringBoundingBox(txt, 0, 0);
+                    fonts[SMALL].drawString(txt, (ofGetWidth()-shape.width)/2, ofGetHeight()-50);
+                }
+            }
+            
+            // transition step 2
+            if(transitionPos > transitionEnd_1 && transitionPos < transitionEnd_2-2){
+                transitionPos+=(transitionEnd_2-transitionPos)/10;
+                levels[nextLevel].draw((transitionPos-transitionEnd_1)/(transitionEnd_2-transitionEnd_1));
+
+                if(transitionPos >= transitionEnd_2-10)gotoNextLevel();
             }
         }
-        
-        // transition step 2
-        if(transitionPos > transitionEnd_1 && transitionPos < transitionEnd_2-2){
-            transitionPos+=(transitionEnd_2-transitionPos)/10;
-            levels[nextLevel].draw((transitionPos-transitionEnd_1)/(transitionEnd_2-transitionEnd_1));
-
-            if(transitionPos >= transitionEnd_2-10)gotoNextLevel();
+        // 'you failed' screen
+        else if(levels[currentLevel].failed){
+            if(transitionPos > transitionEnd_1/2){
+                float opacity;
+                if(transitionPos<transitionEnd_1) opacity = 255 * (transitionPos-(transitionEnd_1/2)) / (transitionEnd_1/2);
+                else opacity = 255 - 255 * ((transitionPos-transitionEnd_1)/(transitionEnd_2-transitionEnd_1));
+                
+                ofFill(); ofSetColor(10,opacity/2); ofRect(0, 0, ofGetWidth(), ofGetHeight());
+                string txt = "you failed. tap to retry";
+                ofSetColor(Colors[GAME_OBJ], opacity);
+                fonts[BIG].drawString(txt, (ofGetWidth()-fonts[BIG].getStringBoundingBox(txt, 0, 0).width)/2, ofGetHeight()/2);
+            }
         }
     }
-    // 'you failed' screen
-    else if(levels[currentLevel].failed){
-        if(transitionPos > transitionEnd_1/2){
-            float opacity;
-            if(transitionPos<transitionEnd_1) opacity = 255 * (transitionPos-(transitionEnd_1/2)) / (transitionEnd_1/2);
-            else opacity = 255 - 255 * ((transitionPos-transitionEnd_1)/(transitionEnd_2-transitionEnd_1));
-            
-            ofFill(); ofSetColor(10,opacity/2); ofRect(0, 0, ofGetWidth(), ofGetHeight());
-            string txt = "you failed. tap to retry";
-            ofSetColor(Colors[GAME_OBJ], opacity);
-            fonts[BIG].drawString(txt, (ofGetWidth()-fonts[BIG].getStringBoundingBox(txt, 0, 0).width)/2, ofGetHeight()/2);
-        }
-    }
-
 }
 void Game::gotoNextLevel(){
     levels[currentLevel].reset();

@@ -100,7 +100,10 @@ void connection::drawInterface(){
     ofSetColor(30, 80);ofRect(0, 0, 600, 450);
     ofSetColor(255);
     if(Connected)ofDrawBitmapString("status: connected to server", 15, 20);
-    else ofDrawBitmapString("status: not connected. start server and check ports", 15, 20);
+    else{
+        ofSetColor(ofColor(0,100)); ofFill();
+        ofDrawBitmapString("status: not connected. start server and check ports", 15, 20);
+    }
     ofDrawBitmapString("raw messages:\n\n"+rawMsg, 15, 75);
     ofDrawBitmapString("satus messages:\n\n"+statusMessages, 400, 75);
 }

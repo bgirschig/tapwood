@@ -29,6 +29,6 @@ class Particle
     float slope;
     float offset;
     
-    bool special;
-private:
+    static float diagonal;
+    static float test();
 };

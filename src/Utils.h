@@ -29,6 +29,10 @@ enum SOUND_ID{
 };
 static ofColor Colors[] = {ofColor(2,60,75), ofColor(255, 80, 100), ofColor(255)};
 
+static float gauss(float val, float height, float width, float offset){
+    return height / pow(2, pow( (val-offset)/width, 2));
+};
+
 // 2,60,75
 // 255, 80, 100
 // 218, 64, 71

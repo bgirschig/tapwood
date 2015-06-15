@@ -14,14 +14,12 @@ Particle::Particle(float _x, float _y, double direction, float _speed)
     isEdge = false;
 
     blackHole = NULL;
-    
-    special = false;
 }
 
 void Particle::update(float _speed){
     if(blackHole != NULL){
-        position += (blackHole->pos - position)/ofRandom(2,20);        // ease to black hole, with some random.
-        if(position.distance(blackHole->pos) < 1) alive = false;       // arrived at blackhole, delete this particle
+        position += (blackHole->pos - position)/ofRandom(2,15);        // ease to black hole, with some random.
+        if(position.distance(blackHole->pos) < 20) alive = false;       // arrived at blackhole, delete this particle
     }
     else{
         pPosition = position;

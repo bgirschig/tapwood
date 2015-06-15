@@ -10,10 +10,7 @@ void Calibrator::init(ofTrueTypeFont *_fonts){
     glEnable(GL_LINE_SMOOTH);
 }
 
-void Calibrator::onCalibrationPoint(){
-    step++;
-//    animation = 0;
-};
+void Calibrator::onCalibrationPoint(){ step++; };
 void Calibrator::update(){
     bg = Colors[(int)(  fmod(floor(step/3), 2))];
     fg = Colors[(int)(1-fmod(floor(step/3), 2))];
@@ -39,7 +36,6 @@ void Calibrator::update(){
     }
 }
 void Calibrator::draw(){
-    
     // background
     ofSetColor(bg);
     ofRect(0, 0, ofGetWidth(), ofGetHeight());
@@ -52,7 +48,9 @@ void Calibrator::draw(){
     // text
     ofRectangle shape;
     string s;
-    ofSetColor(Colors[GAME_OBJ]);
+    if(animation<=0.15) ofSetColor(Colors[GAME_OBJ], (animation/0.15)*255);
+    else ofSetColor(Colors[GAME_OBJ], 255-((animation-0.15)/0.85)*255);
+
     if(step<3){
         s = "First, we need to do a little calibration:";
         shape = fonts[MEDIUM].getStringBoundingBox(s, ofGetWidth()/2, ofGetWidth()/2);

@@ -1,7 +1,7 @@
 #include "Level.h"
 
 Level::Level(string _name, string _minWaveCount, ofTrueTypeFont *_fonts, ofColor _bg){
-    cout << "creating level: " << _name << endl;
+    cout << "creating level: " << _name << " bg: " << _bg << endl;
     
     name = _name;
     fonts = _fonts;

@@ -29,12 +29,15 @@ void ofApp::setup(){
     initEvents();
     
     if(connect){
-        serverConnection.setup("10.206.104.38", 11999);
+//        serverConnection.setup("10.206.104.38", 11999); //lab
+        serverConnection.setup("10.0.1.3", 11999); // ecal install
         cal.init(fonts);
     }
     else{
         cal.done = true;
-        game.init(fonts);
+        if (!game.active) game.init(fonts);
+        else game.active = false;
+        game.simulateTouch = touchDebug;
     }
 }
 
@@ -61,6 +64,8 @@ void ofApp::draw(){
     if(connect && serverInterface) serverConnection.drawInterface();
     if(debug){ ofSetColor(255); ofDrawBitmapString(ofToString(ofGetFrameRate())+"fps", 500, 15); }
     if(!serverConnection.Connected && connect){
+        ofSetColor(0,30); ofFill(); ofRect(0, 0, ofGetWidth(), ofGetHeight());
+        ofSetColor(Colors[GAME_OBJ]);
         ofRectangle shape = fonts[SMALL].getStringBoundingBox("You are not connected. Please check your network", 0, 0);
         fonts[SMALL].drawString("You are not connected. Please check your network", 1024-shape.width/2, 1450);
     }

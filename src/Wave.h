@@ -25,7 +25,7 @@ class Wave {
     bool randomise = false;
     bool alive = false;
     bool fadeout = false;
-    float force;
+    float force, closestDist;
     double pitch;
     
     private:
