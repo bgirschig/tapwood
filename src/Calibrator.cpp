@@ -2,12 +2,14 @@
 
 Calibrator::Calibrator(){}
 
-void Calibrator::init(ofTrueTypeFont *_fonts){
+void Calibrator::init(ofTrueTypeFont *_fonts, connection *_client){
     step = 0;
     animation = 0;
     done = false;
     fonts = _fonts;
     glEnable(GL_LINE_SMOOTH);
+    client = _client;
+    client->send("calibration:start");
 }
 
 void Calibrator::onCalibrationPoint(){ step++; };

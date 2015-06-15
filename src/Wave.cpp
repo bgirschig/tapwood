@@ -5,7 +5,7 @@ Wave::Wave(){ }
 
 Wave::Wave(float x, float y){
     force = 1;
-    resolution = 300;
+    resolution = 900;
     speed = 2;
     alive = true;
     closestDist = INFINITY;

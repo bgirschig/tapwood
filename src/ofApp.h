@@ -62,7 +62,6 @@ class ofApp : public ofxiOSApp {
         bool serverInterface;
         bool debug;
         bool touchDebug;
-        int cmToPx;
 };
 
 

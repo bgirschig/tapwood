@@ -68,7 +68,10 @@ void connection::update(){
                     }
                 }
                 else if(parts[0]=="calibration"){
-                    cout << "calstep" << endl;
+                    if(parts[1]=="start"){
+                        string s = "recalibrate";
+                        ofNotifyEvent(serverEvent, s, this);
+                    }
                     ofVec2f v;
                     if(parts[1]=="step") ofNotifyEvent(tapEvent, v, this);
                 }

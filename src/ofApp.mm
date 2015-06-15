@@ -10,44 +10,37 @@ void ofApp::setup(){
     for (int i=0; i<5; i++) tapSounds[i].loadSound("assets/tapSounds/tap"+ofToString(i)+".mp3");
     for (int i=0; i<3; i++) validSounds[i].loadSound("assets/validSounds/valid"+ofToString(i)+".mp3");
     
-    
     ofBackground(0);
-    
-    // ofSetBackgroundAuto(false);
-    // ofSetFrameRate(5);
-    // ofSetLogLevel(OF_LOG_VERBOSE);
     
     // settings
     debug = false;
     connect = true;
     serverInterface = false;
     touchDebug = false;
-    
-    cmToPx = 104;
-    cmToPx = 90;
 
+    // events
     initEvents();
     
     if(connect){
-//        serverConnection.setup("10.206.104.38", 11999); //lab
-        serverConnection.setup("10.0.1.3", 11999); // ecal install
-        cal.init(fonts);
+         serverConnection.setup("10.206.104.38", 11999); //lab
+        // serverConnection.setup("10.0.1.3", 11999); // ecal install
+//        serverConnection.setup("10.192.249.242", 11999); //mbp connection
+        cal.init(fonts, &serverConnection);
     }
     else{
         cal.done = true;
-        if (!game.active) game.init(fonts);
-        else game.active = false;
+        game.init(fonts);
+        
         game.simulateTouch = touchDebug;
     }
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    
-    if(connect) serverConnection.update();
-
     // orientation fix
     if(ofxiOSGetGLView().frame.origin.x != 0 || ofxiOSGetGLView().frame.size.width != [[UIScreen mainScreen] bounds].size.width) ofxiOSGetGLView().frame = CGRectMake(0,0,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height);
+    
+    if(connect) serverConnection.update();
 
     if(game.active) game.update();
     if(!cal.done) {
@@ -81,7 +74,11 @@ void ofApp::touchDown(ofTouchEventArgs & touch){
 
 void ofApp::touchMoved(ofTouchEventArgs & touch){}
 void ofApp::touchUp(ofTouchEventArgs & touch){}
-void ofApp::touchDoubleTap(ofTouchEventArgs & touch){}
+void ofApp::touchDoubleTap(ofTouchEventArgs & touch){
+    serverConnection.send("calibration:start");
+    game.active = false;
+    cal.init(fonts, &serverConnection);
+}
 void ofApp::touchCancelled(ofTouchEventArgs & touch){}
 void ofApp::lostFocus(){}
 void ofApp::gotFocus(){}
@@ -89,17 +86,10 @@ void ofApp::gotMemoryWarning(){}
 void ofApp::deviceOrientationChanged(int newOrientation){}
 
 void ofApp::initEvents(){
-    if(connect){
-        ofAddListener(serverConnection.serverEvent, this, &ofApp::onServerEvent);
-        ofAddListener(serverConnection.deviceEvent, this, &ofApp::onDeviceEvent);
-        ofAddListener(serverConnection.tapEvent, this, &ofApp::onTapEvent);
-    }
-    ofAddListener(PointElement::buttonEvent, this, &ofApp::onButton);
+    if(connect) ofAddListener(serverConnection.tapEvent, this, &ofApp::onTapEvent);
     ofAddListener(PointElement::playSoundEvent, this, &ofApp::onPlaySoundEvent);
 }
 
-void ofApp::onServerEvent(string & e){ cout << "server event:" << e << endl; }
-void ofApp::onDeviceEvent(string & e){ cout << "device event:" << e << endl; }
 void ofApp::onTapEvent(ofVec2f &e){
     tapSounds[(int)ofRandom(5)].play();
     if(!cal.done) cal.step++;

@@ -3,11 +3,12 @@
 #include "ofMain.h"
 #include "Utils.h"
 #include <stdio.h>
+#include "connection.h"
 
 class Calibrator{
 public:
     Calibrator();
-    void init(ofTrueTypeFont *_fonts);
+    void init(ofTrueTypeFont *_fonts, connection *_client);
     void update();
     void draw();
     
@@ -26,4 +27,5 @@ public:
 private:
     float animation;
     ofTrueTypeFont *fonts;
+    connection *client;
 };
