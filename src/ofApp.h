@@ -16,6 +16,7 @@ flags:
 #include "errno.h"
 #include "Calibrator.h"
 #include "Utils.h"
+#include "ofxAccelerometer.h"
 
 class ofApp : public ofxiOSApp {
 	
@@ -56,6 +57,8 @@ class ofApp : public ofxiOSApp {
         ofTrueTypeFont fonts[3];
         ofSoundPlayer tapSounds[5];
         ofSoundPlayer validSounds[3];
+        ofSoundPlayer wrongSounds[3];
+        ofSoundPlayer upSounds[3];
     
         //settings
         bool connect;

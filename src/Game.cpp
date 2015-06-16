@@ -1,5 +1,6 @@
 #include "Game.h"
 
+ofEvent<string> Game::soundEvent = ofEvent<string>();
 
 Game::Game(){
     active = false;
@@ -50,6 +51,12 @@ void Game::tap(float x, float y){
                 overlayOpacity = min(overlayOpacity+100, 200);     // Then, create a wave
                 waves.push_back(Wave(x, y));
                 levels[currentLevel].remainingWaves--;
+                string val = "0";
+                ofNotifyEvent(soundEvent, val, this);
+        }
+        else{
+            string val = "2";
+            ofNotifyEvent(soundEvent, val, this);
         }
     }
     // on tap, when the 'failed' overlay is displayed
@@ -100,7 +107,6 @@ void Game::update(){
                 }
             }
         }
-
     }
 }
 

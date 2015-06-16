@@ -39,12 +39,12 @@ void Calibrator::update(){
 }
 void Calibrator::draw(){
     // background
-    ofSetColor(bg);
+    ofSetColor(bg);ofFill();
     ofRect(0, 0, ofGetWidth(), ofGetHeight());
     
     // circle
     ofSetCircleResolution(60);
-    ofSetColor(fg);
+    ofSetColor(fg);ofFill();
     ofCircle(fmod(floor(step/3),2)*ofGetWidth(), floor(step/6)*ofGetHeight(), animation*ofGetWidth()*1.3);
 
     // text

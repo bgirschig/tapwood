@@ -29,6 +29,7 @@ public:
     // flash
     int overlayOpacity;
     int realOpacity;
+    static ofEvent<string> soundEvent;
     
     // transition
     float transitionPos;
@@ -36,7 +37,7 @@ public:
     float transitionEnd_2;
     int nextLevel, currentLevel;
     bool isInfoScreen, isMenuScreen, gotoNext, restart;
-
-private:
     void killWave(int i);
+    
+    static ofEvent<string> playSoundEvent;
 };

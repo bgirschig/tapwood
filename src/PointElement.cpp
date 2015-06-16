@@ -36,14 +36,14 @@ void PointElement::draw(float opacity){
     ofNoFill(); ofSetLineWidth(3);
     
     if(kind==DESTROYER_ELEMENT){
-        animation = fmod(animation+1,90);
+        animation = fmod(animation+1,45);
         
         ofSetLineWidth(3);
         ofSetColor(Colors[GAME_OBJ], opacity*4*animation-1);
-        ofCircle(pos.x, pos.y, 45-(animation*0.5));
+        ofCircle(pos.x, pos.y, 23-(animation*0.5));
         
-        ofSetColor(Colors[GAME_OBJ], opacity*4*((animation<45)? (animation+45): (animation-45))-1);
-        ofCircle(pos.x, pos.y, (animation<45)?22.5-(animation*0.5):67.5-(animation*0.5));
+        ofSetColor(Colors[GAME_OBJ], opacity*4*((animation<23)? (animation+23): (animation-23))-1);
+        ofCircle(pos.x, pos.y, (animation<23)?11.25-(animation*0.5):33.75-(animation*0.5));
     }
     else if(kind == TARGET_ELEMENT || kind == LINKED_TARGET_ELEMENT){
         animation += 1;
