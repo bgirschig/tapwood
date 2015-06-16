@@ -167,6 +167,10 @@ void Game::draw(){
         }
     }
 }
+void Game::drawTuto(){
+        
+}
+
 void Game::gotoNextLevel(){
     levels[currentLevel].reset();
     for(int i=waves.size()-1; i>=0; i--) killWave(i);

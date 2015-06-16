@@ -94,7 +94,10 @@ void ofApp::gotMemoryWarning(){}
 void ofApp::deviceOrientationChanged(int newOrientation){}
 
 void ofApp::initEvents(){
-    if(connect) ofAddListener(serverConnection.tapEvent, this, &ofApp::onTapEvent);
+    if(connect){
+        ofAddListener(serverConnection.tapEvent, this, &ofApp::onTapEvent);
+        ofAddListener(serverConnection.tapUpEvent, this, &ofApp::onTapUpEvent);
+    }
     ofAddListener(PointElement::playSoundEvent, this, &ofApp::onPlaySoundEvent);
     ofAddListener(game.soundEvent, this, &ofApp::onPlaySoundEvent);
 }
@@ -107,6 +110,11 @@ void ofApp::onTapEvent(ofVec2f &e){
         game.tap(e.x, e.y);
     }
 }
+void ofApp::onTapUpEvent(bool &e){
+    
+}
+
+
 void ofApp::onButton(ButtonKind & kind){
     if(kind==RESTART) game.levels[game.currentLevel].completed = true;
     else cout << "btn " << kind;
@@ -115,4 +123,5 @@ void ofApp::onPlaySoundEvent(string & e){
     if(e == "0") tapSounds[(int)floor(ofRandom(5))].play();
     else if(e == "1") validSounds[(int)floor(ofRandom(1))].play();
     else if(e == "2") wrongSounds[(int)floor(ofRandom(1))].play();
+    else if(e == "3") upSounds[(int)floor(ofRandom(1))].play();
 }

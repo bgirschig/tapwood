@@ -45,6 +45,7 @@ class ofApp : public ofxiOSApp {
         void onPlaySoundEvent(string & e);
     
         void onTapEvent(ofVec2f & e);
+        void onTapUpEvent(bool & e);
         void onButton(ButtonKind & kind);
     
         // main elements

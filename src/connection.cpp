@@ -76,9 +76,15 @@ void connection::update(){
                     if(parts[1]=="step") ofNotifyEvent(tapEvent, v, this);
                 }
                 else if(parts[0]=="tap"){
-                    vector<string> pt = ofSplitString(parts[1], ",");
-                    ofVec2f vect = ofVec2f(ofToFloat(pt[0]), ofToFloat(pt[1]));
-                    ofNotifyEvent(tapEvent, vect, this);
+                    if(parts[1]=="end"){
+                        bool val = true;
+                        ofNotifyEvent(tapUpEvent, val, this);
+                    }
+                    else{
+                        vector<string> pt = ofSplitString(parts[1], ",");
+                        ofVec2f vect = ofVec2f(ofToFloat(pt[0]), ofToFloat(pt[1]));
+                        ofNotifyEvent(tapEvent, vect, this);
+                    }
                 }
                 else ofNotifyEvent(dataEvent, str, this);
                 

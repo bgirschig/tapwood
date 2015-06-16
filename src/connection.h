@@ -20,6 +20,7 @@ class connection{
     ofEvent<string> deviceEvent;
     ofEvent<string> dataEvent;
     ofEvent<ofVec2f> tapEvent;
+    ofEvent<bool> tapUpEvent;
     
     bool Connected;
 
