@@ -26,7 +26,6 @@ public:
     float size;
     
     static ofEvent<ButtonKind> buttonEvent;
-    static ofEvent<string> playSoundEvent;
     
     float secondaryAnim;
     

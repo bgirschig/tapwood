@@ -56,10 +56,14 @@ class ofApp : public ofxiOSApp {
         // utils
         ofVec2f testPos;
         ofTrueTypeFont fonts[3];
+    
+        // sounds
         ofSoundPlayer tapSounds[5];
-        ofSoundPlayer validSounds[3];
-        ofSoundPlayer wrongSounds[3];
-        ofSoundPlayer upSounds[3];
+        ofSoundPlayer wrongTapSound;
+        ofSoundPlayer targetReachedSound;
+        ofSoundPlayer levelValidSounds;
+        ofSoundPlayer levelFailSound;
+        ofSoundPlayer stepSound;
     
         //settings
         bool connect;

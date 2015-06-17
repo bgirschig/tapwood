@@ -7,18 +7,20 @@ void ofApp::setup(){
     fonts[SMALL].loadFont("assets/fonts/Melbourne_light.otf", 40);
 
     // load sounds
-    for (int i=0; i<5; i++) tapSounds[i].loadSound("assets/tapSounds/tap"+ofToString(i)+".mp3");
-    for (int i=0; i<3; i++) validSounds[i].loadSound("assets/validSounds/valid"+ofToString(i)+".mp3");
-    for (int i=0; i<3; i++) wrongSounds[i].loadSound("assets/wrongSounds/"+ofToString(i)+".mp3");
-    for (int i=0; i<1; i++) upSounds[i].loadSound("assets/upSounds/"+ofToString(i)+".mp3");
-    
+    for (int i=0; i<4; i++) tapSounds[i].loadSound("assets/tapSounds/tap"+ofToString(i)+".mp3");
+    wrongTapSound.loadSound("assets/singleSounds/wrong.mp3");
+    targetReachedSound.loadSound("assets/singleSounds/tagetReached.mp3");
+    levelValidSounds.loadSound("assets/singleSounds/levelComplete.mp3");
+    levelFailSound.loadSound("assets/singleSounds/levelFail.mp3");
+    stepSound.loadSound("assets/singleSounds/menuStep.mp3");
+
     ofBackground(0);
     
     // settings
     debug = false;
-    connect = true;
+    connect = false;
     serverInterface = false;
-    touchDebug = false;
+    touchDebug = true;
 
     // events / sensors
     initEvents();
@@ -98,30 +100,28 @@ void ofApp::initEvents(){
         ofAddListener(serverConnection.tapEvent, this, &ofApp::onTapEvent);
         ofAddListener(serverConnection.tapUpEvent, this, &ofApp::onTapUpEvent);
     }
-    ofAddListener(PointElement::playSoundEvent, this, &ofApp::onPlaySoundEvent);
-    ofAddListener(game.soundEvent, this, &ofApp::onPlaySoundEvent);
+    ofAddListener(Utils::playSoundEventUtil, this, &ofApp::onPlaySoundEvent);
 }
 
 void ofApp::onTapEvent(ofVec2f &e){
-//    tapSounds[(int)ofRandom(5)].play();
     if(!cal.done) cal.step++;
     else{
         testPos.set(e.x, e.y);
         game.tap(e.x, e.y);
     }
 }
-void ofApp::onTapUpEvent(bool &e){
-    
-}
-
+void ofApp::onTapUpEvent(bool &e){ }
 
 void ofApp::onButton(ButtonKind & kind){
     if(kind==RESTART) game.levels[game.currentLevel].completed = true;
     else cout << "btn " << kind;
 }
 void ofApp::onPlaySoundEvent(string & e){
-    if(e == "0") tapSounds[(int)floor(ofRandom(5))].play();
-    else if(e == "1") validSounds[(int)floor(ofRandom(1))].play();
-    else if(e == "2") wrongSounds[(int)floor(ofRandom(1))].play();
-    else if(e == "3") upSounds[(int)floor(ofRandom(1))].play();
+    cout << "play: " << e << endl;
+    if(e == "tap") tapSounds[(int)floor(ofRandom(4))].play();
+    else if(e == "wrong") wrongTapSound.play();
+    else if(e == "targetReached") targetReachedSound.play();
+    else if(e == "levelValid") levelValidSounds.play();
+    else if(e == "levelFail") levelFailSound.play();
+    else if(e == "menuStep") stepSound.play();
 }

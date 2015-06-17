@@ -15,13 +15,15 @@ public:
     vector<Level> levels;
     vector<Wave> waves;
     
+    int wrongCounter;
+    
     // methods
     void update();
     void draw();
     void tap(float x, float y);
     void tapUp();
     void gotoNextLevel();
-    void drawTuto();
+    void drawTuto(float opacity);
     
     // various
     bool active;
@@ -40,6 +42,4 @@ public:
     int nextLevel, currentLevel;
     bool isInfoScreen, isMenuScreen, gotoNext, restart;
     void killWave(int i);
-    
-    static ofEvent<string> playSoundEvent;
 };

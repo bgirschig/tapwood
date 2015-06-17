@@ -15,6 +15,7 @@ public:
     void update();
     void draw(float opacity);
     void draw(float opacity, bool background);
+    void drawTuto(float opacity);
     
     void addPoint(string x, string y, string kind);
     void addLine(string x1, string y1, string x2, string y2);
@@ -37,13 +38,13 @@ public:
     string wonText = "YOU WON !!!";
     string restartText = "restart";
     string beginText = "Start";
-    
+
     int minWaveCount;
     int remainingWaves;
     int retryTimer;
     bool failed;
     ofColor bg;
-
+    
 private:
     ofTrueTypeFont *fonts;
 //    ofImage *bg;

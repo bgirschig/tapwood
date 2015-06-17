@@ -35,6 +35,7 @@
 		B993E5A81AFBF1A700FA2887 /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B993E5A61AFBF1A700FA2887 /* Particle.cpp */; };
 		B993E5AB1AFC004C00FA2887 /* Wave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B993E5A91AFC004C00FA2887 /* Wave.cpp */; };
 		B99D6FA11B0FE2CC007BD475 /* Level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B99D6F9F1B0FE2CC007BD475 /* Level.cpp */; };
+		B9BB54E31B3191DB006EA802 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9BB54E21B3191DB006EA802 /* Utils.cpp */; };
 		B9BF43B51B10BBE3009EAE5C /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9BF43B31B10BBE3009EAE5C /* Game.cpp */; };
 		BB16EBD20F2B2A9500518274 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD10F2B2A9500518274 /* OpenGLES.framework */; };
 		BB16EBD90F2B2AB500518274 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD80F2B2AB500518274 /* QuartzCore.framework */; };
@@ -117,6 +118,7 @@
 		B993E5AA1AFC004C00FA2887 /* Wave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wave.h; sourceTree = "<group>"; };
 		B99D6F9F1B0FE2CC007BD475 /* Level.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Level.cpp; sourceTree = "<group>"; };
 		B99D6FA01B0FE2CC007BD475 /* Level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Level.h; sourceTree = "<group>"; };
+		B9BB54E21B3191DB006EA802 /* Utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
 		B9BF43B31B10BBE3009EAE5C /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		B9BF43B41B10BBE3009EAE5C /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		BB16EBD10F2B2A9500518274 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -292,6 +294,7 @@
 			isa = PBXGroup;
 			children = (
 				B9276F7B1B26B388003DF091 /* Utils.h */,
+				B9BB54E21B3191DB006EA802 /* Utils.cpp */,
 				B91F318A1B00094900016819 /* connection.h */,
 				B91F31891B00094900016819 /* connection.cpp */,
 				B9876E751B24A0620060895C /* Calibrator.h */,
@@ -483,6 +486,7 @@
 				B945D4861B29A84A00C271CC /* Link.cpp in Sources */,
 				B91F317B1AFFE24600016819 /* ofxTCPManager.cpp in Sources */,
 				B91F317D1AFFE24600016819 /* ofxUDPManager.cpp in Sources */,
+				B9BB54E31B3191DB006EA802 /* Utils.cpp in Sources */,
 				B9276F881B2709BB003DF091 /* Button.cpp in Sources */,
 				B9276F851B26CA2D003DF091 /* Title.cpp in Sources */,
 				B91F317A1AFFE24600016819 /* ofxTCPClient.cpp in Sources */,

@@ -1,7 +1,5 @@
 #include "Game.h"
 
-ofEvent<string> Game::soundEvent = ofEvent<string>();
-
 Game::Game(){
     active = false;
 }
@@ -36,10 +34,14 @@ void Game::init(ofTrueTypeFont *_fonts){
     active = true;
     isInfoScreen = false;
     simulateTouch = false;
+    wrongCounter = 0;
 }
 void Game::tap(float x, float y){
     // on tap on an info screen, start the second animation
-    if(isInfoScreen && transitionPos<=transitionEnd_1) transitionPos = transitionEnd_1+1;
+    if(isInfoScreen && transitionPos<=transitionEnd_1){
+        string str = "menuStep"; ofNotifyEvent(Utils::playSoundEventUtil, str, this);
+        transitionPos = transitionEnd_1+1;
+    }
     
     // on tap when no overlay is displayed
     else if(transitionPos==0){
@@ -51,12 +53,19 @@ void Game::tap(float x, float y){
                 overlayOpacity = min(overlayOpacity+100, 200);     // Then, create a wave
                 waves.push_back(Wave(x, y));
                 levels[currentLevel].remainingWaves--;
-                string val = "0";
-                ofNotifyEvent(soundEvent, val, this);
+                string val = "tap"; ofNotifyEvent(Utils::playSoundEventUtil, val, this);
         }
+        // wrong tap (in-screen, no more waves...)
         else{
-            string val = "2";
-            ofNotifyEvent(soundEvent, val, this);
+            string val = "wrong"; ofNotifyEvent(Utils::playSoundEventUtil, val, this);
+
+            wrongCounter += 50;
+            if(wrongCounter >= 75){
+                levels[currentLevel].reset();
+                for(int i=waves.size()-1; i>=0; i--) killWave(i);
+                wrongCounter = 0;
+            }
+            
         }
     }
     // on tap, when the 'failed' overlay is displayed
@@ -67,6 +76,7 @@ void Game::tap(float x, float y){
 }
 
 void Game::update(){
+    if(wrongCounter>0) wrongCounter--;
     // flash overlay
     if(overlayOpacity>3) overlayOpacity -=4;
     realOpacity += (overlayOpacity-realOpacity)/3;
@@ -96,7 +106,10 @@ void Game::update(){
         }
         
         // failure handling
-        else if(levels[currentLevel].remainingWaves == 0 && waves.size()==0) levels[currentLevel].failed = true;
+        else if(levels[currentLevel].remainingWaves == 0 && waves.size()==0 && !levels[currentLevel].failed){
+            levels[currentLevel].failed = true;
+            string str = "levelFail"; ofNotifyEvent(Utils::playSoundEventUtil, str, this);
+        }
         if(levels[currentLevel].failed){
             if(transitionPos < transitionEnd_1) transitionPos += (transitionEnd_1-transitionPos) / 20;
             else if(transitionPos > transitionEnd_1){
@@ -166,9 +179,6 @@ void Game::draw(){
             }
         }
     }
-}
-void Game::drawTuto(){
-        
 }
 
 void Game::gotoNextLevel(){
