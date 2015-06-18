@@ -27,6 +27,7 @@ public:
     
     // various
     bool active;
+    bool simulateTouch;
     
     ofTrueTypeFont *fonts;
     

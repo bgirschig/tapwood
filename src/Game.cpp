@@ -46,8 +46,8 @@ void Game::tap(float x, float y){
     else if(transitionPos==0){
         if(active &&                                                                // if game is active
            !levels[currentLevel].completed &&                                       // ...and level is not done yet
-           (levels[currentLevel].remainingWaves > 0 || debug) &&                               // ...and player still has waves
-           (x<0 || x>ofGetWidth() || y<0 || y>ofGetHeight() || simulateTap))      // ... and touch is out of screen
+           (levels[currentLevel].remainingWaves > 0) &&                               // ...and player still has waves
+           (x<0 || x>ofGetWidth() || y<0 || y>ofGetHeight() || simulateTouch))      // ... and touch is out of screen
         {
                 overlayOpacity = min(overlayOpacity+100, 200);     // Then, create a wave
                 waves.push_back(Wave(x, y));

@@ -1,11 +1,6 @@
 #pragma once
 #include "ofMain.h"
 
-static bool debug = false;
-static bool connectedMode = true;
-static bool simulateTap = false;
-static bool hiddenControls = true;
-
 enum FONT_SIZE{
     BIG,
     MEDIUM,

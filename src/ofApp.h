@@ -64,6 +64,13 @@ class ofApp : public ofxiOSApp {
         ofSoundPlayer levelValidSounds;
         ofSoundPlayer levelFailSound;
         ofSoundPlayer stepSound;
+    
+        //settings
+        bool connectedMode;
+        bool serverInterface;
+        bool debug;
+        bool simulateTap;
+
 };
 
 

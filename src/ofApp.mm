@@ -16,6 +16,12 @@ void ofApp::setup(){
 
     ofBackground(0);
 
+    // settings
+    debug = false;
+    connectedMode = true;
+    serverInterface = false;
+    simulateTap = true;
+    
     // events / sensors
     initEvents();
     ofxAccelerometer.setup();
@@ -28,6 +34,7 @@ void ofApp::setup(){
         serverConnection.send("calibration:start");
     }
     else{
+        game.simulateTouch = simulateTap;
         cal.done = true;
         game.init(fonts);
     }
@@ -75,10 +82,10 @@ void ofApp::touchDown(ofTouchEventArgs & touch){
     // on touch, send position to server for calinration. (if calibration is not done)
     if(connectedMode && serverConnection.Connected && !cal.done) serverConnection.send("calibration:"+ofToString(touch.x)+","+ofToString(touch.y));
     else if(simulateTap && !connectedMode) onTapEvent(touch);
-    else if(hiddenControls){
-        if(touch.x > ofGetWidth()/2) cout << "next" << endl;
-        else cout << "prev" << endl;
-    };
+//    else if(hiddenControls){
+//        if(touch.x > ofGetWidth()/2) cout << "next" << endl;
+//        else cout << "prev" << endl;
+//    };
 }
 
 void ofApp::touchMoved(ofTouchEventArgs & touch){}
