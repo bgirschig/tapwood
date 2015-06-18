@@ -47,7 +47,7 @@ void Game::tap(float x, float y){
     else if(transitionPos==0){
         if(active &&                                                                // if game is active
            !levels[currentLevel].completed &&                                       // ...and level is not done yet
-           (levels[currentLevel].remainingWaves > 0) &&                               // ...and player still has waves
+           (levels[currentLevel].remainingWaves > 0 || simulateTouch) &&                               // ...and player still has waves
            (x<0 || x>ofGetWidth() || y<0 || y>ofGetHeight() || simulateTouch))      // ... and touch is out of screen
         {
                 overlayOpacity = min(overlayOpacity+100, 200);     // Then, create a wave
@@ -182,10 +182,19 @@ void Game::draw(){
 }
 
 void Game::gotoNextLevel(){
+    cout << "gotoNext" << endl;
     levels[currentLevel].reset();
     for(int i=waves.size()-1; i>=0; i--) killWave(i);
     transitionPos = 0;
     currentLevel = nextLevel;
+    isInfoScreen = false;
+}
+void Game::gotoPrevLevel(){
+    cout << "gotoPrev" << endl;
+    levels[currentLevel].reset();
+    for(int i=waves.size()-1; i>=0; i--) killWave(i);
+    transitionPos = 0;
+    if(currentLevel>0) currentLevel--;
     isInfoScreen = false;
 }
 void Game::killWave(int i){

@@ -22,8 +22,9 @@ public:
     void draw();
     void tap(float x, float y);
     void tapUp();
-    void gotoNextLevel();
     void drawTuto(float opacity);
+    void gotoNextLevel();
+    void gotoPrevLevel();
     
     // various
     bool active;

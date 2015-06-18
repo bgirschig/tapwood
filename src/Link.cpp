@@ -21,6 +21,8 @@ void Link::update(){
                     elements[i]->hasCollided = false;
                     elements[i]->valid = false;
                     valid = false;
+                    string str = "targetDeactivate";
+                    ofNotifyEvent(Utils::playSoundEventUtil, str, this);
                 }
             }
         }

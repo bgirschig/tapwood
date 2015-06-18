@@ -102,7 +102,7 @@ void Level::drawTuto(float opacity){
     }
     else if(name=="recalibration"){
         drawCenterText("Sometimes, the solution is outside the game zone", ofGetWidth()/2, 50, &fonts[MEDIUM]);
-        drawCenterText("In that case, move the ipad, we'll do the rest", ofGetWidth()/2, 140, &fonts[SMALL]);
+        drawCenterText("Just move the ipad, we'll do the rest", ofGetWidth()/2, 140, &fonts[SMALL]);
     }
     else if(name=="obstacles"){
         drawCenterText("If your wave touches an obstacle, it gets destroyed", ofGetWidth()/2, 50, &fonts[MEDIUM]);

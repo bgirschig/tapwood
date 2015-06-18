@@ -1,6 +1,8 @@
 #pragma once
 #include "ofMain.h"
 
+static bool hiddenControls = true;
+
 enum FONT_SIZE{
     BIG,
     MEDIUM,

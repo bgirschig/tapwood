@@ -81,7 +81,7 @@ void PointElement::draw(float opacity){
 void PointElement::collided(){
     if(!hasCollided){
         if(buttonKind!=NOT_BUTTON) ofNotifyEvent(buttonEvent, buttonKind, this);
-        else if(kind==TARGET_ELEMENT){ string val = "targetReached"; ofNotifyEvent(Utils::playSoundEventUtil, val, this);}
+        else if(kind==TARGET_ELEMENT || kind == LINKED_TARGET_ELEMENT){ string val = "targetReached"; ofNotifyEvent(Utils::playSoundEventUtil, val, this);}
         hasCollided = true;
     }
 }

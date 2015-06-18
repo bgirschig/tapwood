@@ -61,6 +61,7 @@ class ofApp : public ofxiOSApp {
         ofSoundPlayer tapSounds[5];
         ofSoundPlayer wrongTapSound;
         ofSoundPlayer targetReachedSound;
+        ofSoundPlayer targetDeactivateSound;
         ofSoundPlayer levelValidSounds;
         ofSoundPlayer levelFailSound;
         ofSoundPlayer stepSound;
