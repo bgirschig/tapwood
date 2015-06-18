@@ -20,6 +20,7 @@ void Game::init(ofTrueTypeFont *_fonts){
         if(parts[0]=="level") levels.push_back(Level(parts[1], parts[2], fonts, Colors[(levels.size()-1)%2]));
         else if(parts[0]=="point") levels[currentLevel].addPoint(parts[1], parts[2], parts[3]);
         else if(parts[0]=="line") levels[currentLevel].addLine(parts[1], parts[2], parts[3], parts[4]);
+        else if(parts[0]=="rotLine") levels[currentLevel].addRotLine(parts[1], parts[2], parts[3], parts[4]);
         else if(parts[0]=="title") levels[currentLevel].addTitle(parts[1], parts[2], parts[3], parts[4]);
         else if(parts[0]=="button") levels[currentLevel].addButton(parts[1], parts[2], parts[3], parts[4]);
         else if(parts[0]=="chain") levels[currentLevel].addChain();

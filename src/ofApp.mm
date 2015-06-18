@@ -18,7 +18,7 @@ void ofApp::setup(){
 
     // settings
     debug = false;
-    connectedMode = true;
+    connectedMode = false;
     serverInterface = false;
     simulateTap = true;
     

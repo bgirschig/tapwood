@@ -19,6 +19,7 @@ public:
     
     void addPoint(string x, string y, string kind);
     void addLine(string x1, string y1, string x2, string y2);
+    void addRotLine(string x1, string y1, string x2, string y2);
     void addTitle(string text, string x, string y, string font);
     void addButton(string x, string y, string kind, string text);
     void addChain();

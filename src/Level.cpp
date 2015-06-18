@@ -1,7 +1,7 @@
 #include "Level.h"
 
 Level::Level(string _name, string _minWaveCount, ofTrueTypeFont *_fonts, ofColor _bg){
-    cout << "creating level: " << _name << " bg: " << _bg << endl;
+    cout << "creating level: " << _name << endl;
     
     name = _name;
     fonts = _fonts;
@@ -39,6 +39,9 @@ void Level::addButton(string x, string y, string kind, string text){
 }
 void Level::addLine(string x1, string y1, string x2, string y2){
     lines.push_back( new LineElement(ofVec2f(ofToInt(x1), ofToInt(y1)), ofVec2f(ofToInt(x2),ofToInt(y2))) );
+}
+void Level::addRotLine(string x1, string y1, string x2, string y2){
+    lines.push_back( new LineElement(ofVec2f(ofToInt(x1), ofToInt(y1)), ofVec2f(ofToInt(x2),ofToInt(y2)), true) );
 }
 void Level::addTitle(string x, string y, string font, string text){
     if(font=="BIG") titles.push_back(new Title(text, ofToInt(x), ofToInt(y), &fonts[BIG]));
