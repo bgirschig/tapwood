@@ -15,18 +15,12 @@ void ofApp::setup(){
     stepSound.loadSound("assets/singleSounds/menuStep.mp3");
 
     ofBackground(0);
-    
-    // settings
-    debug = false;
-    connect = false;
-    serverInterface = false;
-    touchDebug = true;
 
     // events / sensors
     initEvents();
     ofxAccelerometer.setup();
     
-    if(connect){
+    if(connectedMode){
 //         serverConnection.setup("10.206.104.38", 11999); //lab
          serverConnection.setup("10.0.1.9", 11999); // ecal install
 //        serverConnection.setup("10.192.249.242", 11999); //mbp connection
@@ -36,8 +30,6 @@ void ofApp::setup(){
     else{
         cal.done = true;
         game.init(fonts);
-        
-        game.simulateTouch = touchDebug;
     }
 }
 
@@ -53,7 +45,7 @@ void ofApp::update(){
     // orientation fix
     if(ofxiOSGetGLView().frame.origin.x != 0 || ofxiOSGetGLView().frame.size.width != [[UIScreen mainScreen] bounds].size.width) ofxiOSGetGLView().frame = CGRectMake(0,0,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height);
     
-    if(connect) serverConnection.update();
+    if(connectedMode) serverConnection.update();
 
     if(game.active) game.update();
     if(!cal.done) {
@@ -67,9 +59,9 @@ void ofApp::draw(){
     if(debug){}
     if(!cal.done && serverConnection.Connected) cal.draw();
     if(game.active) game.draw();
-    if(connect && serverInterface) serverConnection.drawInterface();
+    if(connectedMode && debug) serverConnection.drawInterface();
     if(debug){ ofSetColor(255); ofDrawBitmapString(ofToString(ofGetFrameRate())+"fps", 500, 15); }
-    if(!serverConnection.Connected && connect){
+    if(!serverConnection.Connected && connectedMode){
         ofSetColor(0,30); ofFill(); ofRect(0, 0, ofGetWidth(), ofGetHeight());
         ofSetColor(Colors[GAME_OBJ]);
         ofRectangle shape = fonts[SMALL].getStringBoundingBox("You are not connected. Please check your network", 0, 0);
@@ -81,8 +73,12 @@ void ofApp::exit(){}
 
 void ofApp::touchDown(ofTouchEventArgs & touch){
     // on touch, send position to server for calinration. (if calibration is not done)
-    if(connect && serverConnection.Connected && !cal.done) serverConnection.send("calibration:"+ofToString(touch.x)+","+ofToString(touch.y));
-    if(touchDebug && !connect) onTapEvent(touch);
+    if(connectedMode && serverConnection.Connected && !cal.done) serverConnection.send("calibration:"+ofToString(touch.x)+","+ofToString(touch.y));
+    else if(simulateTap && !connectedMode) onTapEvent(touch);
+    else if(hiddenControls){
+        if(touch.x > ofGetWidth()/2) cout << "next" << endl;
+        else cout << "prev" << endl;
+    };
 }
 
 void ofApp::touchMoved(ofTouchEventArgs & touch){}
@@ -96,7 +92,7 @@ void ofApp::gotMemoryWarning(){}
 void ofApp::deviceOrientationChanged(int newOrientation){}
 
 void ofApp::initEvents(){
-    if(connect){
+    if(connectedMode){
         ofAddListener(serverConnection.tapEvent, this, &ofApp::onTapEvent);
         ofAddListener(serverConnection.tapUpEvent, this, &ofApp::onTapUpEvent);
     }

@@ -90,11 +90,16 @@ void Level::draw(float opacity, bool background){
     drawTuto(opacity);
 }
 void Level::draw(float opacity){ draw(opacity, true); }
+
 void Level::drawTuto(float opacity){
     ofSetColor(Colors[GAME_OBJ], 255*opacity);
     if(name == "targets"){
         drawCenterText("These are targets", ofGetWidth()/2, 50, &fonts[MEDIUM]);
         drawCenterText("reach them to go to the next level", ofGetWidth()/2, 140, &fonts[SMALL]);
+    }
+    else if(name=="recalibration"){
+        drawCenterText("Sometimes, the solution is outside the game zone", ofGetWidth()/2, 50, &fonts[MEDIUM]);
+        drawCenterText("In that case, move the ipad, we'll do the rest", ofGetWidth()/2, 140, &fonts[SMALL]);
     }
     else if(name=="obstacles"){
         drawCenterText("If your wave touches an obstacle, it gets destroyed", ofGetWidth()/2, 50, &fonts[MEDIUM]);

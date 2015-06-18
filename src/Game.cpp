@@ -8,7 +8,7 @@ void Game::init(ofTrueTypeFont *_fonts){
     fonts = _fonts;
     
     // load levels
-    ofBuffer buffer = ofBufferFromFile("assets/levels-2.lvl");
+    ofBuffer buffer = ofBufferFromFile("assets/levels-3.lvl");
     
     while (!buffer.isLastLine()) {
         int currentLevel = levels.size()-1;
@@ -33,7 +33,6 @@ void Game::init(ofTrueTypeFont *_fonts){
     transitionPos = 0;
     active = true;
     isInfoScreen = false;
-    simulateTouch = false;
     wrongCounter = 0;
 }
 void Game::tap(float x, float y){
@@ -47,8 +46,8 @@ void Game::tap(float x, float y){
     else if(transitionPos==0){
         if(active &&                                                                // if game is active
            !levels[currentLevel].completed &&                                       // ...and level is not done yet
-           levels[currentLevel].remainingWaves > 0 &&                               // ...and player still has waves
-           (x<0 || x>ofGetWidth() || y<0 || y>ofGetHeight() || simulateTouch))      // ... and touch is out of screen
+           (levels[currentLevel].remainingWaves > 0 || debug) &&                               // ...and player still has waves
+           (x<0 || x>ofGetWidth() || y<0 || y>ofGetHeight() || simulateTap))      // ... and touch is out of screen
         {
                 overlayOpacity = min(overlayOpacity+100, 200);     // Then, create a wave
                 waves.push_back(Wave(x, y));
