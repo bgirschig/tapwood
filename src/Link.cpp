@@ -29,6 +29,7 @@ void Link::update(){
     }
 }
 void Link::draw(float opacity){
+    ofSetLineWidth(3);  
     ofSetColor(Colors[GAME_OBJ], 255*opacity*0.2);
     ofVec2f vect;
     

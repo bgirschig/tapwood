@@ -10,7 +10,7 @@ PointElement::PointElement(ofVec2f position, ElementKind type){
     reset();
     buttonKind = NOT_BUTTON;
     size = 1;
-    animation = ofRandom(20);
+    animation = floor(ofRandom(20));
 }
 void PointElement::reset(){
     secondaryAnim = 0;
@@ -35,15 +35,18 @@ void PointElement::draw(float opacity){
     ofNoFill(); ofSetLineWidth(3);
     
     if(kind==DESTROYER_ELEMENT){
-        animation = fmod(animation+1,45);
+        animation = fmod(animation+1,50);
+        float anim2 = (animation<(50/2))? (animation/50)+0.5 : (animation/50)-0.5;
+
+        ofSetLineWidth(4*animation/50);
+        ofSetColor(Colors[GAME_OBJ], opacity*5*animation-1);
+        ofCircle(pos.x, pos.y, 25-(25*(animation/50)));
         
-        ofSetLineWidth(3);
-        ofSetColor(Colors[GAME_OBJ], opacity*4*animation-1);
-        ofCircle(pos.x, pos.y, 23-(animation*0.5));
-        
-        ofSetColor(Colors[GAME_OBJ], opacity*4*((animation<23)? (animation+23): (animation-23))-1);
-        ofCircle(pos.x, pos.y, (animation<23)?11.25-(animation*0.5):33.75-(animation*0.5));
+        ofSetLineWidth(4*anim2);
+        ofSetColor(Colors[GAME_OBJ], opacity*255*anim2);
+        ofCircle(pos.x, pos.y, 25-(25*anim2));
     }
+    
     else if(kind == TARGET_ELEMENT || kind == LINKED_TARGET_ELEMENT){
         animation += 1;
         if(animation>=120) animation = 0;

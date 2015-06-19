@@ -20,6 +20,8 @@ void LineElement::init(ofVec2f _point1, ofVec2f _point2, bool _rotate){
 }
 
 void LineElement::draw(float opacity){
+    ofSetLineWidth(3);
+    
     if(rotate){
         rotationPos+=0.009;
         pt1.set(center.x+sin(rotationPos)*length, center.y+cos(rotationPos)*length);

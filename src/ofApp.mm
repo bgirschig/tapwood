@@ -15,12 +15,11 @@ void ofApp::setup(){
     levelFailSound.loadSound("assets/singleSounds/levelFail.mp3");
     stepSound.loadSound("assets/singleSounds/menuStep.mp3");
     
-    
     ofBackground(0);
 
     // settings
     debug = false;
-    connectedMode = true;
+    connectedMode = false;
     serverInterface = false;
     simulateTap = true;
     game.simulateTouch = simulateTap;
@@ -30,15 +29,11 @@ void ofApp::setup(){
     ofxAccelerometer.setup();
     
     if(connectedMode){
-        serverConnection.setup("10.206.104.38", 11999); //lab
-        // serverConnection.setup("10.0.1.9", 11999); // ecal install
+        // serverConnection.setup("10.206.104.38", 11999); //lab
+        serverConnection.setup("10.0.1.9", 11999); // ecal install
 
         cal.init(fonts, &serverConnection);
         serverConnection.send("calibration:start");
-        
-        // remove these
-        cal.done = true;
-        game.init(fonts);
     }
     else{
         cal.done = true;

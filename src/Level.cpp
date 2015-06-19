@@ -84,8 +84,8 @@ void Level::draw(float opacity, bool background){
     if(minWaveCount != 0){
         ofSetColor(Colors[GAME_OBJ],255*opacity);
         string str;
-        if(remainingWaves > 1) str = ofToString(remainingWaves) + " waves remaining";
-        else if(remainingWaves == 1) str = ofToString(remainingWaves) + " wave remaining";
+        if(remainingWaves > 1) str = ofToString(remainingWaves) + " waves left";
+        else if(remainingWaves == 1) str = "one wave left";
         else str = "no more waves";
         
         fonts[SMALL].drawString(str, ofGetWidth()/2-fonts[SMALL].getStringBoundingBox(str, 0, 0).width/2, ofGetHeight() - 50);
@@ -97,25 +97,25 @@ void Level::draw(float opacity){ draw(opacity, true); }
 void Level::drawTuto(float opacity){
     ofSetColor(Colors[GAME_OBJ], 255*opacity);
     if(name == "targets"){
-        drawCenterText("These are targets", ofGetWidth()/2, 50, &fonts[MEDIUM]);
-        drawCenterText("reach them to go to the next level", ofGetWidth()/2, 140, &fonts[SMALL]);
+        drawCenterText("These are targets", ofGetWidth()/2, 65, &fonts[MEDIUM]);
+        drawCenterText("reach them to go to the next level", ofGetWidth()/2, 150, &fonts[SMALL]);
     }
     else if(name=="recalibration"){
-        drawCenterText("Sometimes, the solution is outside the game zone", ofGetWidth()/2, 50, &fonts[MEDIUM]);
-        drawCenterText("Just move the ipad, we'll do the rest", ofGetWidth()/2, 140, &fonts[SMALL]);
+        drawCenterText("Sometimes, the solution is outside the game zone", ofGetWidth()/2, 65, &fonts[MEDIUM]);
+        drawCenterText("Just move the ipad, we'll do the rest", ofGetWidth()/2, 150, &fonts[SMALL]);
     }
     else if(name=="obstacles"){
-        drawCenterText("If your wave touches an obstacle, it gets destroyed", ofGetWidth()/2, 50, &fonts[MEDIUM]);
-        drawCenterText("make shure you avoid them", ofGetWidth()/2, 140, &fonts[SMALL]);
+        drawCenterText("If your wave touches an obstacle, it gets destroyed", ofGetWidth()/2, 65, &fonts[MEDIUM]);
+        drawCenterText("make shure you avoid them", ofGetWidth()/2, 150, &fonts[SMALL]);
     }
-    else if(name=="links") drawCenterText("Linked targets must be reached at the same time", ofGetWidth()/2, 50, &fonts[MEDIUM]);
+    else if(name=="links") drawCenterText("Linked targets must be reached at the same time", ofGetWidth()/2, 65, &fonts[MEDIUM]);
 
     else if(name=="walls"){
-        drawCenterText("Waves can't go through walls", ofGetWidth()/2, 50, &fonts[MEDIUM]);
-        drawCenterText("go around them to reach your targets", ofGetWidth()/2, 140, &fonts[SMALL]);
+        drawCenterText("Waves can't go through walls", ofGetWidth()/2, 65, &fonts[MEDIUM]);
+        drawCenterText("go around them to reach your targets", ofGetWidth()/2, 150, &fonts[SMALL]);
     }
     else if(name=="wallHelp"){
-        drawCenterText("Yet sometimes, walls can be helpful.", ofGetWidth()/2, 50, &fonts[MEDIUM]);
-        drawCenterText("use them wisely", ofGetWidth()/2, 140, &fonts[SMALL]);
+        drawCenterText("Yet sometimes, walls can be helpful.", ofGetWidth()/2, 65, &fonts[MEDIUM]);
+        drawCenterText("use them wisely", ofGetWidth()/2, 150, &fonts[SMALL]);
     }
 }
