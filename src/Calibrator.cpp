@@ -54,15 +54,9 @@ void Calibrator::draw(){
     else ofSetColor(Colors[GAME_OBJ], 255-((animation-0.15)/0.85)*255);
 
     if(step<3){
-        s = "First, we need to do a little calibration:";
-        shape = fonts[MEDIUM].getStringBoundingBox(s, ofGetWidth()/2, ofGetWidth()/2);
-        fonts[MEDIUM].drawString(s, shape.x-shape.width/2, shape.y-shape.height/2-3*fonts[MEDIUM].getLineHeight());
-        s = "Place the ipad on the table";
-        shape = fonts[MEDIUM].getStringBoundingBox(s, ofGetWidth()/2, ofGetWidth()/2);
-        fonts[MEDIUM].drawString(s, shape.x-shape.width/2, shape.y-shape.height/2-2*fonts[MEDIUM].getLineHeight());
-        s = "then touch the white circle";
-        shape = fonts[MEDIUM].getStringBoundingBox(s, ofGetWidth()/2, ofGetWidth()/2);
-        fonts[MEDIUM].drawString(s, shape.x-shape.width/2, shape.y-shape.height/2-fonts[MEDIUM].getLineHeight());
+        drawCenterText("Here, we need to do a little calibration:", ofGetWidth()/2, ofGetHeight()/2-fonts[MEDIUM].getLineHeight(), &fonts[MEDIUM]);
+        drawCenterText("Place the ipad on the table", ofGetWidth()/2, ofGetHeight()/2, &fonts[MEDIUM]);
+        drawCenterText("then touch the red circle", ofGetWidth()/2, ofGetHeight()/2+fonts[MEDIUM].getLineHeight()+15, &fonts[MEDIUM]);
     }
     
     else if(step<9){

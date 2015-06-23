@@ -19,9 +19,9 @@ void ofApp::setup(){
 
     // settings
     debug = false;
-    connectedMode = false;
+    connectedMode = true;
     serverInterface = false;
-    simulateTap = true;
+    simulateTap = false;
     game.simulateTouch = simulateTap;
 
     // events / sensors
