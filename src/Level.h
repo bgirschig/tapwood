@@ -4,7 +4,6 @@
 #include "Utils.h"
 #include "PointElement.h"
 #include "LineElement.h"
-#include "Title.h"
 #include "Link.h"
 
 class Level{
@@ -20,8 +19,6 @@ public:
     void addPoint(string x, string y, string kind);
     void addLine(string x1, string y1, string x2, string y2);
     void addRotLine(string x1, string y1, string x2, string y2);
-    void addTitle(string text, string x, string y, string font);
-    void addButton(string x, string y, string kind, string text);
     void addChain();
     void linkToLastChain(string x, string y);
     string name;
@@ -29,7 +26,6 @@ public:
     // game elements
     vector<PointElement *> points;
     vector<LineElement *> lines;
-    vector<Title *> titles;
     vector<Link *> chains;
     
     bool completed, intro;

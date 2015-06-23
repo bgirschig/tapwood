@@ -35,7 +35,7 @@ class ofApp : public ofxiOSApp {
         void lostFocus();
         void gotFocus();
         void gotMemoryWarning();
-        void deviceOrientationChanged(int newOrientation);
+        void deviceOrientationChanged(ofOrientation newOrientation);
     
         // events
         void initEvents();

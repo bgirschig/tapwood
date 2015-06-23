@@ -21,8 +21,6 @@ void Game::init(ofTrueTypeFont *_fonts){
         else if(parts[0]=="point") levels[currentLevel].addPoint(parts[1], parts[2], parts[3]);
         else if(parts[0]=="line") levels[currentLevel].addLine(parts[1], parts[2], parts[3], parts[4]);
         else if(parts[0]=="rotLine") levels[currentLevel].addRotLine(parts[1], parts[2], parts[3], parts[4]);
-        else if(parts[0]=="title") levels[currentLevel].addTitle(parts[1], parts[2], parts[3], parts[4]);
-        else if(parts[0]=="button") levels[currentLevel].addButton(parts[1], parts[2], parts[3], parts[4]);
         else if(parts[0]=="chain") levels[currentLevel].addChain();
         else if(parts[0]=="->") levels[currentLevel].linkToLastChain(parts[1], parts[2]);
     }
@@ -142,18 +140,10 @@ void Game::draw(){
                 if(levels[nextLevel].targetCount==0) levels[nextLevel].draw(opacity, false);
                 else{
                     ofSetColor(Colors[GAME_OBJ],  opacity);
-                    string txt = "LEVEL "+ofToString(nextLevel+1);
-                    ofRectangle shape = fonts[BIG].getStringBoundingBox(txt, 0, 0);
-                    fonts[BIG].drawString(txt, (ofGetWidth()-shape.width)/2, ofGetHeight()/2);
-                    
-                    txt = ofToString(levels[nextLevel].minWaveCount)+" wave";
-                    if(levels[nextLevel].minWaveCount > 1) txt+= "s";
-                    shape = fonts[MEDIUM].getStringBoundingBox(txt, 0, 0);
-                    fonts[MEDIUM].drawString(txt, (ofGetWidth()-shape.width)/2, ofGetHeight()/2 + 100);
-                    
-                    txt = "tap to continue";
-                    shape = fonts[SMALL].getStringBoundingBox(txt, 0, 0);
-                    fonts[SMALL].drawString(txt, (ofGetWidth()-shape.width)/2, ofGetHeight()-50);
+
+                    drawCenterText("LEVEL "+ofToString(nextLevel+1), &fonts[BIG]);
+                    drawCenterText(ofToString(levels[nextLevel].minWaveCount)+" wave", ofGetWidth()/2, ofGetHeight()/2+100, &fonts[MEDIUM]);
+                    drawCenterText("tap to continue", ofGetWidth()/2, ofGetHeight()-50, &fonts[SMALL], true, false);
                 }
             }
             
@@ -172,10 +162,9 @@ void Game::draw(){
                 if(transitionPos<transitionEnd_1) opacity = 255 * (transitionPos-(transitionEnd_1/2)) / (transitionEnd_1/2);
                 else opacity = 255 - 255 * ((transitionPos-transitionEnd_1)/(transitionEnd_2-transitionEnd_1));
                 
-                ofFill(); ofSetColor(10,opacity/2); ofRect(0, 0, ofGetWidth(), ofGetHeight());
-                string txt = "you failed. tap to retry";
+                ofFill(); ofSetColor(10,opacity/2); ofRect(0, 0, ofGetWidth(), ofGetHeight()); // 'you failed' overlay
                 ofSetColor(Colors[GAME_OBJ], opacity);
-                fonts[BIG].drawString(txt, (ofGetWidth()-fonts[BIG].getStringBoundingBox(txt, 0, 0).width)/2, ofGetHeight()/2);
+                drawCenterText("you failed. tap to retry", &fonts[BIG]);
             }
         }
     }

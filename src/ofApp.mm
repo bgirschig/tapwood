@@ -30,7 +30,8 @@ void ofApp::setup(){
     
     if(connectedMode){
         // serverConnection.setup("10.206.104.38", 11999); //lab
-        serverConnection.setup("10.0.1.9", 11999); // ecal install
+        // serverConnection.setup("10.0.1.9", 11999); // ecal install
+        serverConnection.setup("localhost", 11999); // ecal install
 
         cal.init(fonts, &serverConnection);
         serverConnection.send("calibration:start");
@@ -72,8 +73,8 @@ void ofApp::draw(){
     if(!serverConnection.Connected && connectedMode){
         ofSetColor(0,30); ofFill(); ofRect(0, 0, ofGetWidth(), ofGetHeight());
         ofSetColor(Colors[GAME_OBJ]);
-        ofRectangle shape = fonts[SMALL].getStringBoundingBox("You are not connected. Please check your network", 0, 0);
-        fonts[SMALL].drawString("You are not connected. Please check your network", 1024-shape.width/2, 1450);
+        
+        drawCenterText("You are not connected. Please check your network", &fonts[SMALL]);
     }
 }
 
@@ -97,7 +98,7 @@ void ofApp::touchCancelled(ofTouchEventArgs & touch){}
 void ofApp::lostFocus(){}
 void ofApp::gotFocus(){}
 void ofApp::gotMemoryWarning(){}
-void ofApp::deviceOrientationChanged(int newOrientation){}
+void ofApp::deviceOrientationChanged(ofOrientation newOrientation){ofSetOrientation(newOrientation);cout << "rotate" << endl;}
 
 void ofApp::initEvents(){
     if(connectedMode){

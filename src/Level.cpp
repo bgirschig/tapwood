@@ -28,26 +28,14 @@ void Level::addPoint(string x, string y, string kind){
         targetCount ++;
     }
 }
-void Level::addButton(string x, string y, string kind, string text){
-    ofVec2f pos = ofVec2f(ofToInt(x), ofToInt(y));
-    PointElement *p = new PointElement(pos, TARGET_ELEMENT);
-    if(kind=="START") p->buttonKind = RESTART;
-    else if(kind=="CREDITS") p->buttonKind = CREDITS;
-    
-    titles.push_back(new Title(text, pos.x, pos.y-60, &fonts[SMALL]));
-    points.push_back(p);
-}
+
 void Level::addLine(string x1, string y1, string x2, string y2){
     lines.push_back( new LineElement(ofVec2f(ofToInt(x1), ofToInt(y1)), ofVec2f(ofToInt(x2),ofToInt(y2))) );
 }
 void Level::addRotLine(string x1, string y1, string x2, string y2){
     lines.push_back( new LineElement(ofVec2f(ofToInt(x1), ofToInt(y1)), ofVec2f(ofToInt(x2),ofToInt(y2)), true) );
 }
-void Level::addTitle(string x, string y, string font, string text){
-    if(font=="BIG") titles.push_back(new Title(text, ofToInt(x), ofToInt(y), &fonts[BIG]));
-    else if(font=="MEDIUM") titles.push_back(new Title(text, ofToInt(x), ofToInt(y), &fonts[MEDIUM]));
-    if(font=="SMALL") titles.push_back(new Title(text, ofToInt(x), ofToInt(y), &fonts[SMALL]));
-}
+
 void Level::addChain(){
     chains.push_back(new Link());
     targetCount ++;
@@ -77,7 +65,6 @@ void Level::draw(float opacity, bool background){
     if(background) ofSetColor(bg, 255*opacity);ofFill();ofRect(0, 0, ofGetWidth(), ofGetHeight());
     for (int i=0; i<points.size(); i++) points[i]->draw(opacity);
     for (int i=0; i<lines.size(); i++) lines[i]->draw(opacity);
-    for (int i=0; i<titles.size(); i++) titles[i]->draw(opacity);
     for (int i=0; i<chains.size(); i++) chains[i]->draw(opacity);
     
     // wave counter
@@ -88,7 +75,7 @@ void Level::draw(float opacity, bool background){
         else if(remainingWaves == 1) str = "one wave left";
         else str = "no more waves";
         
-        fonts[SMALL].drawString(str, ofGetWidth()/2-fonts[SMALL].getStringBoundingBox(str, 0, 0).width/2, ofGetHeight() - 50);
+        drawCenterText(str, ofGetWidth()/2, ofGetHeight()-50, &fonts[SMALL], true, false);
     }
     drawTuto(opacity);
 }

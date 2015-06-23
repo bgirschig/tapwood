@@ -23,8 +23,6 @@
 		B91F317C1AFFE24600016819 /* ofxTCPServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B91F31751AFFE24600016819 /* ofxTCPServer.cpp */; };
 		B91F317D1AFFE24600016819 /* ofxUDPManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B91F31771AFFE24600016819 /* ofxUDPManager.cpp */; };
 		B91F318B1B00094900016819 /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B91F31891B00094900016819 /* connection.cpp */; };
-		B9276F851B26CA2D003DF091 /* Title.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9276F831B26CA2D003DF091 /* Title.cpp */; };
-		B9276F881B2709BB003DF091 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9276F861B2709BB003DF091 /* Button.cpp */; };
 		B934923C1B16FB9600DF2C4B /* LineElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B934923A1B16FB9600DF2C4B /* LineElement.cpp */; };
 		B944415E1B07669C00B7B2A1 /* PointElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B944415C1B07669C00B7B2A1 /* PointElement.cpp */; };
 		B945295A1B2F85FB000FC43C /* changelog.txt in Resources */ = {isa = PBXBuildFile; fileRef = B94529551B2F85FB000FC43C /* changelog.txt */; };
@@ -97,10 +95,6 @@
 		B91F31891B00094900016819 /* connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = connection.cpp; sourceTree = "<group>"; };
 		B91F318A1B00094900016819 /* connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = connection.h; sourceTree = "<group>"; };
 		B9276F7B1B26B388003DF091 /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
-		B9276F831B26CA2D003DF091 /* Title.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Title.cpp; sourceTree = "<group>"; };
-		B9276F841B26CA2D003DF091 /* Title.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Title.h; sourceTree = "<group>"; };
-		B9276F861B2709BB003DF091 /* Button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Button.cpp; sourceTree = "<group>"; };
-		B9276F871B2709BB003DF091 /* Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Button.h; sourceTree = "<group>"; };
 		B934923A1B16FB9600DF2C4B /* LineElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LineElement.cpp; sourceTree = "<group>"; };
 		B934923B1B16FB9600DF2C4B /* LineElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineElement.h; sourceTree = "<group>"; };
 		B944415C1B07669C00B7B2A1 /* PointElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointElement.cpp; sourceTree = "<group>"; };
@@ -283,10 +277,6 @@
 				B944415C1B07669C00B7B2A1 /* PointElement.cpp */,
 				B934923B1B16FB9600DF2C4B /* LineElement.h */,
 				B934923A1B16FB9600DF2C4B /* LineElement.cpp */,
-				B9276F841B26CA2D003DF091 /* Title.h */,
-				B9276F831B26CA2D003DF091 /* Title.cpp */,
-				B9276F871B2709BB003DF091 /* Button.h */,
-				B9276F861B2709BB003DF091 /* Button.cpp */,
 				B945D4851B29A84A00C271CC /* Link.h */,
 				B945D4841B29A84A00C271CC /* Link.cpp */,
 			);
@@ -491,8 +481,6 @@
 				B91F317B1AFFE24600016819 /* ofxTCPManager.cpp in Sources */,
 				B91F317D1AFFE24600016819 /* ofxUDPManager.cpp in Sources */,
 				B9BB54E31B3191DB006EA802 /* Utils.cpp in Sources */,
-				B9276F881B2709BB003DF091 /* Button.cpp in Sources */,
-				B9276F851B26CA2D003DF091 /* Title.cpp in Sources */,
 				B91F317A1AFFE24600016819 /* ofxTCPClient.cpp in Sources */,
 				B945295C1B2F85FB000FC43C /* ofxAccelerometer.cpp in Sources */,
 				B99D6FA11B0FE2CC007BD475 /* Level.cpp in Sources */,
@@ -523,6 +511,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ofxiOS_Prefix.pch;
 				INFOPLIST_FILE = "ofxiOS-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				TARGETED_DEVICE_FAMILY = 2;
 				VALID_ARCHS = "armv6 armv7";
@@ -536,6 +525,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ofxiOS_Prefix.pch;
 				INFOPLIST_FILE = "ofxiOS-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				TARGETED_DEVICE_FAMILY = 2;
 				VALID_ARCHS = "armv6 armv7";

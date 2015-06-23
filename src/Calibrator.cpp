@@ -59,15 +59,6 @@ void Calibrator::draw(){
         drawCenterText("then touch the red circle", ofGetWidth()/2, ofGetHeight()/2+fonts[MEDIUM].getLineHeight()+15, &fonts[MEDIUM]);
     }
     
-    else if(step<9){
-        if(fg==0xffffff) s = "touch the white circle";
-        else s = "now touch the black circle";
-        shape = fonts[MEDIUM].getStringBoundingBox(s, ofGetWidth()/2, ofGetWidth()/2);
-        fonts[MEDIUM].drawString(s, shape.x-shape.width/2, shape.y-shape.height/2-fonts[MEDIUM].getLineHeight());
-    }
-    else{
-        s = "... etc";
-        shape = fonts[MEDIUM].getStringBoundingBox(s, ofGetWidth()/2, ofGetWidth()/2);
-        fonts[MEDIUM].drawString(s, shape.x-shape.width/2, shape.y-shape.height/2-fonts[MEDIUM].getLineHeight());
-    }
+    else if(step<9) drawCenterText("touch the "+ofToString((fg==Colors[0])?"blue":"red")+" circle", &fonts[MEDIUM]);
+    else drawCenterText("... etc", &fonts[MEDIUM]);
 }
